@@ -1,0 +1,17 @@
+
+
+public class UCMShip{
+	private int fila;
+	private int columna;
+	private int hp;
+
+	//rand
+	private static  void foo(){
+	
+	}
+
+	
+
+	
+	
+}
