@@ -1,13 +1,13 @@
-//Clase para controlar la ejecución del juego, preguntando al usuario qué
-//quiere hacer y actualizando la partida de acuerdo a lo que éste indique. La clase
+//Clase para controlar la ejecuciï¿½n del juego, preguntando al usuario quï¿½
+//quiere hacer y actualizando la partida de acuerdo a lo que ï¿½ste indique. La clase
 //Controller necesita al menos dos atributos privados:
 //
 //private Game game;
 //private Scanner in;
 //
-//El objeto in sirve para leer de la consola las órdenes del usuario. La clase Controller 
-//implementa el método público public void run() que controla el bucle principal
-//del juego. Concretamente, mientras la partida no esté finalizada, solicita órdenes al
+//El objeto in sirve para leer de la consola las ï¿½rdenes del usuario. La clase Controller 
+//implementa el mï¿½todo pï¿½blico public void run() que controla el bucle principal
+//del juego. Concretamente, mientras la partida no estï¿½ finalizada, solicita ï¿½rdenes al
 //usuario y las ejecuta.
 
 
@@ -18,6 +18,7 @@ public class Controller{
 	private static  void update(){
 	
 	}
+	
 	public void run() {
 		
 	}
