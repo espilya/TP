@@ -1,11 +1,11 @@
-package tp.p1.//nombre_de_paquete//;
+//package tp.p1.//nombre_de_paquete//;
 
-import tp.p1.util.MyStringUtils;
+//import p.util.MyStringUtils;
 
 public class GamePrinter {
 	
-	int numRows; 
-	int numCols;
+	int numRows = 9; 
+	int numCols = 8;
 	String[][] board;
 	final String space = " ";
 	
@@ -20,7 +20,7 @@ public class GamePrinter {
 		board = new String[numRows][numCols];
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numCols; j++) {
-				// vuestro código aquí
+				//game.
 			}
 		}
 	}

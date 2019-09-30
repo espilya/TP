@@ -10,9 +10,22 @@
 //clases podrán usar los métodos de la clase Game para consultar si pueden hacer o
 //no una determinada acción.
 
+
+
 public class Game{
-	private int contador; 
-	private int puntuacion; 
+//	private int contador; 
+//	private int puntuacion;
+	public int life;
+	public int nOfCycles;
+	public int points;
+	public int remainingAliens;
+	public boolean shockWave;
+	
+	public static  void game(){
+		
+	}
+	
+	
 	//private  Random rand;
 	private static  void update(){
 	
