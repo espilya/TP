@@ -13,61 +13,33 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Controller {
-	private Game game;
-	private Scanner in;
-	private String input;
 	private command action;
-	// rand
-	
-	//public lee. analiza, devuelve action
+	private movement mv;
+	private String input;
 
 	enum command {
 		move, shoot, shockwave, reset, list, exit, help, none, error
 	}
 	enum movement {
-		left1, left2, right1, right2
+		left1, left2, right1, right2, error
 	}
 
-	private String input() {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		String input = reader.readLine().toLowerCase();
-		// System.out.println(input);
-		return input;
+	public String getCommand() { //devolver comandos al 'Game'. Para que 
+		Scanner in = new Scanner(System.in); 
+        input = in.next();
+		analize(input);
+		return "";
 	}
-	
-//	private movement checkMov() {
-////		boolean ok = false;
-////		String dir = "Direccion: l/r";
-////		String dist = "Distancia: 1/2";
-////		int aux = 1;
-////		movement mov;
-////		System.out.println(dir);/////////
-////		do {
-////		String num = input();
-////		if(num == "l" && num == "r") 
-////			ok = true;
-////		} while(!ok);
-////		if(num == "2")
-////		{
-////			aux = 2;
-////		}
-////		ok = false;
-////		do {
-////		String num = input();
-////		if(num == "1" && num == "2") 
-////			ok = true;
-////		} while(!ok);
-//		return ;
-//	}
 
-	private String analize(String input) {
+	private void analize(String input) {
 		switch (input) {
+		
 		case "move":
 		case "m":
-//		checkMov();
-		
+		checkMov();
 		break;
 			
 		case "shoot":
@@ -109,9 +81,42 @@ public class Controller {
 			action = command.error;
 			System.out.println(error());
 		}
-		return input;
 	}
-
+	
+    /// Below Statement used for getting String including sentence
+    //String s = ss.nextLine(); 
+	/// Below Statement used for return the first word in the sentence
+    //String s = ss.next();
+	
+	private movement checkMov() {  //move <left|right><1|2>
+		Scanner in = new Scanner(System.in); 
+		boolean ok = true;
+		String dir;
+		int step;
+        dir = in.next();
+    	step = in.nextInt();
+        if(dir.equals("left")){
+        	if(step == 1)
+        		mv = movement.left1;
+        	else if(step == 2) 
+        		mv = movement.left2;	
+        	else
+        		ok = false;
+        }
+        else if(dir.equals("right")){
+        	if(step == 1)
+        		mv = movement.right1;
+        	else if(step == 2) 
+        		mv = movement.right2;	
+        	else
+        		ok = false;
+        }
+        else 
+        	ok = false;
+        if(!ok) mv = movement.error;
+		return mv;
+	}
+	
 	private String help() {
 		String helpStr = "move <left|right><1|2>: Moves UCM-Ship to the indicated direction.\n"
 				+ "shoot: UCM-Ship launches a missile.\n" + "shockWave: UCM-Ship releases a shock wave.\n"
@@ -122,7 +127,7 @@ public class Controller {
 	}
 	
 	private String error() {
-		String errorStr = "un mensaje de error\n";
+		String errorStr = "_un mensaje de error_\n";
 		return errorStr;
 	}
 

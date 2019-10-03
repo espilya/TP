@@ -28,6 +28,8 @@ public class Game{
 	private int remainingAliens = 0;
 	private boolean shockWave = true;
 	
+	Controller command = new Controller();
+	
 	public static  void game(){
 		
 	}

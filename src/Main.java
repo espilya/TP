@@ -7,9 +7,9 @@ public class Main{
 	public static void main(String[] args){
 		Game a = new Game();
 		GamePrinter b = new GamePrinter(a, 7, 8);
-		System.out.println(b.toString());
+
 		
-		while(true) {
+
 //			En cada ciclo del juego se realizan secuencialemente las siguientes acciones:
 //				1. Draw. Se pinta el tablero y se muestra la informaci�n del juego.
 //				2. User command. El usuario puede realizar una acci�n, por ejemplo: 	moverse lateralmente o realizar un disparo. El usuario puede no hacer nada en un ciclo y dejar
@@ -21,11 +21,13 @@ public class Main{
 //					disparo o si aparece un ovni (ver m�s adelante) en la primera fila del tablero.
 			
 			//GamePrinter print = new GamePrinter();
+		System.out.println(b.toString());
 			//Controller
+		
 			//Game
 			//Game.update
 			//Game
-		}
+		
 	
 	}
 }
