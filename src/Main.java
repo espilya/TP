@@ -5,8 +5,8 @@ con dicha partida, e invoca al m�todo run del controlador.*/
 
 public class Main{
 	public static void main(String[] args){
-		Game a = new Game();
-		GamePrinter b = new GamePrinter(a, 7, 8);
+		Game G = new Game();
+		GamePrinter GP = new GamePrinter(G, 9, 8);
 
 		
 
@@ -21,7 +21,7 @@ public class Main{
 //					disparo o si aparece un ovni (ver m�s adelante) en la primera fila del tablero.
 			
 			//GamePrinter print = new GamePrinter();
-		System.out.println(b.toString());
+		System.out.println(GP.toString());
 			//Controller
 		
 			//Game

@@ -1,3 +1,5 @@
+
+
 //Encapsula la l�gica del juego. Tiene, entre otros, el m�todo update que actualiza el 
 //estado de todos los elementos del juego. Contiene una instancia de RegularShipList, una 
 //DestroyerShipList y una BombList, entre otras instancias de objetos.
@@ -27,19 +29,84 @@ public class Game{
 	private int points = 0;
 	private int remainingAliens = 0;
 	private boolean shockWave = true;
+	private static Controller command = new Controller();
+	private static boolean update;
 	
-	Controller command = new Controller();
-	
-	public static  void game(){
-		
+	public static  void game()
+	{
+		update(command.getCommand());
 	}
 	
 	
 	
 	//private  Random rand;
-	private static  void update(){
-	
+	private static void update(Controller.command action)
+	{
+		update = true;
+		switch(action)
+		{//primero se efectua la accion del usuario y despues actuan las naves
+		case moveL1:
+		break;
+		
+		case moveL2:
+		break;
+		
+		case moveR1:
+		break;
+		
+		case moveR2:
+		break;
+		
+		case shockwave:
+		break;
+		
+		case none:
+		break;
+		
+		case shoot:
+		break;
+		
+		
+		case exit:
+			update =false;
+		break;
+		
+		case help:
+			System.out.println(help());
+			update =false;
+		break;
+		
+		case error:
+			System.out.println(error());
+			update =false;
+		break;
+		
+		case list:
+			update =false;
+		break;
+		
+		case reset:
+			update =false;
+		break;
+		}
+		if(update)
+		{
+			//Actualizar naves
+		}
 	}
 	
+	private static String help() {
+		String helpStr = "move <left|right><1|2>: Moves UCM-Ship to the indicated direction.\n"
+				+ "shoot: UCM-Ship launches a missile.\n" + "shockWave: UCM-Ship releases a shock wave.\n"
+				+ "list: Prints the list of available ships.\n" + "reset: Starts a new game.\n"
+				+ "help: Prints this help message.\n" + "exit: Terminates the program.\n"
+				+ "[none]: Skips one cycle.\r\n";
+		return helpStr;
+	}
+	
+	private static String error() {
+		String errorStr = "_un mensaje de error_\n";
+		return errorStr;
+	}
 	
 }
