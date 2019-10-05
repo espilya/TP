@@ -15,7 +15,7 @@
 //import java.io.InputStreamReader;
 import java.util.Scanner;
 
-public class Controller {
+public class Controller { // ---------------------------------------------- segun el pdf, en el 'Controller' tiene que estar incluido el 'Game' 
 	private command action;
 	//private movement mv;
 	private String input;

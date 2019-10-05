@@ -1,6 +1,5 @@
 public class RegularShip{
-	private int fila;
-	private int columna;
+	private int pos[] = new int[2];
 	private int hp;
 
 	//rand

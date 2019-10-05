@@ -6,5 +6,9 @@ public class Level{
 		easy, normal, hard
 		}
 	
+	//public getDifficulty() {
+		
+	//}
+	
 	
 }

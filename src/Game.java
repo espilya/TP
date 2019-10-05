@@ -21,7 +21,10 @@
 
 public class Game{
 
+	private int numRows = 9; 
+	private int numCols = 8;
 	
+
 //	private int contador; 
 //	private int puntuacion;
 	private int life = 0;
@@ -31,8 +34,26 @@ public class Game{
 	private boolean shockWave = true;
 	private static Controller command = new Controller();
 	private static boolean update;
+	private static UCMShip player = new UCMShip();
+	private static RegularShipList regularShips = new RegularShipList();
+	private static DestroyerShipList destroyerShips = new DestroyerShipList();
+	private static BombList bombs = new BombList();
 	
-	public static  void game()
+	public void initialize() {
+		this.life = 100;
+		this.nOfCycles = 1;
+		this.points = 0;
+		this.remainingAliens = 8;
+		this.shockWave = true;
+		this.nOfCycles = 1;
+		player.setShipPos(numRows/2,0); 
+		
+		
+	}
+	
+	
+	
+	public static void game()
 	{
 		update(command.getCommand());
 	}
@@ -40,7 +61,7 @@ public class Game{
 	
 	
 	//private  Random rand;
-	private static void update(Controller.command action)
+	private static void update(Controller.command action)    /// ---------- leer el PDF y modificar el Update
 	{
 		update = true;
 		switch(action)
@@ -68,30 +89,30 @@ public class Game{
 		
 		
 		case exit:
-			update =false;
+			update = false;
 		break;
 		
 		case help:
 			System.out.println(help());
-			update =false;
+			update = false;
 		break;
 		
 		case error:
 			System.out.println(error());
-			update =false;
+			update = false;
 		break;
 		
 		case list:
-			update =false;
+			update = false;
 		break;
 		
 		case reset:
-			update =false;
+			update = false;
 		break;
 		}
 		if(update)
 		{
-			//Actualizar naves
+			//Actualizar naves //poner todo lo que pondremos aqui en otra funcion??
 		}
 	}
 	
@@ -107,6 +128,11 @@ public class Game{
 	private static String error() {
 		String errorStr = "_un mensaje de error_\n";
 		return errorStr;
+	}
+	
+	public int[] getBattlefieldSize() {
+		int battlefield[] = {numRows, numCols};
+		return battlefield;
 	}
 	
 }

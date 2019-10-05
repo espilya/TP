@@ -4,17 +4,19 @@
 
 public class GamePrinter {
 	
-	int numRows = 9; 
-	int numCols = 8;
+	int numRows;  // private??
+	int numCols;
 	String[][] board;
 	final String space = " ";
 	
 	
-	public GamePrinter (Game game, int rows, int cols) {
-		this.numRows = rows;
-		this.numCols = cols;		
+	public GamePrinter (Game game, int size[]) {
+		this.numRows = size[0];
+		this.numCols = size[1];	
 		encodeGame(game);
 	}
+	
+
 	
 	private void encodeGame(Game game) {
 		board = new String[numRows][numCols];
