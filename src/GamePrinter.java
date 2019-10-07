@@ -1,6 +1,6 @@
 //package tp.p1.//nombre_de_paquete//;
 
-//import p.util.MyStringUtils;
+import p.util.MyStringUtils;
 
 public class GamePrinter {
 	
@@ -13,7 +13,9 @@ public class GamePrinter {
 	public GamePrinter (Game game, int size[]) {
 		this.numRows = size[0];
 		this.numCols = size[1];	
+		
 		encodeGame(game);
+		
 	}
 	
 

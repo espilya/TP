@@ -1,12 +1,10 @@
-public class RegularShip{
+public class OVNI{
 	private int pos[] = new int[2];
 	private int hp;
 
-	//rand
-	RegularShip(){
-		hp = 2;
+	UCMShip(){
+		hp = 1;
 	}
-	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
 	public void shipHitByUCMShip(int damage) {
 		this.hp -= damage;
 	}
@@ -18,7 +16,7 @@ public class RegularShip{
 	public void setShipPos(int x, int y) {
 		this.pos[0] = x;
 		this.pos[1] = y;
-	}
+	}	
 	
 	public int GetShipHP() {
 		return hp;

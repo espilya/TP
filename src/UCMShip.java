@@ -6,15 +6,11 @@ public class UCMShip{
 
 	//rand
 	UCMShip(){
-		hp = 100;
+		hp = 3;
 	}
-	
-	public void shipHitByDefaultAlien() {
-		this.hp -= 10;
-	}
-	
-	public void shipHitByOtherAlienShip() {
-		this.hp -= 20;
+	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
+	public void shipHitByAlien(int damage) {
+		this.hp -= damage;
 	}
 	
 	public int[] getShipPos() {
