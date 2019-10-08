@@ -20,6 +20,9 @@ public class Main{
 //				3. Computer action. El ordenador puede decidir si una nave destructora realiza un
 //					disparo o si aparece un ovni (ver m�s adelante) en la primera fila del tablero.
 			
+		
+		if(args.length >= 1) {
+			System.out.println("Your first argument is: " + args[0]);  
 			//GamePrinter print = new GamePrinter();
 		//G.initialize();
 		//System.out.println(GP.toString());
@@ -28,7 +31,11 @@ public class Main{
 			//Game
 			//Game.update
 			//Game
-		
+		}
+		else {
+			System.out.println("Error\nInsuficientes argumentos para ejecutar el juego.");
+			
+		}
 	
 	}
 }
