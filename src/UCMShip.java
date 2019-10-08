@@ -21,6 +21,9 @@ public class UCMShip{
 		this.pos[0] = x;
 		this.pos[1] = y;
 	}
+	public String to_string() {
+		return "^__^";
+	}
 	
 	
 	

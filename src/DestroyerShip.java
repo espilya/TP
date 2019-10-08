@@ -23,4 +23,8 @@ public class DestroyerShip{
 	public int GetShipHP() {
 		return hp;
 	}
+	
+	public String to_string() {
+		return "D[" + this.hp +"]";
+	}
 }

@@ -5,7 +5,7 @@ con dicha partida, e invoca al m�todo run del controlador.*/
 
 public class Main{
 	public static void main(String[] args){
-		Game G = new Game();
+		COntroller G = new COntroller();
 		GamePrinter GP = new GamePrinter(G, G.getBattlefieldSize());
 			
 		

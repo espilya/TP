@@ -23,4 +23,8 @@ public class RegularShip{
 	public int GetShipHP() {
 		return hp;
 	}
+	
+	public String to_string() {
+		return "C[" + this.hp +"]";
+	}
 }

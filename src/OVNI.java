@@ -21,4 +21,8 @@ public class OVNI{
 	public int GetShipHP() {
 		return hp;
 	}
+	
+	public String to_string() {
+		return "O[" + this.hp +"]";
+	}
 }
