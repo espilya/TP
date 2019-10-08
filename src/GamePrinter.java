@@ -4,7 +4,7 @@ import p.util.MyStringUtils;
 
 public class GamePrinter {
 	
-	int numRows;  // private??
+	int numRows; 
 	int numCols;
 	String[][] board;
 	final String space = " ";

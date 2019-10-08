@@ -5,8 +5,8 @@ con dicha partida, e invoca al m�todo run del controlador.*/
 
 public class Main{
 	public static void main(String[] args){
-		COntroller G = new COntroller();
-		GamePrinter GP = new GamePrinter(G, G.getBattlefieldSize());
+		//Controller G = new Controller();
+		//GamePrinter GP = new GamePrinter(G, G.getBattlefieldSize());
 			
 		
 
@@ -21,8 +21,8 @@ public class Main{
 //					disparo o si aparece un ovni (ver m�s adelante) en la primera fila del tablero.
 			
 			//GamePrinter print = new GamePrinter();
-		G.initialize();
-		System.out.println(GP.toString());
+		//G.initialize();
+		//System.out.println(GP.toString());
 			//Controller
 		
 			//Game
