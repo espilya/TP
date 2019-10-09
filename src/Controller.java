@@ -19,12 +19,11 @@ public class Controller { // ---------------------------------------------- segu
 	private String input;
 	private Game game = new Game();
 
-	public command getCommand() { //devolver comandos al 'Game'. Para que 
+	public void C_Main() { //devolver comandos al 'Game'. Para que 
 		Scanner in = new Scanner(System.in); 
         input = in.next();
     	input.toLowerCase();
 		analize(input);
-		return action;
 	}
 
 	private void analize(String input) {
@@ -37,46 +36,46 @@ public class Controller { // ---------------------------------------------- segu
 			
 		case "shoot":
 		case "s":
-			game.SetCommand(game.command.shoot);
+			game.SetCommand(Game.command.shoot);
 			break;
 			
 		case "shockwave":
 		case "w":
-			game.SetCommand(game.command.shockwave);
+			game.SetCommand(Game.command.shockwave);
 
 			break;
 			
 		case "reset":
 		case "r":
-			game.SetCommand(game.command.reset);
+			game.SetCommand(Game.command.reset);
 
 			break;
 			
 		case "list":
 		case "l":
-			game.SetCommand(game.command.list);
+			game.SetCommand(Game.command.list);
 
 			break;
 			
 		case "exit":
 		case "e":
-			game.SetCommand(game.command.exit);
+			game.SetCommand(Game.command.exit);
 
 			break;
 			
 		case "help":
 		case "h":
-			game.SetCommand(game.command.help);
+			game.SetCommand(Game.command.help);
 	
 			break;
 			
 		case "":
-			game.SetCommand(game.command.none);
+			game.SetCommand(Game.command.none);
 
 			break;
 
 		default: // error
-			game.SetCommand(game.command.error);
+			game.SetCommand(Game.command.error);
 
 		}
 	}
@@ -95,23 +94,23 @@ public class Controller { // ---------------------------------------------- segu
     	step = in.nextInt();
         if(dir.equals("left")){
         	if(step == 1)
-        		game.SetCommand(game.command.moveL1);
+        		game.SetCommand(Game.command.moveL1);
         	else if(step == 2) 
-        		game.SetCommand(game.command.moveL2);
+        		game.SetCommand(Game.command.moveL2);
         	else
         		ok = false;
         }
         else if(dir.equals("right")){
         	if(step == 1)
-        		game.SetCommand(game.command.moveR1);
+        		game.SetCommand(Game.command.moveR1);
         	else if(step == 2) 
-        		game.SetCommand(game.command.moveR2);
+        		game.SetCommand(Game.command.moveR2);
         	else
         		ok = false;
         }
         else 
         	ok = false;
-        if(!ok) game.SetCommand(game.command.error);
+        if(!ok) game.SetCommand(Game.command.error);
 	}
 
 }

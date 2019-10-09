@@ -13,15 +13,19 @@ public class UCMShip{
 		this.hp -= damage;
 	}
 	
-	public int[] getShipPos() {
-		return pos;
+	public int GetShipX() {
+		return pos[0];
+	}
+	
+	public int GetShipY() {
+		return pos[1];
 	}
 	
 	public void setShipPos(int x, int y) {
 		this.pos[0] = x;
 		this.pos[1] = y;
 	}
-	public String to_string() {
+	public String toString() {
 		return "^__^";
 	}
 	

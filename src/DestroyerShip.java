@@ -13,8 +13,12 @@ public class DestroyerShip{
 		this.hp -= damage;
 	}
 	
-	public int[] getShipPos() {
-		return pos;
+	public int GetDestX() {
+		return pos[0];
+	}
+	
+	public int GetDestY() {
+		return pos[1];
 	}
 	
 	public void setShipPos(int x, int y) {

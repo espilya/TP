@@ -1,4 +1,4 @@
-//package tp.util;
+package util;
 
 public class MyStringUtils {
 	public static String repeat(String elmnt, int length) {

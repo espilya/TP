@@ -13,8 +13,12 @@ public class RegularShip{
 		this.hp -= damage;
 	}
 	
-	public int[] getShipPos() {
-		return pos;
+	public int GetRegX() {
+		return pos[0];
+	}
+	
+	public int GetRegY() {
+		return pos[1];
 	}
 	
 	public void setShipPos(int x, int y) {

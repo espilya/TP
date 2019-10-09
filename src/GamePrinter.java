@@ -1,6 +1,6 @@
 //package tp.p1.//nombre_de_paquete//;
 
-import p.util.MyStringUtils;
+import util.MyStringUtils;
 
 public class GamePrinter {
 	
@@ -8,25 +8,23 @@ public class GamePrinter {
 	int numCols;
 	String[][] board;
 	final String space = " ";
+	private Game game = new Game();
 	
 	
-	public GamePrinter (Game game, int size[]) {
-		this.numRows = size[0];
-		this.numCols = size[1];	
-		
-		encodeGame(game);
-		
+	public GamePrinter (int sizeX, int sizeY) {
+		this.numRows = sizeX;
+		this.numCols = sizeY;	
+		encodeGame();
 	}
-	
 
 	
-	private void encodeGame(Game game) {
+	public void encodeGame() { // asi esta bien, no?
 		board = new String[numRows][numCols];
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numCols; j++) {
+		//for(int i = 0; i < numRows; i++) {
+			//for(int j = 0; j < numCols; j++) {
 				System.out.println(toString());
-			}
-		}
+			//}
+		//}
 	}
 	
 	public String toString() {
@@ -52,9 +50,10 @@ public class GamePrinter {
 		StringBuilder str = new StringBuilder();
 		
 		str.append(lineEdge);
-		for(int i=0; i<numRows; i++) {
+		for(int i = 0; i < numRows; i++) {
 				str.append(margin).append(vDelimiter);
-				for (int j=0; j<numCols; j++)
+				for (int j = 0; j < numCols; j++)
+					board[i][j] = game.toString(i, j);
 					str.append( MyStringUtils.centre(board[i][j], cellSize)).append(vDelimiter);
 				if (i != numRows - 1) str.append(lineDelimiter);
 				else str.append(lineEdge);	

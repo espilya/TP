@@ -10,13 +10,29 @@ public class RegularShipList{
 		tableRegular[i].setShipPos(x, y);
 	}
 	
-	public int GetRegShipPos(int x, int y, int i) {
-		return tableRegular[i].GetShipPos(x, y);
+	public int GetRegX(int i) {
+		return tableRegular[i].GetRegX();
 	}
 	
-	public int GetDestShipHP(int x, int y, int i) {
-		return tableRegular[i].GetShipHP(x, y);
+	public int GetRegY(int i) {
+		return tableRegular[i].GetRegY();
 	}
 	
+	public int GetDestShipHP(int i) {
+		return tableRegular[i].GetShipHP();
+	}
+	
+	public void SetContador(int x)
+	{
+		contador = x;
+	}
+	
+	public int GetContador() {
+		return contador;
+	}
+	
+	public String toString(int i) {
+		return "O[" + tableRegular[i].GetShipHP() +"]";
+	}
 }
 
