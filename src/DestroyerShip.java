@@ -1,10 +1,12 @@
 public class DestroyerShip{
 	private int pos[] = new int[2];
 	private int hp;
+	private int points;
 	
 	//rand
 	DestroyerShip(){
 		hp = 1;
+		points = 10;
 	}
 	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
 	public void shipHitByUCMShip(int damage) {
@@ -22,6 +24,10 @@ public class DestroyerShip{
 	
 	public int GetShipHP() {
 		return hp;
+	}
+	
+	public int getPoints() {
+		return this.points;
 	}
 	
 	public String to_string() {
