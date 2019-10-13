@@ -29,16 +29,95 @@ public class Game{
 	}
 	
 	public enum casilla {
-		destroyer(0), regular(1), OVNI(2), UCMShip(3), misil(4), proyectil(5);
+		destroyer(0), regular(1), OVNI(2), UCMShip(3), misil(4), proyectil(5), empty(6), error(7);
 		private final int value;
 
 	    private casilla(int value) {
 	        this.value = value;
 	    }
+	    
+	    private static int valor(casilla x)
+	    {
+	    	int y;
+	    	switch(x)
+	    	{
+	    	case destroyer:
+	    		y = 0;
+	    		break;
+	    		
+	    	case regular:
+	    		y = 1;
+	    		break;
+	    		
+	    	case OVNI:
+	    		y = 2;
+	    		break;
+	    		
+	    	case UCMShip:
+	    		y = 3;
+	    		break;
+	    		
+	    	case misil:
+	    		y = 4;
+	    		break;
+	    		
+	    	case proyectil:
+	    		y = 5;
+	    		break;
+	    		
+	    	case empty:
+	    		y = 6;
+	    		break;
+	    		
+	    	case error:
+	    		y = 7;
+	    		break;
+	    	}
+	    	return y;
+	    }
+	    
+	    private static casilla tipo(int value)
+	    {
+	    	casilla x;
+	    	switch (value)
+	    	{
+	    	case 0:
+	    		x = casilla.destroyer;
+	    	break;
+	    		
+	    	case 1:
+	    		x = casilla.regular;
+	    	break;
+	    	
+	    	case 2:
+	    		x = casilla.OVNI;
+	    	break;
+	    	
+	    	case 3:
+	    		x = casilla.UCMShip;
+	    	break;
+	    	
+	    	case 4:
+	    		x = casilla.misil;
+	    	break;
+	    	
+	    	case 5:
+	    		x = casilla.proyectil;
+	    	break;
+	    	
+	    	case 6:
+	    		x = casilla.empty;
+	    	break;
+	    	
+	    	default: 
+	    		x = casilla.error;
+	    	}
+	    	return x;
+	    }
 	}
 
-//	private int contador; 
-//	private int puntuacion;
+	private static int[] misilpos = new int[2];
+	private static boolean MisilValido;
 	private casilla celda;
 	private command action;
 	private int life = 0;
@@ -62,15 +141,9 @@ public class Game{
 	
 	
 	public String toString(int x, int y){
-		//Falta el misil de la UCMShip, falta crear el misil en el game antes de ponerlo
-		String aux = "";
-		if(board[x][y][0] >= 0)
-		{
-			aux = "";
-		}
-		else
-		{
-		//Dar a celda el enum correspondiente a board[x][y][0]
+	
+		String aux;
+		celda = casilla.tipo(board[x][y][0]);
 			
 		switch (celda)
 		{
@@ -97,14 +170,21 @@ public class Game{
 		case proyectil:
 			aux = bombs.toString();
 			break;
-		}
+			
+		case empty:
+			aux = "";
+			break;
+			
+		default:
+			aux = "Error";
 		}
 		
 		return aux;
-		}
+	}
 		
 	
 	public void initialize() {//En funcion de la dificultad habra mas o menos aliens
+		MisilValido = false;
 		this.life = 100;
 		this.nOfCycles = 1;
 		this.points = 0;
@@ -123,24 +203,28 @@ public class Game{
 	private static void Board()
 	{
 		ResetBoard();
+		if(MisilValido)
+		{
+			board[misilpos[0]][misilpos[1]][0] = casilla.valor(casilla.misil);
+		}
 		//Falta el misil de la UCMShip, falta crear el misil en el game antes de ponerlo
-		board[player.GetShipX()][player.GetShipY()][0] = 3;
-		board[ovni.GetShipX()][ovni.GetShipY()][0] = 2;
+		board[player.GetShipX()][player.GetShipY()][0] = casilla.valor(casilla.UCMShip);
+		board[ovni.GetShipX()][ovni.GetShipY()][0] = casilla.valor(casilla.OVNI);
 		for(int i = 0; i < bombs.GetContador(); i++)
 		{
-			board[bombs.GetProyectilX(i)][bombs.GetProyectilY(i)][0] = 5;
+			board[bombs.GetProyectilX(i)][bombs.GetProyectilY(i)][0] = casilla.valor(casilla.proyectil);
 			board[bombs.GetProyectilX(i)][bombs.GetProyectilY(i)][1] = i;
 		}
 		
 		for(int i = 0; i < destroyerShips.GetContador(); i++)
 		{
-			board[destroyerShips.GetDestX(i)][destroyerShips.GetDestY(i)][0] = 0;
+			board[destroyerShips.GetDestX(i)][destroyerShips.GetDestY(i)][0] = casilla.valor(casilla.destroyer);
 			board[destroyerShips.GetDestX(i)][destroyerShips.GetDestY(i)][1] = i;
 		}
 		
 		for(int i = 0; i < regularShips.GetContador(); i++)
 		{
-			board[regularShips.GetRegX(i)][regularShips.GetRegY(i)][0] = 1;
+			board[regularShips.GetRegX(i)][regularShips.GetRegY(i)][0] = casilla.valor(casilla.regular);
 			board[regularShips.GetRegX(i)][regularShips.GetRegY(i)][1] = i;
 		}
 	}

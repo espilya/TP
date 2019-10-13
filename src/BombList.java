@@ -1,7 +1,6 @@
 //Ya que no dice nada sobre lo que va esta clase he supuesto que era para los proyectiles
 
 public class BombList{ 
-	private int damageAliens = 1;
 	public static final int TAM_LIST = 4;
 	Proyectil[] ListProyectil = new Proyectil[TAM_LIST];
 	private int contador = 0; //El contador se comprueba en el game
@@ -22,11 +21,6 @@ public class BombList{
 	
 	public void SetProyectilY(int y, int i) {
 		ListProyectil[i].SetProyectilY(y);
-	}
-	
-	public void SetContador(int x)
-	{
-		contador = x;
 	}
 	
 	public int GetContador() {
