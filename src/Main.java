@@ -4,6 +4,8 @@ partida (objeto de la clase Game), crea un controlador (objeto de la clase Contr
 con dicha partida, e invoca al m�todo run del controlador.*/
 
 public class Main{
+	int semilla;
+	
 	public static void main(String[] args){
 		//Controller G = new Controller();
 		//GamePrinter GP = new GamePrinter(G, G.getBattlefieldSize());
@@ -20,23 +22,32 @@ public class Main{
 //				3. Computer action. El ordenador puede decidir si una nave destructora realiza un
 //					disparo o si aparece un ovni (ver m�s adelante) en la primera fila del tablero.
 			
-		
-		if(args.length >= 1) {
+		switch(args.length)
+		{
+		case 1:
+			//jugar(args[0], num random);
+			break;
+			
+		case 2:
 			System.out.println("Your first argument is: " + args[0]);  
+			//jugar(args[0], args[1].to number);
+			break;
 			
-			//GamePrinter print = new GamePrinter();
-		//G.initialize();
-		//System.out.println(GP.toString());
-			//Controller
-		
-			//Game
-			//Game.update
-			//Game
-		}
-		else {
-			System.out.println("Error\nInsuficientes argumentos para ejecutar el juego.");
-			
+		default:
+			System.out.println("Error" + "\n" + "Insuficientes argumentos para ejecutar el juego.");
 		}
 	
+	}
+	
+	private static void jugar()
+	{
+		//GamePrinter print = new GamePrinter();
+		//G.initialize();
+		//System.out.println(GP.toString());
+		//Controller
+	
+		//Game
+		//Game.update
+		//Game
 	}
 }

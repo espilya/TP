@@ -69,9 +69,8 @@ public class Game{
 	    		y = 6;
 	    		break;
 	    		
-	    	case error:
+	    	default:
 	    		y = 7;
-	    		break;
 	    	}
 	    	return y;
 	    }
@@ -115,14 +114,19 @@ public class Game{
 	    	return x;
 	    }
 	}
-
+	
+	private int semilla;
+	private boolean[] hadisparado = new boolean[4];
+	private final int damage = 1;
 	private static int[] misilpos = new int[2];
-	private static boolean MisilValido;
+	private static boolean MisilValido; //Hay o no un misil que no ha impactado
 	private casilla celda;
 	private command action;
-	private int life = 0;
-	private int nOfCycles = 0;
-	private int points = 0;
+	private double frecDisp;
+	private static int life;
+	private int vel;
+	private int nOfCycles;
+	private int points;
 	private int remainingAliens = 0;
 	private boolean shockWave = true;
 	private static boolean update;
@@ -131,8 +135,9 @@ public class Game{
 	private static DestroyerShipList destroyerShips = new DestroyerShipList();
 	private static BombList bombs = new BombList();
 	private static OVNI ovni = new OVNI();
-	private static int[][][] board = new int[numRows][numCols][2];//[numRows][numCols][0] = valor enumerado, [numRows][numCols][1] = indice lista (es caso de que sea destroyer, regular o bomb)
-	static GamePrinter Print = new GamePrinter(numRows, numCols);
+	private static Level level = new Level();
+	private static int[][][] board = new int[numRows][numCols][2];//[numRows][numCols][0] = valor enumerado, [numRows][numCols][1] = indice lista (en caso de que sea destroyer, regular o bomb)
+	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 	
 	public void SetCommand(command x)
 	{
@@ -183,21 +188,91 @@ public class Game{
 	}
 		
 	
-	public void initialize() {//En funcion de la dificultad habra mas o menos aliens
-		MisilValido = false;
-		this.life = 100;
-		this.nOfCycles = 1;
-		this.points = 0;
-		this.remainingAliens = 8;
-		this.shockWave = true;
-		this.nOfCycles = 1;
-		player.setShipPos(numRows/2,0); 
+	public boolean initialize(String dificultad, int semilla) {//En funcion de la dificultad habra mas o menos aliens
+		boolean x = false;
+		
+		if(level.setDifficulty(dificultad))
+		{
+			x = true;
+			MisilValido = false;
+			this.life = 3;
+			this.nOfCycles = 1;
+			this.points = 0;
+			this.shockWave = true;
+			this.nOfCycles = 1;
+			player.setShipPos(numRows/2,0); 
+			this.vel = - vel;
+			this.frecDisp = level.getFrecDisparo();
+			player.setShipPos(7, 4);
+			this.semilla = semilla;
+			
+			//if(numrand(de 0 a 9) < level.getProbOvni() * 10)
+			//{
+			//this.remainingAliens ++;
+			//ovni.setShipPos(0, 8);
+			//}
+			//else
+			//{
+			//ovni.shipHitByUCMShip(damage);
+			//}
+			
+			this.remainingAliens += level.getNumberDestroyerShip() + level.getNumberRegularShip();
+			
+			destroyerShips.SetContador(level.getNumberDestroyerShip());
+			regularShips.SetContador(level.getNumberRegularShip());
+			
+			for(int i = 0; i < 4; i++)
+			{
+				hadisparado[i] = false;
+			}
+			
+			switch(level.getDifficulty())
+			{
+			case easy:
+				for(int i = 0; i < 4; i++)
+				{
+					regularShips.SetRegShip(1, 4 + i, i);
+				}
+				for(int i = 0; i < 2; i++)
+				{
+					destroyerShips.SetDestShip(2, 5 + i, i);
+				}
+				break;
+				
+				
+			case hard:
+				for(int i = 0; i < 8; i++)
+				{
+					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
+				}
+				for(int i = 0; i < 2; i++)
+				{
+					destroyerShips.SetDestShip(3, 4 + i, i);
+				}
+				break;
+				
+				
+			case insane: 
+				for(int i = 0; i < 8; i++)
+				{
+					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
+				}
+				for(int i = 0; i < 4; i++)
+				{
+					destroyerShips.SetDestShip(3, 3 + i, i);
+				}
+				break;
+			}
+		}
+		
+		return x;
 	}
+	
 	
 	public static void Print()
 	{
 		Board();
-		Print.encodeGame();
+		GPrint.encodeGame();
 	}
 	
 	private static void Board()
@@ -207,9 +282,17 @@ public class Game{
 		{
 			board[misilpos[0]][misilpos[1]][0] = casilla.valor(casilla.misil);
 		}
-		//Falta el misil de la UCMShip, falta crear el misil en el game antes de ponerlo
+		
+		if(life > 0)
+		{
 		board[player.GetShipX()][player.GetShipY()][0] = casilla.valor(casilla.UCMShip);
+		}
+		
+		if(ovni.GetShipHP() > 0)
+		{
 		board[ovni.GetShipX()][ovni.GetShipY()][0] = casilla.valor(casilla.OVNI);
+		}
+		
 		for(int i = 0; i < bombs.GetContador(); i++)
 		{
 			board[bombs.GetProyectilX(i)][bombs.GetProyectilY(i)][0] = casilla.valor(casilla.proyectil);
@@ -302,13 +385,9 @@ public class Game{
 	}
 	
 	private static String error() {
-		String errorStr = "_un mensaje de error_\n";
+		String errorStr = "El comando introducido no es valido\n";
 		return errorStr;
 	}
-	
-	//public int[] getBattlefieldSize() {
-		//int battlefield[] = {numRows, numCols};
-		//return battlefield;
-	//}
+
 	
 }

@@ -3,6 +3,7 @@ public class DestroyerShip{
 	private int hp;
 	private int points;
 	
+	
 	//rand
 	DestroyerShip(){
 		hp = 1;
