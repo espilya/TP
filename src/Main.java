@@ -23,6 +23,7 @@ public class Main{
 		
 		if(args.length >= 1) {
 			System.out.println("Your first argument is: " + args[0]);  
+			
 			//GamePrinter print = new GamePrinter();
 		//G.initialize();
 		//System.out.println(GP.toString());

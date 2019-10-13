@@ -63,7 +63,7 @@ public class Game{
 	
 	public String toString(int x, int y){
 		//Falta el misil de la UCMShip, falta crear el misil en el game antes de ponerlo
-		String aux;
+		String aux = "";
 		if(board[x][y][0] >= 0)
 		{
 			aux = "";
@@ -158,8 +158,7 @@ public class Game{
 	
 	
 	//private  Random rand;
-	public void update()    /// ---------- leer el PDF y modificar el Update
-	//El update se adapta a lo que pone en el pdf 
+	public void update()    
 	{
 		switch(action)
 		{//primero se efectua la accion del usuario y despues actuan las naves
