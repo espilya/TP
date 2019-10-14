@@ -43,6 +43,11 @@ public class BombList{
 		}
 	}
 	
+	public void deletebomb(int i)
+	{
+		ListProyectil[i].reset();
+	}
+	
 	public int CheckBomb(int i) { // status==1(existe proyectil), 0 no existe
 		int status = -1;
 			if(ListProyectil[i].CheckBomb()) 
