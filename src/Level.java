@@ -12,7 +12,7 @@ public class Level{
 		}
 	
 	private dificultad difficulty;
-		//usar el 'level' asi????
+
 	public boolean setDifficulty(String d)
 	{
 		boolean right = false;

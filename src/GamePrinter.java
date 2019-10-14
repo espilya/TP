@@ -11,14 +11,14 @@ public class GamePrinter {
 	private Game game = new Game();
 	
 	
-	public GamePrinter (int sizeX, int sizeY) {
-		this.numRows = sizeX;
-		this.numCols = sizeY;	
+	public GamePrinter (int sizeY, int sizeX) {
+		this.numRows = sizeY;
+		this.numCols = sizeX;	
 		encodeGame();
 	}
 
 	
-	public void encodeGame() { // asi esta bien, no?
+	public void encodeGame() { 
 		board = new String[numRows][numCols];
 		//for(int i = 0; i < numRows; i++) {
 			//for(int j = 0; j < numCols; j++) {

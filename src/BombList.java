@@ -2,25 +2,29 @@
 
 public class BombList{ 
 	public static final int TAM_LIST = 4;
-	Proyectil[] ListProyectil = new Proyectil[TAM_LIST];
-	private int contador = 0; //El contador se comprueba en el game
+	Bomb[] ListProyectil = new Bomb[TAM_LIST];
+	private int contador = 0;
 	
-
+	public void SetBombsPos(int x, int y, int i) {
+		ListProyectil[i].SetBombPos(x, y);
+		if(x == -1 && y == -1) 
+			ListProyectil[i].reset();
+		else
+			ListProyectil[i].noReset();
+			
+	}
+	
 	public int GetProyectilX(int i) {
-		return ListProyectil[i].GetProyectilX();
+		return ListProyectil[i].GetBombX();
 	}
 	
 	public int GetProyectilY(int i) {
-		return ListProyectil[i].GetProyectilY();
+		return ListProyectil[i].GetBombY();
 	}
-	
-	
-	public void SetProyectilX(int x, int i) {
-		ListProyectil[i].SetProyectilX(x);
-	}
-	
-	public void SetProyectilY(int y, int i) {
-		ListProyectil[i].SetProyectilY(y);
+
+	public void SetContador(int x)
+	{
+		contador = x;
 	}
 	
 	public int GetContador() {
@@ -28,7 +32,25 @@ public class BombList{
 	}
 	
 	public String toString(int i) {
-		return ".";
+		return "]";
 	}
+	
+	public void reset()
+	{
+		for(int i = 0; i < contador; i++)
+		{
+			ListProyectil[i].reset();
+		}
+	}
+	
+	public int CheckBomb(int i) { // status==1(existe proyectil), 0 no existe
+		int status = -1;
+			if(ListProyectil[i].CheckBomb()) 
+				status = 1;
+			else if(!ListProyectil[i].CheckBomb())
+				status = 0;
+		return status;
+	}
+	
 
 }

@@ -10,8 +10,8 @@ public class UCMShip{
 		hp = 3;
 	}
 	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
-	public void shipHitByAlien(int damage) {
-		this.hp -= damage;
+	public void shipHitByAlien() {
+		this.hp -= 1;
 	}
 	
 	public int GetShipX() {
@@ -25,6 +25,10 @@ public class UCMShip{
 	public int GetHP()
 	{
 		return hp;
+	}
+	public void SetHP(int x)
+	{
+		hp = x;
 	}
 	
 	public int GetHarm()

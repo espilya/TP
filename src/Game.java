@@ -13,9 +13,6 @@
 //no una determinada acci�n.
 
 
-//*** getDato(){
-//	return ***
-//}
 
 //public static final @tipo@ @NOMBRE@  = @valor@;
 
@@ -116,7 +113,6 @@ public class Game{
 	}
 	
 	private static int semilla;
-	private static boolean[] hadisparado = new boolean[4];
 	private final int damage = 1;
 	private static int[] misilpos = new int[2];
 	private static boolean HayMisil; //Hay o no un misil que no ha impactado
@@ -124,7 +120,6 @@ public class Game{
 	private command action;
 	private static boolean HayOvni;
 	private static double frecDisp;
-	private static int life;
 	private static int vel;
 	private static int nOfCycles;
 	private static int points;
@@ -140,6 +135,8 @@ public class Game{
 	private static int[][][] board = new int[numRows][numCols][2];//[numRows][numCols][0] = valor enumerado, [numRows][numCols][1] = indice lista (en caso de que sea destroyer, regular o bomb)
 	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 	private static String difficulty;
+	private static boolean gameOver = false;
+	private static boolean shipsDir = true;
 	
 	public void SetCommand(command x)
 	{
@@ -190,7 +187,7 @@ public class Game{
 	}
 		
 	
-	public static boolean initialize(String dificultad, int seed) {//En funcion de la dificultad habra mas o menos aliens
+	public static boolean initialize(String dificultad, int seed) {
 		boolean x = false;
 		difficulty = dificultad;
 		if(level.setDifficulty(dificultad))
@@ -198,13 +195,11 @@ public class Game{
 			x = true;
 			HayOvni = false;
 			HayMisil = false;
-			life = 3;
-			nOfCycles = 1;
+			player.SetHP(3);
 			points = 0;
 			shockWave = true;
 			nOfCycles = 1;
-			player.setShipPos(numRows/2,0); 
-			vel = - level.getVelocidad();
+			vel = level.getVelocidad();
 			frecDisp = level.getFrecDisparo();
 			player.setShipPos(7, 4);
 			semilla = seed;
@@ -225,46 +220,27 @@ public class Game{
 			destroyerShips.SetContador(level.getNumberDestroyerShip());
 			regularShips.SetContador(level.getNumberRegularShip());
 			
-			for(int i = 0; i < 4; i++)
-			{
-				hadisparado[i] = false;
-			}
-			
 			switch(level.getDifficulty())
 			{
 			case easy:
 				for(int i = 0; i < 4; i++)
-				{
 					regularShips.SetRegShip(1, 4 + i, i);
-				}
 				for(int i = 0; i < 2; i++)
-				{
 					destroyerShips.SetDestShip(2, 5 + i, i);
-				}
 				break;
-				
 				
 			case hard:
 				for(int i = 0; i < 8; i++)
-				{
 					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
-				}
 				for(int i = 0; i < 2; i++)
-				{
 					destroyerShips.SetDestShip(3, 4 + i, i);
-				}
 				break;
-				
 				
 			case insane: 
 				for(int i = 0; i < 8; i++)
-				{
 					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
-				}
 				for(int i = 0; i < 4; i++)
-				{
 					destroyerShips.SetDestShip(3, 3 + i, i);
-				}
 				break;
 			}
 		}
@@ -287,7 +263,7 @@ public class Game{
 			board[misilpos[0]][misilpos[1]][0] = casilla.valor(casilla.misil);
 		}
 		
-		if(life > 0)
+		if(player.GetHP() > 0)
 		{
 		board[player.GetShipX()][player.GetShipY()][0] = casilla.valor(casilla.UCMShip);
 		}
@@ -327,12 +303,8 @@ public class Game{
 		}
 	}
 	
-	
-	//private  Random rand;
-	public void update()    
-	{
-		switch(action)
-		{//primero se efectua la accion del usuario y despues actuan las naves
+	public void userCommand() {
+		switch(action){
 		case exit:
 		break;
 		
@@ -352,7 +324,6 @@ public class Game{
 			reset();
 		break;
 		default:
-			//Actualizar Proyectiles
 			switch(action)
 			{
 			case moveL1:
@@ -382,8 +353,26 @@ public class Game{
 					shoot();
 				break;
 			}
-			//Actualizar naves
 		}
+	}
+	
+
+	public void update()    
+	{
+		userCommand();
+		killedOrNot(); 	  //comprueba estado
+		computerAction(); // actualiza mov naves/proyectiles
+		killedOrNot(); 	  //comprueba estado
+		
+//		1. Draw.
+//		2. User command. El usuario puede realizar una acci�n, por ejemplo: 	moverse lateralmente o realizar un disparo. El usuario puede no hacer nada en un ciclo y dejar
+//			pasar el tiempo.
+//		3. Computer action. El ordenador puede decidir si una nave destructora realiza un
+//			disparo o si aparece un ovni (ver m�s adelante) en la primera fila del tablero.
+//		4. Update. Se actualizan los objetos que est�n en el tablero.
+//		3. Computer action. El ordenador puede decidir si una nave destructora realiza un
+//			disparo o si aparece un ovni (ver m�s adelante) en la primera fila del tablero.
+		nOfCycles++;
 	}
 	
 	private static String help() {
@@ -402,7 +391,8 @@ public class Game{
 	{
 		return "[R]egular Ship: Points - 5, Harm - 0, Shield - 3 \n" +
 			   "[D]estroyer Ship: Points - 10, Harm - 1, Shield - 1 \n" +
-			   "[O]vni: Points - 25, Harm - 0, Shield - 1 \n";
+			   "[O]vni: Points - 25, Harm - 0, Shield - 1 \n" + 
+			   "^__^: Harm: 1 - Shield: 3";
 	}
 	
 	private static void reset()
@@ -479,5 +469,118 @@ public class Game{
 			misilpos[0] = player.GetShipX();
 			misilpos[1] = player.GetShipY();
 		}
+	}
+	
+	private static void actualizarProyectiles() {
+		updateMissil();
+		updateBomb();
+	}
+	
+	private static void updateBomb(){
+		for(int i = 0; i < destroyerShips.GetContador(); i++) {
+			if(destroyerShips.GetDestShipHP(i)>0)
+				if(bombs.CheckBomb(i) == 1) {
+					bombs.SetBombsPos(bombs.GetProyectilX(i) -1, bombs.GetProyectilY(i), i);
+				}
+				else {
+					bombs.SetBombsPos(destroyerShips.GetDestX(i), destroyerShips.GetDestY(i), i);
+				}
+		}
+	}
+	private static void updateMissil() {
+		if(HayMisil) {
+			if(misilpos[1]+1 >= 0)
+				misilpos[1] += 1;
+			else if(misilpos[1]+1 < 0) {
+				HayMisil = false;
+				misilpos[0] = -1;
+				misilpos[1] = -1;
+			}
+		}
+	}
+	
+	private static void actualizarNaves() { // falta OVNI
+		boolean shipsMoveDown = false;
+		for(int i = 0; i<regularShips.GetContador(); i++) {
+			if(regularShips.GetRegShipHP(i) > 0 &&   
+					(regularShips.GetRegX(i)+vel >= numCols || regularShips.GetRegX(i)-vel < numCols)) {
+				shipsMoveDown = true;
+			}
+		}
+		for(int i = 0; i<destroyerShips.GetContador(); i++) {
+			if(destroyerShips.GetDestShipHP(i) > 0 &&   
+					(destroyerShips.GetDestX(i)+vel >= numCols || destroyerShips.GetDestX(i)-vel < numCols) ) {
+				shipsMoveDown = true;
+			}
+		}
+		if(shipsMoveDown) {
+			shipsDown();
+			//if(gameOver)
+			//	gameOverPrint();
+			shipsDir = !shipsDir;
+		}
+		shipsMove();
+	}
+	
+	private static void computerAction() {
+		actualizarProyectiles();
+		actualizarNaves();
+	}
+
+	private static void shipsDown() {
+		boolean earth = false;
+		for(int i = 0; i<regularShips.GetContador(); i++) {
+			if(regularShips.GetRegShipHP(i) > 0 && regularShips.GetRegY(i)+1 >= numRows) {
+				earth = true;
+			}
+		}
+		for(int i = 0; i<destroyerShips.GetContador(); i++) {
+			if(destroyerShips.GetDestShipHP(i) > 0 && destroyerShips.GetDestY(i)+1 >= numRows) {
+				earth = true;
+			}
+		}
+		if(earth)
+			gameOver = true;
+	}
+	
+	private static void shipsMove() {
+		int move;
+		if(shipsDir) 
+			move = vel;
+		else
+			move = -vel;
+		for(int i = 0; i<regularShips.GetContador(); i++) {
+			if(regularShips.GetRegShipHP(i) > 0) {
+				regularShips.SetRegShip(regularShips.GetRegX(i) + move,regularShips.GetRegY(i), i);
+			}
+		}
+		for(int i = 0; i<destroyerShips.GetContador(); i++) {
+			if(destroyerShips.GetDestShipHP(i) > 0) {
+				destroyerShips.SetDestShip(destroyerShips.GetDestX(i) + move,destroyerShips.GetDestY(i), i);
+			}
+		}
+	}
+
+	private static void killedOrNot() {
+		for(int i = 0; i<bombs.GetContador(); i++) {
+			if(bombs.CheckBomb(i) == 1) {
+				if(bombs.GetProyectilX(i) == player.GetShipX() && bombs.GetProyectilY(i) == player.GetShipY()) 
+					player.shipHitByAlien();
+			}
+		}
+		for(int i = 0; i<regularShips.GetContador(); i++) {
+			if(regularShips.GetRegShipHP(i) > 0 && misilpos[0] == regularShips.GetRegX(i) && misilpos[0] == regularShips.GetRegY(i)) {
+				regularShips.shipHitByUCMShip(i, 1);
+			}
+		}
+		for(int i = 0; i<destroyerShips.GetContador(); i++) {
+			if(destroyerShips.GetDestShipHP(i) > 0 && misilpos[0] == destroyerShips.GetDestX(i) && misilpos[0] == destroyerShips.GetDestY(i)) {
+				destroyerShips.shipHitByUCMShip(i, 1);
+			}
+		}
+		if(player.GetHP() == 0)
+			gameOver = true;
+	}
+	private static void gameOverPrint() {
 	}
 }

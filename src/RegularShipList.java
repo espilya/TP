@@ -18,7 +18,7 @@ public class RegularShipList{
 		return tableRegular[i].GetRegY();
 	}
 	
-	public int GetDestShipHP(int i) {
+	public int GetRegShipHP(int i) {
 		return tableRegular[i].GetShipHP();
 	}
 	
