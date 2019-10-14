@@ -13,7 +13,7 @@
 //no una determinada acci�n.
 
 
-
+import java.util.Random; 
 //public static final @tipo@ @NOMBRE@  = @valor@;
 
 public class Game{
@@ -112,7 +112,7 @@ public class Game{
 	    }
 	}
 	
-	private static int semilla;
+	private static long seed;
 	private final int damage = 1;
 	private static int[] misilpos = new int[2];
 	private static boolean HayMisil; //Hay o no un misil que no ha impactado
@@ -137,6 +137,16 @@ public class Game{
 	private static String difficulty;
 	private static boolean gameOver = false;
 	private static boolean shipsDir = true;
+	
+	public static double[] GenerateNumbers(long seed, int amount) {
+	    double[] randomList = new double[amount];
+	    for (int i=0;i<amount;i++) {
+	        Random generator = new Random(seed);
+	        randomList[i] = Math.abs((double) (generator.nextLong() % 0.001) * 10000);
+	        seed--;
+	    }
+	    return randomList;
+	}
 	
 	public void SetCommand(command x)
 	{
@@ -187,7 +197,15 @@ public class Game{
 	}
 		
 	
-	public static boolean initialize(String dificultad, int seed) {
+	public static boolean initialize(String dificultad, long seed) {
+		seed = 101;
+		double random[] = GenerateNumbers(seed, 5);
+		int randomA = (int)random[0];
+		int randomB = (int)random[1];
+		int randomC = (int)random[2];
+		int randomD = (int)random[3];
+		int randomE = (int)random[4];
+		
 		boolean x = false;
 		difficulty = dificultad;
 		if(level.setDifficulty(dificultad))
@@ -202,7 +220,6 @@ public class Game{
 			vel = level.getVelocidad();
 			frecDisp = level.getFrecDisparo();
 			player.setShipPos(7, 4);
-			semilla = seed;
 			
 			//if(numrand(de 0 a 9) < level.getProbOvni() * 10)
 			//{
@@ -397,7 +414,7 @@ public class Game{
 	
 	private static void reset()
 	{
-		if(initialize(difficulty, semilla))
+		if(initialize(difficulty, seed))
 		{
 			for(int i = 0; i < destroyerShips.GetContador(); i++)
 			{
