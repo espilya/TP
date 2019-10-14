@@ -3,6 +3,7 @@
 public class UCMShip{
 	private int pos[] = new int[2];
 	private int hp;
+	private int harm = 1;
 
 	//rand
 	UCMShip(){
@@ -19,6 +20,16 @@ public class UCMShip{
 	
 	public int GetShipY() {
 		return pos[1];
+	}
+	
+	public int GetHP()
+	{
+		return hp;
+	}
+	
+	public int GetHarm()
+	{
+		return harm;
 	}
 	
 	public void setShipPos(int x, int y) {

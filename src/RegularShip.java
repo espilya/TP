@@ -9,8 +9,8 @@ public class RegularShip{
 		points = 5;
 	}
 	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
-	public void shipHitByUCMShip(int damage) {
-		this.hp -= damage;
+	public void shipHitByUCMShip(int harm) {
+		this.hp -= harm;
 	}
 	
 	public int GetRegX() {
@@ -36,5 +36,10 @@ public class RegularShip{
 	
 	public String to_string() {
 		return "C[" + this.hp +"]";
+	}
+	
+	public void reset()
+	{
+		hp = 3;
 	}
 }

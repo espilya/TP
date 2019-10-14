@@ -9,9 +9,9 @@ public class DestroyerShip{
 		hp = 1;
 		points = 10;
 	}
-	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
-	public void shipHitByUCMShip(int damage) {
-		this.hp -= damage;
+
+	public void shipHitByUCMShip(int harm) {
+		this.hp -= harm;
 	}
 	
 	public int GetDestX() {
@@ -37,5 +37,10 @@ public class DestroyerShip{
 	
 	public String to_string() {
 		return "D[" + this.hp +"]";
+	}
+	
+	public void reset()
+	{
+		hp = 1;
 	}
 }

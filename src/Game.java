@@ -115,20 +115,21 @@ public class Game{
 	    }
 	}
 	
-	private int semilla;
-	private boolean[] hadisparado = new boolean[4];
+	private static int semilla;
+	private static boolean[] hadisparado = new boolean[4];
 	private final int damage = 1;
 	private static int[] misilpos = new int[2];
-	private static boolean MisilValido; //Hay o no un misil que no ha impactado
+	private static boolean HayMisil; //Hay o no un misil que no ha impactado
 	private casilla celda;
 	private command action;
-	private double frecDisp;
+	private static boolean HayOvni;
+	private static double frecDisp;
 	private static int life;
-	private int vel;
-	private int nOfCycles;
-	private int points;
-	private int remainingAliens = 0;
-	private boolean shockWave = true;
+	private static int vel;
+	private static int nOfCycles;
+	private static int points;
+	private static int remainingAliens = 0;
+	private static boolean shockWave = true;
 	private static boolean update;
 	private static UCMShip player = new UCMShip();
 	private static RegularShipList regularShips = new RegularShipList();
@@ -138,6 +139,7 @@ public class Game{
 	private static Level level = new Level();
 	private static int[][][] board = new int[numRows][numCols][2];//[numRows][numCols][0] = valor enumerado, [numRows][numCols][1] = indice lista (en caso de que sea destroyer, regular o bomb)
 	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
+	private static String difficulty;
 	
 	public void SetCommand(command x)
 	{
@@ -188,35 +190,37 @@ public class Game{
 	}
 		
 	
-	public boolean initialize(String dificultad, int semilla) {//En funcion de la dificultad habra mas o menos aliens
+	public static boolean initialize(String dificultad, int seed) {//En funcion de la dificultad habra mas o menos aliens
 		boolean x = false;
-		
+		difficulty = dificultad;
 		if(level.setDifficulty(dificultad))
 		{
 			x = true;
-			MisilValido = false;
-			this.life = 3;
-			this.nOfCycles = 1;
-			this.points = 0;
-			this.shockWave = true;
-			this.nOfCycles = 1;
+			HayOvni = false;
+			HayMisil = false;
+			life = 3;
+			nOfCycles = 1;
+			points = 0;
+			shockWave = true;
+			nOfCycles = 1;
 			player.setShipPos(numRows/2,0); 
-			this.vel = - vel;
-			this.frecDisp = level.getFrecDisparo();
+			vel = - level.getVelocidad();
+			frecDisp = level.getFrecDisparo();
 			player.setShipPos(7, 4);
-			this.semilla = semilla;
+			semilla = seed;
 			
 			//if(numrand(de 0 a 9) < level.getProbOvni() * 10)
 			//{
 			//this.remainingAliens ++;
 			//ovni.setShipPos(0, 8);
+			//HayOvni = true;
 			//}
 			//else
 			//{
 			//ovni.shipHitByUCMShip(damage);
 			//}
 			
-			this.remainingAliens += level.getNumberDestroyerShip() + level.getNumberRegularShip();
+			remainingAliens += level.getNumberDestroyerShip() + level.getNumberRegularShip();
 			
 			destroyerShips.SetContador(level.getNumberDestroyerShip());
 			regularShips.SetContador(level.getNumberRegularShip());
@@ -278,7 +282,7 @@ public class Game{
 	private static void Board()
 	{
 		ResetBoard();
-		if(MisilValido)
+		if(HayMisil)
 		{
 			board[misilpos[0]][misilpos[1]][0] = casilla.valor(casilla.misil);
 		}
@@ -341,53 +345,139 @@ public class Game{
 		break;
 		
 		case list:
+			System.out.println(list());
 		break;
 		
 		case reset:
+			reset();
 		break;
 		default:
 			//Actualizar Proyectiles
 			switch(action)
 			{
 			case moveL1:
+					moveUCM(-1);
 				break;
 				
 				case moveL2:
+					moveUCM(-2);
 				break;
 				
 				case moveR1:
+					moveUCM(1);
 				break;
 				
 				case moveR2:
+					moveUCM(2);
 				break;
 				
 				case shockwave:
+					shockwave();
 				break;
 				
 				case none:
 				break;
 				
 				case shoot:
+					shoot();
 				break;
-				default: 
 			}
 			//Actualizar naves
 		}
 	}
 	
 	private static String help() {
-		String helpStr = "move <left|right><1|2>: Moves UCM-Ship to the indicated direction.\n"
-				+ "shoot: UCM-Ship launches a missile.\n" + "shockWave: UCM-Ship releases a shock wave.\n"
-				+ "list: Prints the list of available ships.\n" + "reset: Starts a new game.\n"
-				+ "help: Prints this help message.\n" + "exit: Terminates the program.\n"
-				+ "[none]: Skips one cycle.\r\n";
-		return helpStr;
+		return "move <left|right><1|2>: Moves UCM-Ship to the indicated direction.\n"
+		+ "shoot: UCM-Ship launches a missile.\n" + "shockWave: UCM-Ship releases a shock wave.\n"
+		+ "list: Prints the list of available ships.\n" + "reset: Starts a new game.\n"
+		+ "help: Prints this help message.\n" + "exit: Terminates the program.\n"
+		+ "[none]: Skips one cycle.\r\n";
 	}
 	
 	private static String error() {
-		String errorStr = "El comando introducido no es valido\n";
-		return errorStr;
+		return "El comando introducido no es valido\n";
 	}
 
+	private static String list()
+	{
+		return "[R]egular Ship: Points - 5, Harm - 0, Shield - 3 \n" +
+			   "[D]estroyer Ship: Points - 10, Harm - 1, Shield - 1 \n" +
+			   "[O]vni: Points - 25, Harm - 0, Shield - 1 \n";
+	}
 	
+	private static void reset()
+	{
+		if(initialize(difficulty, semilla))
+		{
+			for(int i = 0; i < destroyerShips.GetContador(); i++)
+			{
+				destroyerShips.reset();
+			}
+			
+			for(int i = 0; i < regularShips.GetContador(); i++)
+			{
+				regularShips.reset();
+			}
+			
+			if(HayOvni)
+			{
+				ovni.reset();
+			}
+		}
+	}
+	
+	private static void moveUCM(int i)
+	{
+		if(player.GetShipX() + i >= 0 && player.GetShipX() + i < numRows)
+		{
+			player.setShipPos(player.GetShipX() + i, player.GetShipY());
+		}
+		else
+		{
+			if(i == 2 || i == -2)
+			{
+				if(i == 2)
+				{
+					i = 1;
+				}
+				else
+				{
+					i = -1;
+				}
+				if(player.GetShipX() + i >= 0 && player.GetShipX() + i < numRows)
+				{
+					player.setShipPos(player.GetShipX() + i, player.GetShipY());
+				}
+			}
+		}
+		
+	}
+	
+	private static void shockwave()
+	{
+		for(int i = 0; i < destroyerShips.GetContador(); i++)
+		{
+			destroyerShips.shipHitByUCMShip(i, player.GetHarm());
+		}
+		
+		for(int i = 0; i < regularShips.GetContador(); i++)
+		{
+			regularShips.shipHitByUCMShip(i, player.GetHarm());
+		}
+		
+		if(HayOvni)
+		{
+			ovni.shipHitByUCMShip();
+		}
+	}
+	
+	private static void shoot()
+	{
+		if(!HayMisil)
+		{
+			HayMisil = true;
+			misilpos[0] = player.GetShipX();
+			misilpos[1] = player.GetShipY();
+		}
+	}
 }

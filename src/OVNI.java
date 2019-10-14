@@ -7,8 +7,8 @@ public class OVNI{
 		this.hp = 1;
 		this.points = 25;
 	}
-	public void shipHitByUCMShip(int damage) {
-		this.hp -= damage;
+	public void shipHitByUCMShip() {
+		this.hp -= 1;
 	}
 	
 	public int GetShipX() {
@@ -34,5 +34,10 @@ public class OVNI{
 	
 	public String toString() {
 		return "O[" + this.hp +"]";
+	}
+	
+	public void reset()
+	{
+		hp = 1;
 	}
 }

@@ -22,6 +22,10 @@ public class RegularShipList{
 		return tableRegular[i].GetShipHP();
 	}
 	
+	public void shipHitByUCMShip(int i, int harm) {
+		tableRegular[i].shipHitByUCMShip(harm);
+	}
+	
 	public void SetContador(int x)
 	{
 		contador = x;
@@ -33,6 +37,14 @@ public class RegularShipList{
 	
 	public String toString(int i) {
 		return "O[" + tableRegular[i].GetShipHP() +"]";
+	}
+	
+	public void reset()
+	{
+		for(int i = 0; i < contador; i++)
+		{
+			tableRegular[i].reset();
+		}
 	}
 }
 
