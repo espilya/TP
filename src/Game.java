@@ -256,7 +256,7 @@ public class Game{
 	}
 	
 	
-	public static void Board()
+	private static void Board()
 	{
 		ResetBoard();
 		if(HayMisil)
@@ -300,6 +300,20 @@ public class Game{
 				board[regularShips.GetRegX(i)][regularShips.GetRegY(i)][1] = i;
 			}
 		}
+	}
+	
+	public static void Print()
+	{
+		String shockwave = "No";
+		if(shockWave)
+		{
+			shockwave = "Si";
+		}
+		String texto = "Life: " + player.GetHP() + "\nNumber of Cycles: " + nOfCycles + "\nPoints: " + points +
+				"\nRemaining Aliens: " + remainingAliens + "\nShockwave: " + shockwave;
+		System.out.println(texto);
+		
+		Board();
 	}
 	
 	private static void ResetBoard() 

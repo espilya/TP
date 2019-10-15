@@ -9,7 +9,7 @@ public class Main{
 	Controller C = new Controller();
 	
 	public static void main(String[] args){	
-
+		GamePrinter GP = new GamePrinter(8, 9);
 //			En cada ciclo del juego se realizan secuencialemente las siguientes acciones:
 //				1. Draw. Se pinta el tablero y se muestra la informaci�n del juego.
 //				2. User command. El usuario puede realizar una acci�n, por ejemplo: 	moverse lateralmente o realizar un disparo. El usuario puede no hacer nada en un ciclo y dejar
@@ -19,7 +19,7 @@ public class Main{
 //				4. Update. Se actualizan los objetos que est�n en el tablero.
 //				3. Computer action. El ordenador puede decidir si una nave destructora realiza un
 //					disparo o si aparece un ovni (ver m�s adelante) en la primera fila del tablero.
-			
+
 		switch(args.length)
 		{
 		case 1:
@@ -47,7 +47,7 @@ public class Main{
 			{
 				if(G.update())
 				{
-					G.Board();
+					G.Print();
 					System.out.println(GP.toString(G));
 				}
 			}
