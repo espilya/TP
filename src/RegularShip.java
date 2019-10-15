@@ -13,17 +13,17 @@ public class RegularShip{
 		this.hp -= harm;
 	}
 	
-	public int GetRegX() {
+	public int GetRegV() {
 		return pos[0];
 	}
 	
-	public int GetRegY() {
+	public int GetRegH() {
 		return pos[1];
 	}
 	
-	public void setShipPos(int x, int y) {
-		this.pos[0] = x;
-		this.pos[1] = y;
+	public void setShipPos(int v, int h) {
+		this.pos[0] = v;
+		this.pos[1] = h;
 	}
 	
 	public int GetShipHP() {

@@ -14,17 +14,17 @@ public class DestroyerShip{
 		this.hp -= harm;
 	}
 	
-	public int GetDestX() {
+	public int GetDestV() {
 		return pos[0];
 	}
 	
-	public int GetDestY() {
+	public int GetDestH() {
 		return pos[1];
 	}
 	
-	public void setShipPos(int x, int y) {
-		this.pos[0] = x;
-		this.pos[1] = y;
+	public void setShipPos(int v, int h) {
+		this.pos[0] = v;
+		this.pos[1] = h;
 	}
 	
 	public int GetShipHP() {

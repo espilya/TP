@@ -15,7 +15,7 @@
 //import java.io.InputStreamReader;
 import java.util.Scanner;
 
-public class Controller { // ---------------------------------------------- segun el pdf, en el 'Controller' tiene que estar incluido el 'Game' 
+public class Controller { 
 	private String input;
 	private Game game = new Game();
 

@@ -3,32 +3,34 @@
 public class BombList{ 
 	public static final int TAM_LIST = 4;
 	Bomb[] ListProyectil = new Bomb[TAM_LIST];
-	private int contador = 0;
+	private int indice = 0;
 	
-	public void SetBombsPos(int x, int y, int i) {
-		ListProyectil[i].SetBombPos(x, y);
-		if(x == -1 && y == -1) 
+	public void initialize(int n){
+		indice = n; 
+		for(int i = 0; i < n; i++) {
+			ListProyectil[i] = new Bomb();
+		}
+	}
+	
+	public void SetBombsPos(int v, int h, int i) {
+		ListProyectil[i].SetBombPos(v, h);
+		if(v == -1 && h == -1) 
 			ListProyectil[i].reset();
 		else
 			ListProyectil[i].noReset();
-			
 	}
 	
-	public int GetProyectilX(int i) {
-		return ListProyectil[i].GetBombX();
+	public int GetProyectilV(int i) {
+		return ListProyectil[i].GetBombV();
 	}
 	
-	public int GetProyectilY(int i) {
-		return ListProyectil[i].GetBombY();
+	public int GetProyectilH(int i) {
+		return ListProyectil[i].GetBombH();
 	}
 
-	public void SetContador(int x)
-	{
-		contador = x;
-	}
 	
-	public int GetContador() {
-		return contador;
+	public int GetIndice() {
+		return indice;
 	}
 	
 	public String toString(int i) {
@@ -37,7 +39,7 @@ public class BombList{
 	
 	public void reset()
 	{
-		for(int i = 0; i < contador; i++)
+		for(int i = 0; i < indice; i++)
 		{
 			ListProyectil[i].reset();
 		}

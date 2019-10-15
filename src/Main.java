@@ -23,12 +23,12 @@ public class Main{
 		switch(args.length)
 		{
 		case 1:
-			//jugar(args[0], num random);
+			jugar(args[0], 101);
 			break;
 			
 		case 2:
-			System.out.println("Your first argument is: " + args[0]);  
-			//jugar(args[0], args[1].to number);
+			//System.out.println("Your first argument is: " + args[0]);  
+			jugar(args[0], Integer.parseInt(args[1]));
 			break;
 			
 		default:

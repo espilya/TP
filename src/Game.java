@@ -115,8 +115,8 @@ public class Game{
 
 	private final int damage = 1;
 	
-	private static int numRows = 9; 
-	private static int numCols = 8;
+	private static int numRows = 8; 
+	private static int numCols = 9;
 	private static int semilla;
 	private static int[] misilpos = new int[2];
 	private static double frecDisp;
@@ -135,7 +135,8 @@ public class Game{
 	
 	private static String difficulty;
 	
-	private static int[][][] board = new int[numCols][numRows][2];//[numCols][numRows][0] = valor enumerado, [numCols][numRows][1] = indice lista (en caso de que sea destroyer, regular o bomb)
+	private static int[][][] board = new int[numCols][numRows][2];
+	//[numCols][numRows][0] = valor enumerado, [numCols][numRows][1] = indice lista (en caso de que sea destroyer, regular o bomb)
 	
 	private static boolean gameOver = false;
 	private static boolean gameWin;
@@ -147,16 +148,20 @@ public class Game{
 	private static boolean HayMisil; //Hay o no un misil que no ha impactado
 	private static boolean exit;
 	
+	public Game() {
+		
+	}
+	
 	public void SetCommand(command x)
 	{
 		action = x;
 	}
 	
 	
-	public String toString(int x, int y){
+	public String toString(int v, int h){
 	
 		String aux;
-		celda = casilla.tipo(board[x][y][0]);
+		celda = casilla.tipo(board[v][h][0]);
 			
 		switch (celda)
 		{
@@ -214,6 +219,7 @@ public class Game{
 			player.setShipPos(7, 4);
 			semilla = seed;
 			
+
 			//if(numrand(de 0 a 9) < level.getProbOvni() * 10)
 			//{
 			//this.remainingAliens ++;
@@ -221,32 +227,32 @@ public class Game{
 			//HayOvni = true;
 			//}
 			
-			
 			remainingAliens += level.getNumberDestroyerShip() + level.getNumberRegularShip();
 			
-			destroyerShips.SetContador(level.getNumberDestroyerShip());
-			regularShips.SetContador(level.getNumberRegularShip());
+			bombs.initialize(level.getNumberDestroyerShip());
+			regularShips.initialize(level.getNumberRegularShip());
+			destroyerShips.initialize(level.getNumberDestroyerShip());
 			
 			switch(level.getDifficulty())
 			{
 			case easy:
-				for(int i = 0; i < 4; i++)
+				for(int i = 0; i < level.getNumberRegularShip(); i++)
 					regularShips.SetRegShip(1, 4 + i, i);
-				for(int i = 0; i < 2; i++)
+				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
 					destroyerShips.SetDestShip(2, 5 + i, i);
 				break;
 				
 			case hard:
-				for(int i = 0; i < 8; i++)
+				for(int i = 0; i < level.getNumberRegularShip(); i++)
 					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
-				for(int i = 0; i < 2; i++)
+				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
 					destroyerShips.SetDestShip(3, 4 + i, i);
 				break;
 				
 			case insane: 
-				for(int i = 0; i < 8; i++)
+				for(int i = 0; i < level.getNumberRegularShip(); i++)
 					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
-				for(int i = 0; i < 4; i++)
+				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
 					destroyerShips.SetDestShip(3, 3 + i, i);
 				break;
 			}
@@ -266,38 +272,38 @@ public class Game{
 		
 		if(player.GetHP() > 0)
 		{
-		board[player.GetShipX()][player.GetShipY()][0] = casilla.valor(casilla.UCMShip);
+		board[player.GetShipV()][player.GetShipH()][0] = casilla.valor(casilla.UCMShip);
 		}
 		
 		if(ovni.GetShipHP() > 0)
 		{
-		board[ovni.GetShipX()][ovni.GetShipY()][0] = casilla.valor(casilla.OVNI);
+		board[ovni.GetShipV()][ovni.GetShipH()][0] = casilla.valor(casilla.OVNI);
 		}
 		
-		for(int i = 0; i < bombs.GetContador(); i++)
+		for(int i = 0; i < bombs.GetIndice(); i++)
 		{
 			if(bombs.CheckBomb(i) == 1)
 			{
-				board[bombs.GetProyectilX(i)][bombs.GetProyectilY(i)][0] = casilla.valor(casilla.proyectil);
-				board[bombs.GetProyectilX(i)][bombs.GetProyectilY(i)][1] = i;
+				board[bombs.GetProyectilV(i)][bombs.GetProyectilH(i)][0] = casilla.valor(casilla.proyectil);
+				board[bombs.GetProyectilV(i)][bombs.GetProyectilH(i)][1] = i;
 			}
 		}
 		
-		for(int i = 0; i < destroyerShips.GetContador(); i++)
+		for(int i = 0; i < destroyerShips.GetIndice(); i++)
 		{
 			if(destroyerShips.GetDestShipHP(i) > 0)
 			{
-				board[destroyerShips.GetDestX(i)][destroyerShips.GetDestY(i)][0] = casilla.valor(casilla.destroyer);
-				board[destroyerShips.GetDestX(i)][destroyerShips.GetDestY(i)][1] = i;
+				board[destroyerShips.GetDestV(i)][destroyerShips.GetDestH(i)][0] = casilla.valor(casilla.destroyer);
+				board[destroyerShips.GetDestV(i)][destroyerShips.GetDestH(i)][1] = i;
 			}
 		}
 		
-		for(int i = 0; i < regularShips.GetContador(); i++)
+		for(int i = 0; i < regularShips.GetIndice(); i++)
 		{
 			if(regularShips.GetRegShipHP(i) > 0)
 			{
-				board[regularShips.GetRegX(i)][regularShips.GetRegY(i)][0] = casilla.valor(casilla.regular);
-				board[regularShips.GetRegX(i)][regularShips.GetRegY(i)][1] = i;
+				board[regularShips.GetRegV(i)][regularShips.GetRegH(i)][0] = casilla.valor(casilla.regular);
+				board[regularShips.GetRegV(i)][regularShips.GetRegH(i)][1] = i;
 			}
 		}
 	}
@@ -383,7 +389,7 @@ public class Game{
 		}
 	}
 	
-
+   
 	public boolean update()    
 	{
 		userCommand();
@@ -444,9 +450,9 @@ public class Game{
 	
 	private static void moveUCM(int i)
 	{
-		if(player.GetShipX() + i >= 0 && player.GetShipX() + i < numRows)
+		if(player.GetShipH() + i >= 0 && player.GetShipH() + i < numCols)
 		{
-			player.setShipPos(player.GetShipX() + i, player.GetShipY());
+			player.setShipPos(player.GetShipV(), player.GetShipH() + i);
 		}
 		else
 		{
@@ -460,9 +466,9 @@ public class Game{
 				{
 					i = -1;
 				}
-				if(player.GetShipX() + i >= 0 && player.GetShipX() + i < numRows)
+				if(player.GetShipH() + i >= 0 && player.GetShipH() + i < numCols)
 				{
-					player.setShipPos(player.GetShipX() + i, player.GetShipY());
+					player.setShipPos(player.GetShipV(), player.GetShipH() + i);
 				}
 			}
 		}
@@ -471,14 +477,16 @@ public class Game{
 	
 	private static void shockwave()
 	{
-		for(int i = 0; i < destroyerShips.GetContador(); i++)
+		for(int i = 0; i < destroyerShips.GetIndice(); i++)
 		{
-			destroyerShips.shipHitByUCMShip(i, player.GetHarm());
+			if(destroyerShips.GetDestShipHP(i) > 0)
+				destroyerShips.shipHitByUCMShip(i, player.GetHarm());
 		}
 		
-		for(int i = 0; i < regularShips.GetContador(); i++)
+		for(int i = 0; i < regularShips.GetIndice(); i++)
 		{
-			regularShips.shipHitByUCMShip(i, player.GetHarm());
+			if(regularShips.GetRegShipHP(i) > 0)
+				regularShips.shipHitByUCMShip(i, player.GetHarm());
 		}
 		
 		if(HayOvni)
@@ -492,61 +500,37 @@ public class Game{
 		if(!HayMisil)
 		{
 			HayMisil = true;
-			misilpos[0] = player.GetShipX();
-			misilpos[1] = player.GetShipY();
+			misilpos[0] = player.GetShipV() + 1;
+			misilpos[1] = player.GetShipH();
 		}
 	}
 	
 	public boolean Win()
 	{
 		gameWin = true;
-		for(int i = 0; i < regularShips.GetContador() && !gameWin; i++) 
-		{
-			if(regularShips.GetRegShipHP(i) > 0) 
-			{
-				gameWin = false;		
-			}
-		}
-		
-		for(int i = 0; i < destroyerShips.GetContador() && !gameWin; i++) 
-		{
-			if(destroyerShips.GetDestShipHP(i) > 0) 
-			{
-				gameWin = false;		
-			}
-		}
-		
-		if(HayOvni)
-		{
-			gameWin = false;
-		}
-		
+		if(regularShips.GetContador() > 0 || destroyerShips.GetContador() > 0 || HayOvni) 
+			gameWin = false;		
 		return gameWin;
 	}
 	
-	private static void updateBomb(){
-		for(int i = 0; i < destroyerShips.GetContador(); i++) {
-			if(destroyerShips.GetDestShipHP(i) > 0 && bombs.GetProyectilY(i) + 1 < numRows)
-			{
+	private static void updateBombs(){
+		for(int i = 0; i < destroyerShips.GetIndice(); i++) {
 				if(bombs.CheckBomb(i) == 1) {
-					bombs.SetBombsPos(bombs.GetProyectilX(i), bombs.GetProyectilY(i) + 1, i);
+					bombs.SetBombsPos(bombs.GetProyectilV(i)+1, bombs.GetProyectilH(i), i);
 				}
 				else {
-					//if(num rand(0 - 9) < FrecDisp * 10)
-					bombs.SetBombsPos(destroyerShips.GetDestX(i), destroyerShips.GetDestY(i) + 1, i);
+					if(destroyerShips.GetDestShipHP(i) > 0) {
+						//if(num rand(0 - 9) < FrecDisp * 10)
+						bombs.SetBombsPos(destroyerShips.GetDestV(i) + 1, destroyerShips.GetDestH(i), i);
+					}
 				}
-			}
-			else
-			{
-				
-			}
 		}
 	}
 	
 	private static void updateMissil() {
 		if(HayMisil) {
-			if(misilpos[1] - 1 >= 0)
-				misilpos[1] -= 1;
+			if(misilpos[0] - 1 >= 0)
+				misilpos[0] -= 1;
 			else 
 				HayMisil = false;	
 		}
@@ -554,23 +538,23 @@ public class Game{
 	
 	private static void actualizarNaves() { 
 		boolean shipsMoveDown = false;
-		for(int i = 0; i < regularShips.GetContador(); i++) {
+		for(int i = 0; i < regularShips.GetIndice(); i++) {
 			if(regularShips.GetRegShipHP(i) > 0 &&   
-					(regularShips.GetRegX(i)+vel >= numCols || regularShips.GetRegX(i)-vel < 0)) {
+					(regularShips.GetRegV(i)+vel >= numCols || regularShips.GetRegV(i)-vel < 0)) {
 				shipsMoveDown = true;
 			}
 		}
-		for(int i = 0; i<destroyerShips.GetContador(); i++) {
+		for(int i = 0; i<destroyerShips.GetIndice(); i++) {
 			if(destroyerShips.GetDestShipHP(i) > 0 &&   
-					(destroyerShips.GetDestX(i)+vel >= numCols || destroyerShips.GetDestX(i)-vel < 0) ) {
+					(destroyerShips.GetDestV(i)+vel >= numCols || destroyerShips.GetDestV(i)-vel < 0) ) {
 				shipsMoveDown = true;
 			}
 		}
 		
 		if(HayOvni)
 		{
-			ovni.setShipPos(ovni.GetShipY() - vel);
-			if(ovni.GetShipY() < 0)
+			ovni.setShipPos(ovni.GetShipH() - vel);
+			if(ovni.GetShipH() < 0)
 			{
 				HayOvni = false;
 			}
@@ -591,7 +575,7 @@ public class Game{
 	//Mirar ovni computerAction()
 	private static void computerAction() {
 		actualizarNaves();
-		updateBomb();
+		updateBombs();
 		//if(numrand(de 0 a 9) < level.getProbOvni() * 10 && !HayOvni)
 		//{
 		//this.remainingAliens ++;
@@ -602,57 +586,65 @@ public class Game{
 
 	private static void shipsDown() {
 		boolean earth = false;
-		for(int i = 0; i < regularShips.GetContador(); i++) {
-			if(regularShips.GetRegShipHP(i) > 0 && regularShips.GetRegY(i)+1 >= numRows) {
+		for(int i = 0; i < regularShips.GetIndice(); i++) {
+			if(regularShips.GetRegShipHP(i) > 0) {
 				earth = true;
 			}
 		}
-		for(int i = 0; i<destroyerShips.GetContador(); i++) {
-			if(destroyerShips.GetDestShipHP(i) > 0 && destroyerShips.GetDestY(i)+1 >= numRows) {
+		for(int i = 0; i<destroyerShips.GetIndice(); i++) {
+			if(destroyerShips.GetDestShipHP(i) > 0) {
 				earth = true;
 			}
 		}
 		if(earth)
 			gameOver = true;
+		else {
+			for(int i = 0; i < regularShips.GetIndice(); i++) {
+				regularShips.SetRegShip(regularShips.GetRegV(i)+1, regularShips.GetRegH(i), i);
+			}
+			for(int i = 0; i<destroyerShips.GetIndice(); i++) {
+				destroyerShips.SetDestShip(destroyerShips.GetDestV(i)+1, destroyerShips.GetDestH(i), i);
+			}
+		}
 	}
 	
 	private static void shipsMove() {
 		int move;
 		if(shipsDir) 
-			move = -vel;
-		else
 			move = vel;
+		else
+			move = -vel;
 		
-		for(int i = 0; i < regularShips.GetContador(); i++) 
+		for(int i = 0; i < regularShips.GetIndice(); i++) 
 		{
 			if(regularShips.GetRegShipHP(i) > 0) 
 			{
-				regularShips.SetRegShip(regularShips.GetRegX(i) + move, regularShips.GetRegY(i), i);		
+				regularShips.SetRegShip(regularShips.GetRegV(i), regularShips.GetRegH(i)+ move, i);		
 			}
 		}
 		
 		
-		for(int i = 0; i<destroyerShips.GetContador(); i++) 
+		for(int i = 0; i<destroyerShips.GetIndice(); i++) 
 		{
 			if(destroyerShips.GetDestShipHP(i) > 0) 
 			{
-				destroyerShips.SetDestShip(destroyerShips.GetDestX(i) + move, destroyerShips.GetDestY(i), i);
+				destroyerShips.SetDestShip(destroyerShips.GetDestV(i), destroyerShips.GetDestH(i)+ move, i);
 			}
 		}
 	}
 
 	private static void killedOrNot() 
 	{
-		for(int i = 0; i < bombs.GetContador(); i++) {
+		for(int i = 0; i < bombs.GetIndice(); i++) {
 			if(bombs.CheckBomb(i) == 1) {
-				if(bombs.GetProyectilX(i) == misilpos[0] && bombs.GetProyectilY(i) == misilpos[1])
+				if(bombs.GetProyectilV(i) == misilpos[0] && bombs.GetProyectilH(i) == misilpos[1])
 				{
 					HayMisil = false;
 					bombs.deletebomb(i);
 				}
 				else
 				{
-					if(bombs.GetProyectilX(i) == player.GetShipX() && bombs.GetProyectilY(i) == player.GetShipY()) 
+					if(bombs.GetProyectilV(i) == player.GetShipV() && bombs.GetProyectilH(i) == player.GetShipH()) 
 					{
 						player.shipHitByAlien();
 						bombs.deletebomb(i);
@@ -661,25 +653,25 @@ public class Game{
 			}
 		}
 		
-		for(int i = 0; i < regularShips.GetContador(); i++) 
+		for(int i = 0; i < regularShips.GetIndice(); i++) 
 		{
-			if(regularShips.GetRegShipHP(i) > 0 && misilpos[0] == regularShips.GetRegX(i) && misilpos[0] == regularShips.GetRegY(i)) 
+			if(regularShips.GetRegShipHP(i) > 0 && misilpos[0] == regularShips.GetRegV(i) && misilpos[0] == regularShips.GetRegH(i)) 
 			{
 				regularShips.shipHitByUCMShip(i, 1);
 				HayMisil = false;
 			}
 		}
 		
-		for(int i = 0; i<destroyerShips.GetContador(); i++) 
+		for(int i = 0; i<destroyerShips.GetIndice(); i++) 
 		{
-			if(destroyerShips.GetDestShipHP(i) > 0 && misilpos[0] == destroyerShips.GetDestX(i) && misilpos[0] == destroyerShips.GetDestY(i)) 
+			if(destroyerShips.GetDestShipHP(i) > 0 && misilpos[0] == destroyerShips.GetDestV(i) && misilpos[0] == destroyerShips.GetDestH(i)) 
 			{
 				destroyerShips.shipHitByUCMShip(i, 1);
 				HayMisil = false;
 			}
 		}
 		
-		if(ovni.GetShipHP() > 0 && ovni.GetShipX() == misilpos[0] && ovni.GetShipY() == misilpos[1])
+		if(ovni.GetShipHP() > 0 && ovni.GetShipV() == misilpos[0] && ovni.GetShipH() == misilpos[1])
 		{
 			ovni.shipHitByUCMShip();
 			HayOvni = false;

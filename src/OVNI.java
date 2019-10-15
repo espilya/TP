@@ -12,16 +12,16 @@ public class OVNI{
 		this.hp -= 1;
 	}
 	
-	public int GetShipX() {
+	public int GetShipH() {
 		return pos[0];
 	}
 	
-	public int GetShipY() {
+	public int GetShipV() {
 		return pos[1];
 	}
 	
-	public void setShipPos(int y) {
-		this.pos[1] = y;
+	public void setShipPos(int h) {
+		this.pos[1] = h;
 	}	
 	
 	public int GetShipHP() {

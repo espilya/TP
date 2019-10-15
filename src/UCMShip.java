@@ -14,11 +14,11 @@ public class UCMShip{
 		this.hp -= 1;
 	}
 	
-	public int GetShipX() {
+	public int GetShipV() {
 		return pos[0];
 	}
 	
-	public int GetShipY() {
+	public int GetShipH() {
 		return pos[1];
 	}
 	
@@ -36,9 +36,9 @@ public class UCMShip{
 		return harm;
 	}
 	
-	public void setShipPos(int x, int y) {
-		this.pos[0] = x;
-		this.pos[1] = y;
+	public void setShipPos(int v, int h) {
+		this.pos[0] = v;
+		this.pos[1] = h;
 	}
 	public String toString() {
 		return "^__^";

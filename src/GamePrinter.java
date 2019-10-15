@@ -1,6 +1,6 @@
 //package tp.p1.//nombre_de_paquete//;
 
-import util.MyStringUtils;
+import stringUtils.MyStringUtils;
 
 public class GamePrinter {
 	
@@ -21,7 +21,7 @@ public class GamePrinter {
 		for(int i = 0; i < numRows; i++) {
 			for(int j = 0; j < numCols; j++) {
 				board[i][j] = game.toString(i, j);
-				board[i][j] = "";
+				//board[i][j] = "";
 			}
 		}
 	}

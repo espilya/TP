@@ -10,17 +10,17 @@ public class Bomb{
 		return exist;
 	}
 
-	public int GetBombX() {
+	public int GetBombV() {
 		return pos[0];
 	}
 	
-	public int GetBombY() {
+	public int GetBombH() {
 		return pos[1];
 	}
 	
-	public void SetBombPos(int x, int y) {
-		this.pos[0] = x;
-		this.pos[1] = y;
+	public void SetBombPos(int v, int h) {
+		this.pos[0] = v;
+		this.pos[1] = h;
 	}
 	
 	public String to_string() {
