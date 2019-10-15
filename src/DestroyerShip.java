@@ -35,10 +35,6 @@ public class DestroyerShip{
 		return this.points;
 	}
 	
-	public String to_string() {
-		return "D[" + this.hp +"]";
-	}
-	
 	public void reset()
 	{
 		hp = 1;

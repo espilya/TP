@@ -6,7 +6,7 @@ con dicha partida, e invoca al m�todo run del controlador.*/
 public class Main{
 	int semilla;
 	static  Game G = new Game();
-	 static Controller controller = new Controller();
+	static Controller controller = new Controller();
 	
 	public static void main(String[] args){	
 		//GamePrinter GP = new GamePrinter(8, 9);
@@ -23,53 +23,56 @@ public class Main{
 		switch(args.length)
 		{
 		case 1:
-			Controller.run(G, args[0], -1);
+			jugar(args[0], -1);
 			break;
 			
 		case 2:
-			Controller.run(G, args[0], Integer.parseInt(args[1]));
+			jugar(args[0], Integer.parseInt(args[1]));
 			break;
 			
 		default:
-			System.out.println("Error" + "\n" + "Insuficientes argumentos para ejecutar el juego.");
+			System.out.println("Error" + "\n" + "Numero de argumentos no valido.");
 		}
 	
 	}
 	
-	//private static void jugar(String dif, int seed)
-	//{
+	private static void jugar(String dif, int seed)
+	{
 		
 		
-		//GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
-		//do
-		//{
-		//	G.initialize(dif, seed);
-		//	while(!G.Win() && !G.Exit() && !G.GameOver())
-		//	{
-		//		if(G.update())
-		//		{
-		//			G.Print();
-//					System.out.println(GP.toString(G));
-//				}
-//			}
-//			if(G.GameOver())
-//			{
-//				G.gameOverPrint();
-//			}
-//			else
-//			{
-//				if(G.Win())
-//				{
-//					G.gameWinPrint();
-//				}
-//			}
-//			
-	//	}while(true);//while(!G.Exit());
+		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
+		do
+		{
+			G.initialize(dif, seed, 8, 9);
+			G.Print();
+			System.out.println(GP.toString(G));
+			while(!G.Win() && !G.Exit() && !G.GameOver())
+			{
+				controller.run(G, dif, seed);
+				if(G.update())
+				{
+					G.Print();
+					System.out.println(GP.toString(G));
+				}
+			}
+			if(G.GameOver())
+			{
+				G.gameOverPrint();
+			}
+			else
+			{
+				if(G.Win())
+				{
+					G.gameWinPrint();
+				}
+			}
+			
+		}while(!G.Exit());
 		//System.out.println(GP.toString());
 		//Controller
 	
 		//Game
 		//Game.update
 		//Game
-	//}
+	}
 }

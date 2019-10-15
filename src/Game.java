@@ -142,7 +142,6 @@ public class Game{
 	private static boolean shipsDir = true;
 	private static boolean print;
 	private static boolean shockWave = true;
-	private static boolean update;
 	private static boolean HayOvni;
 	private static boolean HayMisil; //Hay o no un misil que no ha impactado
 	private static boolean exit;
@@ -187,11 +186,11 @@ public class Game{
 		switch (celda)
 		{
 		case destroyer:
-			aux = destroyerShips.toString();
+			aux = destroyerShips.toString(board[v][h][1]);
 			break;
 			
 		case regular:
-			aux = regularShips.toString();
+			aux = regularShips.toString(board[v][h][1]);
 			break;
 			
 		case OVNI:
@@ -207,7 +206,7 @@ public class Game{
 			break;
 			
 		case proyectil:
-			aux = bombs.toString();
+			aux = bombs.toString(board[v][h][1]);
 			break;
 			
 		case empty:
@@ -231,6 +230,8 @@ public class Game{
 		if(level.setDifficulty(dificultad))
 		{
 			x = true;
+			gameWin = false;
+			gameOver = false;
 			HayOvni = false;
 			HayMisil = false;
 			player.SetHP(3);
@@ -242,15 +243,14 @@ public class Game{
 			player.setShipPos(7, 4);
 			semilla = seed;
 			
-
+			remainingAliens = level.getNumberDestroyerShip() + level.getNumberRegularShip();
+			
 			//if(numrand(de 0 a 9) < level.getProbOvni() * 10)
 			//{
 			//this.remainingAliens ++;
 			//ovni.setShipPos(8);
 			//HayOvni = true;
 			//}
-			
-			remainingAliens += level.getNumberDestroyerShip() + level.getNumberRegularShip();
 			
 			bombs.initialize(level.getNumberDestroyerShip());
 			regularShips.initialize(level.getNumberRegularShip());
@@ -260,14 +260,16 @@ public class Game{
 			{
 			case easy:
 				for(int i = 0; i < level.getNumberRegularShip(); i++)
-					regularShips.SetRegShip(1, 4 + i, i);
+					regularShips.SetRegShip(1, 3 + i, i);
+				
 				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
-					destroyerShips.SetDestShip(2, 5 + i, i);
+					destroyerShips.SetDestShip(2, 4 + i, i);
 				break;
 				
 			case hard:
 				for(int i = 0; i < level.getNumberRegularShip(); i++)
 					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
+				
 				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
 					destroyerShips.SetDestShip(3, 4 + i, i);
 				break;
@@ -275,6 +277,7 @@ public class Game{
 			case insane: 
 				for(int i = 0; i < level.getNumberRegularShip(); i++)
 					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
+				
 				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
 					destroyerShips.SetDestShip(3, 3 + i, i);
 				break;
@@ -351,12 +354,12 @@ public class Game{
 		{
 			for(int j = 0; j < numCols; j++)
 			{
-				board[i][j][0] = -1;
+				board[i][j][0] = casilla.valor(casilla.empty);
 			}
 		}
 	}
 	
-	public void userCommand() {
+	private void userCommand() {
 		print = false;
 		switch(action){
 		case exit:
@@ -459,17 +462,22 @@ public class Game{
 	
 	private static void reset()
 	{
-//		if(initialize(difficulty, semilla))
-//		{
-//			destroyerShips.reset();
-//			regularShips.reset();
-//			bombs.reset();
-//			
-//			if(HayOvni)
-//			{
-//				ovni.reset();
-//			}
-//		}
+		if(initialize(difficulty, semilla, numRows, numCols))
+		{
+			destroyerShips.reset();
+			regularShips.reset();
+			bombs.reset();
+			player.reset();
+			
+			remainingAliens = 0;
+			nOfCycles = 0;
+			points = 0;
+			
+			shipsDir = true;
+			shockWave = true;
+			HayOvni = false;
+			HayMisil = false;
+		}
 	}
 	
 	private static void moveUCM(int i)
@@ -524,7 +532,7 @@ public class Game{
 		if(!HayMisil)
 		{
 			HayMisil = true;
-			misilpos[0] = player.GetShipV() + 1;
+			misilpos[0] = player.GetShipV();
 			misilpos[1] = player.GetShipH();
 		}
 	}

@@ -3,7 +3,7 @@
 public class Level{
 	
 //		   #Regular   #Destroyer #frecDisp  Vel       Ovni
-//	easy:        2        2        0.1        3        0.5   
+//	easy:        4        2        0.1        3        0.5   
 //	hard:        8        2        0.3        2        0.2  
 //	insane:      8        4        0.5        1        0.1
 	
@@ -48,7 +48,7 @@ public class Level{
 		switch (difficulty)
 		{
 		case easy:
-			n = 2;
+			n = 4;
 			break;
 		
 		case hard:	

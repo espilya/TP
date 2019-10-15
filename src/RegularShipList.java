@@ -53,7 +53,7 @@ public class RegularShipList{
 	}
 	
 	public String toString(int i) {
-		return "O[" + tableRegular[i].GetShipHP() +"]";
+		return "R[" + tableRegular[i].GetShipHP() +"]";
 	}
 	
 	public void reset()

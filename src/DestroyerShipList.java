@@ -52,7 +52,7 @@ public class DestroyerShipList{
 	}
 	
 	public String toString(int i) {
-		return "O[" + tableDestroyer[i].GetShipHP() +"]";
+		return "D[" + tableDestroyer[i].GetShipHP() +"]";
 	}
 	
 	public void reset()

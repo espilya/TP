@@ -34,10 +34,6 @@ public class RegularShip{
 		return this.points;
 	}
 	
-	public String to_string() {
-		return "C[" + this.hp +"]";
-	}
-	
 	public void reset()
 	{
 		hp = 3;

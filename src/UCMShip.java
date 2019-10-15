@@ -44,6 +44,11 @@ public class UCMShip{
 		return "^__^";
 	}
 	
+	public void reset()
+	{
+		hp = 3;
+	}
+	
 	
 	
 
