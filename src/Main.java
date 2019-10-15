@@ -39,23 +39,31 @@ public class Main{
 	
 	private static void jugar(String dif, int seed)
 	{
-		G.initialize(dif, seed);
 		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
-		while(!G.Exit())
+		do
 		{
+			G.initialize(dif, seed);
 			while(!G.Win() && !G.Exit() && !G.GameOver())
 			{
 				if(G.update())
 				{
-					GP.encodeGame();
+					G.Board();
+					System.out.println(GP.toString(G));
 				}
 			}
 			if(G.GameOver())
 			{
 				G.gameOverPrint();
 			}
-			G.initialize(dif, seed);
-		}
+			else
+			{
+				if(G.Win())
+				{
+					G.gameWinPrint();
+				}
+			}
+			
+		}while(!G.Exit());
 		//System.out.println(GP.toString());
 		//Controller
 	

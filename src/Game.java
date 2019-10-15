@@ -195,7 +195,7 @@ public class Game{
 		return aux;
 	}
 		
-	//Mirar ovni initialize
+	
 	public static boolean initialize(String dificultad, int seed) {
 		boolean x = false;
 		exit = false;
@@ -256,13 +256,7 @@ public class Game{
 	}
 	
 	
-	public static void Print()
-	{
-		Board();
-		GPrint.encodeGame();
-	}
-	
-	private static void Board()
+	public static void Board()
 	{
 		ResetBoard();
 		if(HayMisil)
@@ -686,6 +680,11 @@ public class Game{
 	}
 	
 	public static void gameOverPrint() 
+	{
+		
+	}
+	
+	public void gameWinPrint()
 	{
 		
 	}

@@ -8,27 +8,25 @@ public class GamePrinter {
 	int numCols;
 	String[][] board;
 	final String space = " ";
-	private Game game = new Game();
 	
 	
 	public GamePrinter (int sizeY, int sizeX) {
 		this.numRows = sizeY;
 		this.numCols = sizeX;	
-		encodeGame();
 	}
 
 	
-	public void encodeGame() { 
+	private void encodeGame(Game game) { 
 		board = new String[numRows][numCols];
-		//for(int i = 0; i < numRows; i++) {
-			//for(int j = 0; j < numCols; j++) {
-				System.out.println(toString());
-			//}
-		//}
+		for(int i = 0; i < numRows; i++) {
+			for(int j = 0; j < numCols; j++) {
+				board[i][j] = game.toString(i, j);
+			}
+		}
 	}
 	
-	public String toString() {
-
+	public String toString(Game game) {
+		encodeGame(game);
 		int cellSize = 7;
 		int marginSize = 2;
 		String vDelimiter = "|";
@@ -54,7 +52,6 @@ public class GamePrinter {
 				str.append(margin).append(vDelimiter);
 				for (int j = 0; j < numCols; j++)
 				{
-					board[i][j] = game.toString(i, j);
 					str.append(MyStringUtils.centre(board[i][j], cellSize)).append(vDelimiter);
 				}
 				if (i != numRows - 1) str.append(lineDelimiter);
