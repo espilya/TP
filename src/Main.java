@@ -43,12 +43,16 @@ public class Main{
 		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
 		while(!G.Exit())
 		{
-			while(!G.Win() && !G.Exit())
+			while(!G.Win() && !G.Exit() && !G.GameOver())
 			{
 				if(G.update())
 				{
 					GP.encodeGame();
 				}
+			}
+			if(G.GameOver())
+			{
+				G.gameOverPrint();
 			}
 			G.initialize(dif, seed);
 		}

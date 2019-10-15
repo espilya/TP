@@ -6,6 +6,7 @@ public class OVNI{
 	OVNI(){
 		this.hp = 1;
 		this.points = 25;
+		pos[0] = 0;
 	}
 	public void shipHitByUCMShip() {
 		this.hp -= 1;
@@ -19,8 +20,7 @@ public class OVNI{
 		return pos[1];
 	}
 	
-	public void setShipPos(int x, int y) {
-		this.pos[0] = x;
+	public void setShipPos(int y) {
 		this.pos[1] = y;
 	}	
 	

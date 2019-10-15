@@ -195,7 +195,7 @@ public class Game{
 		return aux;
 	}
 		
-	
+	//Mirar ovni initialize
 	public static boolean initialize(String dificultad, int seed) {
 		boolean x = false;
 		exit = false;
@@ -217,13 +217,10 @@ public class Game{
 			//if(numrand(de 0 a 9) < level.getProbOvni() * 10)
 			//{
 			//this.remainingAliens ++;
-			//ovni.setShipPos(0, 8);
+			//ovni.setShipPos(8);
 			//HayOvni = true;
 			//}
-			//else
-			//{
-			//ovni.shipHitByUCMShip(damage);
-			//}
+			
 			
 			remainingAliens += level.getNumberDestroyerShip() + level.getNumberRegularShip();
 			
@@ -547,9 +544,9 @@ public class Game{
 		}
 	}
 	
-	private static void actualizarNaves() { // falta OVNI
+	private static void actualizarNaves() { 
 		boolean shipsMoveDown = false;
-		for(int i = 0; i<regularShips.GetContador(); i++) {
+		for(int i = 0; i < regularShips.GetContador(); i++) {
 			if(regularShips.GetRegShipHP(i) > 0 &&   
 					(regularShips.GetRegX(i)+vel >= numCols || regularShips.GetRegX(i)-vel < 0)) {
 				shipsMoveDown = true;
@@ -561,6 +558,16 @@ public class Game{
 				shipsMoveDown = true;
 			}
 		}
+		
+		if(HayOvni)
+		{
+			ovni.setShipPos(ovni.GetShipY() - vel);
+			if(ovni.GetShipY() < 0)
+			{
+				HayOvni = false;
+			}
+		}
+		
 		if(shipsMoveDown) {
 			shipsDown();
 			//if(gameOver)
@@ -573,9 +580,16 @@ public class Game{
 		}
 	}
 	
+	//Mirar ovni computerAction()
 	private static void computerAction() {
 		actualizarNaves();
 		updateBomb();
+		//if(numrand(de 0 a 9) < level.getProbOvni() * 10 && !HayOvni)
+		//{
+		//this.remainingAliens ++;
+		//ovni.setShipPos(8);
+		//HayOvni = true;
+		//}
 	}
 
 	private static void shipsDown() {
@@ -661,6 +675,7 @@ public class Game{
 		{
 			ovni.shipHitByUCMShip();
 			HayOvni = false;
+			shockWave = true;
 		}
 		
 		
@@ -670,9 +685,14 @@ public class Game{
 		}
 	}
 	
-	private static void gameOverPrint() 
+	public static void gameOverPrint() 
 	{
 		
+	}
+	
+	public boolean GameOver()
+	{
+		return this.gameOver;
 	}
 	
 	public int GetNumRows()
