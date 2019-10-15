@@ -12,7 +12,7 @@
 //clases podr�n usar los m�todos de la clase Game para consultar si pueden hacer o
 //no una determinada acci�n.
 
-
+import java.util.Random;
 
 //public static final @tipo@ @NOMBRE@  = @valor@;
 
@@ -114,7 +114,6 @@ public class Game{
 	private command action;
 
 	private final int damage = 1;
-	
 	private static int numRows = 8; 
 	private static int numCols = 9;
 	private static int semilla;
@@ -131,11 +130,11 @@ public class Game{
 	private static BombList bombs = new BombList();
 	private static OVNI ovni = new OVNI();
 	private static Level level = new Level();
-	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
+	//static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 	
 	private static String difficulty;
 	
-	private static int[][][] board = new int[numCols][numRows][2];
+	private static int[][][] board;
 	//[numCols][numRows][0] = valor enumerado, [numCols][numRows][1] = indice lista (en caso de que sea destroyer, regular o bomb)
 	
 	private static boolean gameOver = false;
@@ -150,6 +149,28 @@ public class Game{
 	
 	public Game() {
 		
+	}
+	
+	private static double[] GenerateNumbers(long seed, int amount) {
+	    double[] randomList = new double[amount];
+	    for (int i=0;i<amount;i++) {
+	        Random generator = new Random(seed);
+	        randomList[i] = Math.abs((double) (generator.nextLong() % 0.001) * 10000);
+	        seed--;
+	    }
+	    return randomList;
+	}
+	
+	public static boolean yesOrNo(long seed, int prob) { 
+		double arr[] = 	GenerateNumbers(seed, prob);
+		boolean result = false;
+		int t = 0;
+		for(int i = 0; i<prob; i++) {
+			t += arr[i];
+		}
+		if(t > 10)
+			result = true;
+		return result;
 	}
 	
 	public void SetCommand(command x)
@@ -200,8 +221,10 @@ public class Game{
 		return aux;
 	}
 		
-	
-	public static boolean initialize(String dificultad, int seed) {
+	public static boolean initialize(String dificultad, int seed, int rows, int cols) {
+		numRows = rows;
+		numCols = cols;
+		board = new int[numRows][numCols][2];
 		boolean x = false;
 		exit = false;
 		difficulty = dificultad;
@@ -392,6 +415,7 @@ public class Game{
    
 	public boolean update()    
 	{
+		System.out.println(action);
 		userCommand();
 		if(print = true)
 		{
@@ -435,17 +459,17 @@ public class Game{
 	
 	private static void reset()
 	{
-		if(initialize(difficulty, semilla))
-		{
-			destroyerShips.reset();
-			regularShips.reset();
-			bombs.reset();
-			
-			if(HayOvni)
-			{
-				ovni.reset();
-			}
-		}
+//		if(initialize(difficulty, semilla))
+//		{
+//			destroyerShips.reset();
+//			regularShips.reset();
+//			bombs.reset();
+//			
+//			if(HayOvni)
+//			{
+//				ovni.reset();
+//			}
+//		}
 	}
 	
 	private static void moveUCM(int i)

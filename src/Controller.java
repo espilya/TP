@@ -16,17 +16,59 @@
 import java.util.Scanner;
 
 public class Controller { 
-	private String input;
-	private Game game = new Game();
+	private static String input;
+	static private Game game;
+	private static int numRows = 8; 
+	private static int numCols = 9;
+	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 
-	public void C_Main() { //devolver comandos al 'Game'. Para que 
+	public static void user_input() { //devolver comandos al 'Game'. Para que 
+		System.out.println("Tu siguiente comando sera:");
 		Scanner in = new Scanner(System.in); 
         input = in.next();
     	input.toLowerCase();
 		analize(input);
 	}
+	
+	public static void run(Game gameMain, String dif, int seed) {
+		game = gameMain; 
+		
 
-	private void analize(String input) {
+		//GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
+		do
+		{
+			//System.out.println("1");
+			game.initialize(dif, seed, numRows, numCols);
+			System.out.println(GPrint.toString(game));
+			//C_Main()
+			do{
+				//System.out.println("2");
+				user_input();
+				if(game.update())
+				{
+					System.out.println("3");
+					game.Print();
+					System.out.println(GPrint.toString(game));
+				}
+			}while(!game.Win() && !game.Exit() && !game.GameOver());
+			if(game.GameOver()){
+				game.gameOverPrint();
+			}
+			else if(game.Win()){
+				game.gameWinPrint();
+			}
+		
+		}while(true);
+		//System.out.println(GP.toString());
+		//Controller
+	
+		//Game
+		//Game.update
+		//Game
+		
+	}
+
+	private static void analize(String input) {
 		switch (input) {
 		
 		case "move":
@@ -85,7 +127,7 @@ public class Controller {
 	/// Below Statement used for return the first word in the sentence
     //String s = ss.next();
 	
-	private void checkMov() {  //move <left|right><1|2>
+	private static void checkMov() {  //move <left|right><1|2>
 		Scanner in = new Scanner(System.in); 
 		boolean ok = true;
 		String dir;

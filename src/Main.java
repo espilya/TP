@@ -5,11 +5,11 @@ con dicha partida, e invoca al m�todo run del controlador.*/
 
 public class Main{
 	int semilla;
-	static Game G = new Game();
-	Controller C = new Controller();
+	static  Game G = new Game();
+	 static Controller controller = new Controller();
 	
 	public static void main(String[] args){	
-		GamePrinter GP = new GamePrinter(8, 9);
+		//GamePrinter GP = new GamePrinter(8, 9);
 //			En cada ciclo del juego se realizan secuencialemente las siguientes acciones:
 //				1. Draw. Se pinta el tablero y se muestra la informaci�n del juego.
 //				2. User command. El usuario puede realizar una acci�n, por ejemplo: 	moverse lateralmente o realizar un disparo. El usuario puede no hacer nada en un ciclo y dejar
@@ -23,12 +23,11 @@ public class Main{
 		switch(args.length)
 		{
 		case 1:
-			jugar(args[0], 101);
+			Controller.run(G, args[0], -1);
 			break;
 			
 		case 2:
-			//System.out.println("Your first argument is: " + args[0]);  
-			jugar(args[0], Integer.parseInt(args[1]));
+			Controller.run(G, args[0], Integer.parseInt(args[1]));
 			break;
 			
 		default:
@@ -37,38 +36,40 @@ public class Main{
 	
 	}
 	
-	private static void jugar(String dif, int seed)
-	{
-		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
-		do
-		{
-			G.initialize(dif, seed);
-			while(!G.Win() && !G.Exit() && !G.GameOver())
-			{
-				if(G.update())
-				{
-					G.Print();
-					System.out.println(GP.toString(G));
-				}
-			}
-			if(G.GameOver())
-			{
-				G.gameOverPrint();
-			}
-			else
-			{
-				if(G.Win())
-				{
-					G.gameWinPrint();
-				}
-			}
-			
-		}while(!G.Exit());
+	//private static void jugar(String dif, int seed)
+	//{
+		
+		
+		//GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
+		//do
+		//{
+		//	G.initialize(dif, seed);
+		//	while(!G.Win() && !G.Exit() && !G.GameOver())
+		//	{
+		//		if(G.update())
+		//		{
+		//			G.Print();
+//					System.out.println(GP.toString(G));
+//				}
+//			}
+//			if(G.GameOver())
+//			{
+//				G.gameOverPrint();
+//			}
+//			else
+//			{
+//				if(G.Win())
+//				{
+//					G.gameWinPrint();
+//				}
+//			}
+//			
+	//	}while(true);//while(!G.Exit());
 		//System.out.println(GP.toString());
 		//Controller
 	
 		//Game
 		//Game.update
 		//Game
-	}
+	//}
 }

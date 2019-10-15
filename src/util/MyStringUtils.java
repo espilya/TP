@@ -1,4 +1,4 @@
-package util;
+//package MyStringUtils;
 
 public class MyStringUtils {
 	public static String repeat(String elmnt, int length) {
