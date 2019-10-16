@@ -38,11 +38,6 @@ public class RegularShipList{
 		}
 	}
 	
-	public void SetContador(int x)
-	{
-		contador = x;
-	}
-	
 	public int GetContador() {
 		return contador;
 	}
@@ -58,7 +53,7 @@ public class RegularShipList{
 	
 	public void reset()
 	{
-		for(int i = 0; i < contador; i++)
+		for(int i = 0; i < indice; i++)
 		{
 			tableRegular[i].reset();
 		}

@@ -50,12 +50,10 @@ public class BombList{
 		ListProyectil[i].reset();
 	}
 	
-	public int CheckBomb(int i) { // status==1(existe proyectil), 0 no existe
-		int status = -1;
+	public boolean CheckBomb(int i) { // status==1(existe proyectil), 0 no existe
+		boolean status = false;
 			if(ListProyectil[i].CheckBomb()) 
-				status = 1;
-			else if(!ListProyectil[i].CheckBomb())
-				status = 0;
+				status = true;
 		return status;
 	}
 	

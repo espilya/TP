@@ -17,23 +17,20 @@ import java.util.Scanner;
 
 public class Controller { 
 	private static String input;
-	static private Game game;
 	private static int numRows = 8; 
 	private static int numCols = 9;
 	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
+	static Scanner in = new Scanner(System.in); 
 
 	private static void user_input() { //devolver comandos al 'Game'. Para que 
 		System.out.println("Tu siguiente comando sera:");
-		Scanner in = new Scanner(System.in); 
         input = in.next();
     	input.toLowerCase();
-		analize(input);
 	}
 	
-	public static void run(Game gameMain, String dif, int seed) {
-		game = gameMain; 
+	public static void run(Game game, String dif, int seed) { 
 		user_input();
-		analize(input);
+		analize(game, input);
 
 		//GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
 		//do
@@ -69,12 +66,12 @@ public class Controller {
 		
 	}
 
-	private static void analize(String input) {
+	private static void analize(Game game, String input) {
 		switch (input) {
 		
 		case "move":
 		case "m":
-			checkMov();
+			checkMov(game);
 			break;
 			
 		case "shoot":
@@ -112,7 +109,8 @@ public class Controller {
 	
 			break;
 			
-		case "":
+		case "none":
+		case "n":
 			game.SetCommand(Game.command.none);
 
 			break;
@@ -128,14 +126,15 @@ public class Controller {
 	/// Below Statement used for return the first word in the sentence
     //String s = ss.next();
 	
-	private static void checkMov() {  //move <left|right><1|2>
-		Scanner in = new Scanner(System.in); 
+	private static void checkMov(Game game) {  //move <left|right><1|2>
+		
 		boolean ok = true;
 		String dir;
 		int step;
         dir = in.next();
-    	step = in.nextInt();
-        if(dir.equals("left")){
+        dir.toLowerCase();
+    	step = Integer.parseInt(in.next());
+        if(dir.equals("left") || dir.equals("l")){
         	if(step == 1)
         		game.SetCommand(Game.command.moveL1);
         	else if(step == 2) 
@@ -143,7 +142,7 @@ public class Controller {
         	else
         		ok = false;
         }
-        else if(dir.equals("right")){
+        else if(dir.equals("right") || dir.equals("r")){
         	if(step == 1)
         		game.SetCommand(Game.command.moveR1);
         	else if(step == 2) 

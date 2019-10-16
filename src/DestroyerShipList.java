@@ -37,11 +37,6 @@ public class DestroyerShipList{
 		return tableDestroyer[i].GetShipHP();
 	}
 	
-	public void SetContador(int x)
-	{
-		contador = x;
-	}
-	
 	public int GetContador() {
 		return contador;
 	}
@@ -57,7 +52,7 @@ public class DestroyerShipList{
 	
 	public void reset()
 	{
-		for(int i = 0; i < contador; i++)
+		for(int i = 0; i < indice; i++)
 		{
 			tableDestroyer[i].reset();
 		}
