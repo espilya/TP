@@ -2,6 +2,7 @@ public class DestroyerShip{
 	private int pos[] = new int[2];
 	private int hp;
 	private int points;
+	private boolean HaDisparado;
 	
 	
 	//rand
@@ -38,5 +39,10 @@ public class DestroyerShip{
 	public void reset()
 	{
 		hp = 1;
+	}
+	
+	public boolean HaDisparado()
+	{
+		return HaDisparado;
 	}
 }

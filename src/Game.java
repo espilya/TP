@@ -237,7 +237,7 @@ public class Game{
 			
 			if(rand.nextInt(10) < level.getProbOvni() * 10)
 			{
-			remainingAliens ++;
+			remainingAliens++;
 			ovni.setShipPos(8);
 			HayOvni = true;
 			}
@@ -375,7 +375,7 @@ public class Game{
 			print = true;
 			switch(action)
 			{
-			case moveL1:
+				case moveL1:
 					moveUCM(-1);
 				break;
 				
@@ -412,11 +412,14 @@ public class Game{
 		userCommand();
 		if(print = true)
 		{
+			nOfCycles++;
 			updateMissil();
 			killedOrNot(); 	//comprueba estado
-			computerAction(); // actualiza mov naves/proyectiles
-			killedOrNot(); 	  //comprueba estado
-			nOfCycles++;
+			if((nOfCycles - 1) % vel == 0)
+			{
+				computerAction(); // actualiza mov naves/proyectiles
+				killedOrNot(); 
+			}//comprueba estado
 		}
 		
 //		1. Draw.
@@ -580,9 +583,9 @@ public class Game{
 		boolean shipsMoveDown = false;
 		int move;
 		if(shipsDir) 
-			move = vel;
+			move = 1;
 		else
-			move = -vel;
+			move = -1;
 		for(int i = 0; i < regularShips.GetIndice(); i++) {
 			if(regularShips.GetRegShipHP(i) > 0 &&   
 					(regularShips.GetRegH(i) + move >= numCols || regularShips.GetRegH(i) + move < 0)) {
@@ -598,9 +601,9 @@ public class Game{
 		
 		if(HayOvni)
 		{
-			if(ovni.GetShipH() - vel >= 0)
+			if(ovni.GetShipH() - 1 >= 0)
 			{
-				ovni.setShipPos(ovni.GetShipH() - vel);
+				ovni.setShipPos(ovni.GetShipH() - 1);
 			}
 			else
 			{
@@ -625,7 +628,7 @@ public class Game{
 		updateBombs();
 		if(!HayOvni && rand.nextInt(10) < level.getProbOvni() * 10)
 		{
-		remainingAliens ++;
+		remainingAliens++;
 		ovni.setShipPos(8);
 		HayOvni = true;
 		}
@@ -658,9 +661,9 @@ public class Game{
 	private static void shipsMove() {
 		int move;
 		if(shipsDir) 
-			move = vel;
+			move = 1;
 		else
-			move = -vel;
+			move = -1;
 		
 		for(int i = 0; i < regularShips.GetIndice(); i++) 
 		{

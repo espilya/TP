@@ -3,7 +3,7 @@ public class Bomb{
 	private boolean exist;
 	
 	Bomb(){
-		exist = true;
+		exist = false;
 	}
 	
 	public boolean CheckBomb() {

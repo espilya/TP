@@ -14,10 +14,7 @@ public class BombList{
 	
 	public void SetBombsPos(int v, int h, int i) {
 		ListProyectil[i].SetBombPos(v, h);
-		if(v == -1 && h == -1) 
-			ListProyectil[i].reset();
-		else
-			ListProyectil[i].noReset();
+		ListProyectil[i].noReset();
 	}
 	
 	public int GetProyectilV(int i) {
