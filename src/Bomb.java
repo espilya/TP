@@ -2,7 +2,9 @@ public class Bomb{
 	private int pos[] = new int[2];
 	private boolean exist;
 	
-	Bomb(){
+	Bomb(int v, int h){
+		this.pos[0] = v;
+		this.pos[1] = h;
 		exist = false;
 	}
 	
@@ -31,7 +33,7 @@ public class Bomb{
 	{
 		exist = false;
 	}
-	public void noReset()
+	public void bombExist()
 	{
 		exist = true;
 	}

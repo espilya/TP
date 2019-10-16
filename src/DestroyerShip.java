@@ -41,7 +41,7 @@ public class DestroyerShip{
 		hp = 1;
 	}
 	
-	public boolean HaDisparado()
+	public boolean GetHaDisparado()
 	{
 		return HaDisparado;
 	}

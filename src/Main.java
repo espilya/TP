@@ -7,7 +7,6 @@ public class Main{
 	int semilla;
 	static  Game G = new Game();
 	static Controller controller = new Controller();
-	
 	public static void main(String[] args){	
 		//GamePrinter GP = new GamePrinter(8, 9);
 //			En cada ciclo del juego se realizan secuencialemente las siguientes acciones:
@@ -38,8 +37,7 @@ public class Main{
 	
 	private static void jugar(String dif, int seed)
 	{
-		
-		
+		boolean exit;
 		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
 		do
 		{
@@ -66,13 +64,9 @@ public class Main{
 					G.gameWinPrint();
 				}
 			}
-			
-		}while(!G.Exit());
-		//System.out.println(GP.toString());
-		//Controller
-	
-		//Game
-		//Game.update
-		//Game
+			exit = G.Exit();
+			if(!exit)
+				exit = controller.continuar();
+		}while(exit);
 	}
 }

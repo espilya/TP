@@ -1,20 +1,11 @@
 
 
-//Encapsula la lï¿½gica del juego. Tiene, entre otros, el mï¿½todo update que actualiza el 
-//estado de todos los elementos del juego. Contiene una instancia de RegularShipList, una 
-//DestroyerShipList y una BombList, entre otras instancias de objetos.
-
-//Tambiï¿½n mantiene el contador de ciclos y la puntuaciï¿½n del jugador. Entre otros,
-//tiene un atributo privado Random rand para genera los valores aleatorios.
-//Tambiï¿½n es posible que alguna de estas clases necesite un atributo en el que almacenan 
-//el juego, eso es, una instancia de la clase Game (que serï¿½ la ï¿½nica en el
-//programa) y que, como veremos, contiene la lï¿½gica del juego. De este modo, estas
-//clases podrï¿½n usar los mï¿½todos de la clase Game para consultar si pueden hacer o
-//no una determinada acciï¿½n.
+//TODO:
+//	-Representacion de help,list,error sin imprimir el tablero ??
+//	-Mejor represetacion de Win y GameOver
+//	-Arreglar los static, non-static
 
 import java.util.Random;
-
-//public static final @tipo@ @NOMBRE@  = @valor@;
 
 public class Game{
 	
@@ -113,7 +104,6 @@ public class Game{
 	private casilla celda;
 	private command action;
 
-	private final int damage = 1;
 	private static int numRows = 8; 
 	private static int numCols = 9;
 	private static int semilla;
@@ -235,12 +225,12 @@ public class Game{
 			
 			remainingAliens = level.getNumberDestroyerShip() + level.getNumberRegularShip();
 			
-			if(rand.nextInt(10) < level.getProbOvni() * 10)
-			{
-			remainingAliens++;
-			ovni.setShipPos(8);
-			HayOvni = true;
-			}
+//			if(rand.nextInt(10) < level.getProbOvni() * 10)
+//			{
+//			remainingAliens++;
+//			ovni.setShipPos(8);
+//			HayOvni = true;
+//			}
 			
 			bombs.initialize(level.getNumberDestroyerShip());
 			regularShips.initialize(level.getNumberRegularShip());
@@ -405,39 +395,36 @@ public class Game{
 		}
 	}
 	
-   
 	public boolean update()    
 	{
+		gameOver = true;
 		System.out.println(action);
 		userCommand();
 		if(print = true)
 		{
 			nOfCycles++;
 			updateMissil();
-			killedOrNot(); 	//comprueba estado
+			killedOrNot(); 
+			updateBombs();
+			updateOVNI();
+			killedOrNot(); 
 			if((nOfCycles - 1) % vel == 0)
 			{
-				computerAction(); // actualiza mov naves/proyectiles
+				updateNaves();
 				killedOrNot(); 
-			}//comprueba estado
+			}
 		}
-		
-//		1. Draw.
-//		2. User command. El usuario puede realizar una acciï¿½n, por ejemplo: 	moverse lateralmente o realizar un disparo. El usuario puede no hacer nada en un ciclo y dejar
-//			pasar el tiempo.
-//		3. Computer action. El ordenador puede decidir si una nave destructora realiza un
-//			disparo o si aparece un ovni (ver mï¿½s adelante) en la primera fila del tablero.
-//		4. Update. Se actualizan los objetos que estï¿½n en el tablero.
-//		3. Computer action. El ordenador puede decidir si una nave destructora realiza un
-//			disparo o si aparece un ovni (ver mï¿½s adelante) en la primera fila del tablero.
 		return print;
 	}
 	
 	private static String help() {
-		return "move <left|right><1|2>: Moves UCM-Ship to the indicated direction.\n"
-		+ "shoot: UCM-Ship launches a missile.\n" + "shockWave: UCM-Ship releases a shock wave.\n"
-		+ "list: Prints the list of available ships.\n" + "reset: Starts a new game.\n"
-		+ "help: Prints this help message.\n" + "exit: Terminates the program.\n"
+		return "[M]ove <left|right><1|2>: Moves UCM-Ship to the indicated direction.\n"
+		+ "[S]hoot: UCM-Ship launches a missile.\n" 
+		+ "shock[W]ave: UCM-Ship releases a shock wave.\n"
+		+ "[L]ist: Prints the list of available ships.\n" 
+		+ "[R]eset: Starts a new game.\n"
+		+ "[H]elp: Prints this help message.\n" 
+		+ "[E]xit: Terminates the program.\n"
 		+ "[none]: Skips one cycle.\r\n";
 	}
 	
@@ -450,7 +437,7 @@ public class Game{
 		return "[R]egular Ship: Points - 5, Harm - 0, Shield - 3 \n" +
 			   "[D]estroyer Ship: Points - 10, Harm - 1, Shield - 1 \n" +
 			   "[O]vni: Points - 25, Harm - 0, Shield - 1 \n" + 
-			   "^__^: Harm: 1 - Shield: 3";
+			   "^__^: Harm: 1 - Shield: 3\n";
 	}
 	
 	private static void reset()
@@ -459,7 +446,7 @@ public class Game{
 		{
 			destroyerShips.reset();
 			regularShips.reset();
-			bombs.reset();
+			bombs.deleteBombs();
 			player.reset();
 			
 			remainingAliens = 0;
@@ -558,12 +545,12 @@ public class Game{
 					}
 					else
 					{
-						bombs.deletebomb(i);
+						bombs.deleteBomb(i);
 					}
 						
 				}
 				else {
-					if(destroyerShips.GetDestShipHP(i) > 0 && rand.nextInt(10) < frecDisp * 10) {
+					if(destroyerShips.GetDestShipHP(i) > 0 && (rand.nextInt(10) < (frecDisp * 10))) {
 						bombs.SetBombsPos(destroyerShips.GetDestV(i) + 1, destroyerShips.GetDestH(i), i);
 					}
 				}
@@ -579,7 +566,7 @@ public class Game{
 		}
 	}
 	
-	private static void actualizarNaves() { 
+	private static void updateNaves() { 
 		boolean shipsMoveDown = false;
 		int move;
 		if(shipsDir) 
@@ -599,6 +586,25 @@ public class Game{
 			}
 		}
 		
+		
+		if(shipsMoveDown) {
+			shipsDown();
+			shipsDir = !shipsDir;
+		}
+		else
+		{
+			shipsMove();
+		}
+	}
+	
+	private static void updateOVNI() {
+		if(!HayOvni && rand.nextInt(10) < level.getProbOvni() * 10)
+		{
+		remainingAliens++;
+		ovni.setShipPos(8);
+		HayOvni = true;
+		}
+		
 		if(HayOvni)
 		{
 			if(ovni.GetShipH() - 1 >= 0)
@@ -611,26 +617,6 @@ public class Game{
 				remainingAliens --;
 			}
 			
-		}
-		
-		if(shipsMoveDown) {
-			shipsDown();
-			shipsDir = !shipsDir;
-		}
-		else
-		{
-			shipsMove();
-		}
-	}
-	
-	private static void computerAction() {
-		actualizarNaves();
-		updateBombs();
-		if(!HayOvni && rand.nextInt(10) < level.getProbOvni() * 10)
-		{
-		remainingAliens++;
-		ovni.setShipPos(8);
-		HayOvni = true;
 		}
 	}
 
@@ -690,15 +676,14 @@ public class Game{
 				if(bombs.GetProyectilV(i) == misilpos[0] && bombs.GetProyectilH(i) == misilpos[1])
 				{
 					HayMisil = false;
-					bombs.deletebomb(i);
+					bombs.deleteBomb(i);
 				}
 				else
 				{
 					if(bombs.GetProyectilV(i) == player.GetShipV() && bombs.GetProyectilH(i) == player.GetShipH()) 
 					{
-						//por algun motivo hace 2 de daño
 						player.shipHitByAlien();
-						bombs.deletebomb(i);
+						bombs.deleteBomb(i);
 					}
 				}
 			}
@@ -706,7 +691,7 @@ public class Game{
 		
 		for(int i = 0; i < regularShips.GetIndice(); i++) 
 		{
-			if(HayMisil && regularShips.GetRegShipHP(i) > 0 && misilpos[0] == regularShips.GetRegV(i) && misilpos[0] == regularShips.GetRegH(i)) 
+			if(HayMisil && regularShips.GetRegShipHP(i) > 0 && misilpos[0] == regularShips.GetRegV(i) && misilpos[1] == regularShips.GetRegH(i)) 
 			{
 				regularShips.shipHitByUCMShip(i, 1);
 				HayMisil = false;
@@ -719,7 +704,7 @@ public class Game{
 		
 		for(int i = 0; i<destroyerShips.GetIndice(); i++) 
 		{
-			if(HayMisil && destroyerShips.GetDestShipHP(i) > 0 && misilpos[0] == destroyerShips.GetDestV(i) && misilpos[0] == destroyerShips.GetDestH(i)) 
+			if(HayMisil && destroyerShips.GetDestShipHP(i) > 0 && misilpos[0] == destroyerShips.GetDestV(i) && misilpos[1] == destroyerShips.GetDestH(i)) 
 			{
 				destroyerShips.shipHitByUCMShip(i, 1);
 				HayMisil = false;
@@ -732,6 +717,7 @@ public class Game{
 			ovni.shipHitByUCMShip();
 			HayOvni = false;
 			shockWave = true;
+			HayMisil = false;
 			remainingAliens--;
 		}
 		
@@ -742,9 +728,10 @@ public class Game{
 		}
 	}
 	
+	
 	public static void gameOverPrint() 
 	{
-		String texto = "\n\n HA PERDIDO \n\n";
+		String texto = "\n\n\n\n\n\n HAS PERDIDO \n\n\n\n\n\n";
 		System.out.println(texto);
 	}
 	
@@ -756,7 +743,7 @@ public class Game{
 	
 	public boolean GameOver()
 	{
-		return this.gameOver || remainingAliens == 0;
+		return (player.GetHP() == 0 || gameOver);
 	}
 	
 	public int GetNumRows()

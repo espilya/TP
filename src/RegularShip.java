@@ -36,6 +36,6 @@ public class RegularShip{
 	
 	public void reset()
 	{
-		hp = 3;
+		hp = 2;
 	}
 }

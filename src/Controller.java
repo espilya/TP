@@ -21,49 +21,31 @@ public class Controller {
 	private static int numCols = 9;
 	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 	static Scanner in = new Scanner(System.in); 
+	static final String str = "\n\n\n\n\n\n\n\n";
 
 	private static void user_input() { //devolver comandos al 'Game'. Para que 
-		System.out.println("Tu siguiente comando sera:");
+		System.out.print(">"); //>
         input = in.next();
-    	input.toLowerCase();
+    	input = input.toLowerCase();
+	}
+	
+	public static boolean continuar() { //devolver comandos al 'Game'. Para que 
+		boolean answer;
+		System.out.print(str);
+		System.out.print("Desea continuar con el juego? (y/n)\n>");
+		System.out.print(">"); //>
+		String inp = in.next();
+    	inp = input.toLowerCase();
+        if(inp.equals("y"))
+        	answer = true;
+        else
+        	answer = false;
+        return answer;
 	}
 	
 	public static void run(Game game, String dif, int seed) { 
 		user_input();
 		analize(game, input);
-
-		//GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
-		//do
-		//{
-			//System.out.println("1");
-			//game.initialize(dif, seed, numRows, numCols);
-			//System.out.println(GPrint.toString(game));
-			//C_Main()
-			//do{
-				//System.out.println("2");
-			//	user_input();
-			//	if(game.update())
-			//	{
-			//		System.out.println("3");
-			//		game.Print();
-			//		System.out.println(GPrint.toString(game));
-			//	}
-			//}while(!game.Win() && !game.Exit() && !game.GameOver());
-			//if(game.GameOver()){
-			//	game.gameOverPrint();
-			//}
-			//else if(game.Win()){
-			//7	game.gameWinPrint();
-			//}
-		
-		//}while(true);
-		//System.out.println(GP.toString());
-		//Controller
-	
-		//Game
-		//Game.update
-		//Game
-		
 	}
 
 	private static void analize(Game game, String input) {
@@ -111,11 +93,14 @@ public class Controller {
 			
 		case "none":
 		case "n":
+		case "":
+		case " ":
 			game.SetCommand(Game.command.none);
 
 			break;
 
 		default: // error
+			//game.SetCommand(Game.command.none);
 			game.SetCommand(Game.command.error);
 
 		}
