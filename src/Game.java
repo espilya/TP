@@ -502,18 +502,29 @@ public class Game{
 		for(int i = 0; i < destroyerShips.GetIndice(); i++)
 		{
 			if(destroyerShips.GetDestShipHP(i) > 0)
+			{
 				destroyerShips.shipHitByUCMShip(i, player.GetHarm());
+				remainingAliens--;
+			}
+			
 		}
 		
 		for(int i = 0; i < regularShips.GetIndice(); i++)
 		{
 			if(regularShips.GetRegShipHP(i) > 0)
+			{
 				regularShips.shipHitByUCMShip(i, player.GetHarm());
+				if(regularShips.GetRegShipHP(i) == 0)
+				{
+					remainingAliens--;
+				}
+			}
 		}
 		
 		if(HayOvni)
 		{
 			ovni.shipHitByUCMShip();
+			remainingAliens--;
 		}
 	}
 	
@@ -742,7 +753,7 @@ public class Game{
 	
 	public boolean GameOver()
 	{
-		return this.gameOver;
+		return this.gameOver || remainingAliens == 0;
 	}
 	
 	public int GetNumRows()
