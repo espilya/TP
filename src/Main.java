@@ -37,7 +37,6 @@ public class Main{
 	
 	private static void jugar(String dif, int seed)
 	{
-		boolean exit;
 		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
 		do
 		{
@@ -46,7 +45,9 @@ public class Main{
 			System.out.println(GP.toString(G));
 			while(!G.Win() && !G.Exit() && !G.GameOver())
 			{
-				controller.run(G, dif, seed);
+				do {
+				controller.run(G, seed);
+				}while(G.HayError());
 				if(G.update())
 				{
 					G.Print();
@@ -64,9 +65,6 @@ public class Main{
 					G.gameWinPrint();
 				}
 			}
-			exit = G.Exit();
-			if(!exit)
-				exit = controller.continuar();
-		}while(exit);
+		}while(!G.Exit() && controller.continuar());
 	}
 }

@@ -43,7 +43,7 @@ public class Controller {
         return answer;
 	}
 	
-	public static void run(Game game, String dif, int seed) { 
+	public static void run(Game game, int seed) { 
 		user_input();
 		analize(game, input);
 	}

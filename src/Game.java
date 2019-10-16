@@ -130,7 +130,6 @@ public class Game{
 	//[numCols][numRows][0] = valor enumerado, [numCols][numRows][1] = indice lista (en caso de que sea destroyer, regular o bomb)
 	
 	private static boolean gameOver = false;
-	private static boolean gameWin;
 	private static boolean shipsDir = true;
 	private static boolean print;
 	private static boolean shockWave = true;
@@ -147,6 +146,11 @@ public class Game{
 	public void SetCommand(command x)
 	{
 		action = x;
+	}
+	
+	public boolean HayError()
+	{
+		return action == command.error;
 	}
 	
 	
@@ -211,7 +215,6 @@ public class Game{
 		{
 			x = true;
 			shipsDir = false;
-			gameWin = false;
 			gameOver = false;
 			HayOvni = false;
 			HayMisil = false;
@@ -225,12 +228,12 @@ public class Game{
 			
 			remainingAliens = level.getNumberDestroyerShip() + level.getNumberRegularShip();
 			
-//			if(rand.nextInt(10) < level.getProbOvni() * 10)
-//			{
-//			remainingAliens++;
-//			ovni.setShipPos(8);
-//			HayOvni = true;
-//			}
+			if(rand.nextInt(10) < level.getProbOvni() * 10)
+			{
+				remainingAliens++;
+				ovni.setShipPos(8);
+				HayOvni = true;
+			}
 			
 			bombs.initialize(level.getNumberDestroyerShip());
 			regularShips.initialize(level.getNumberRegularShip());
@@ -281,7 +284,7 @@ public class Game{
 		board[player.GetShipV()][player.GetShipH()][0] = casilla.valor(casilla.UCMShip);
 		}
 		
-		if(ovni.GetShipHP() > 0)
+		if(HayOvni)
 		{
 		board[ovni.GetShipV()][ovni.GetShipH()][0] = casilla.valor(casilla.OVNI);
 		}
@@ -397,7 +400,6 @@ public class Game{
 	
 	public boolean update()    
 	{
-		gameOver = true;
 		System.out.println(action);
 		userCommand();
 		if(print = true)
@@ -405,11 +407,12 @@ public class Game{
 			nOfCycles++;
 			updateMissil();
 			killedOrNot(); 
-			updateBombs();
-			updateOVNI();
-			killedOrNot(); 
+			
 			if((nOfCycles - 1) % vel == 0)
 			{
+				updateBombs();
+				killedOrNot(); 
+				updateOVNI();
 				updateNaves();
 				killedOrNot(); 
 			}
@@ -530,10 +533,7 @@ public class Game{
 	
 	public boolean Win()
 	{
-		gameWin = true;
-		if(regularShips.GetContador() > 0 || destroyerShips.GetContador() > 0 || HayOvni) 
-			gameWin = false;		
-		return gameWin;
+		return remainingAliens == 0;
 	}
 	
 	private static void updateBombs(){
@@ -598,13 +598,7 @@ public class Game{
 	}
 	
 	private static void updateOVNI() {
-		if(!HayOvni && rand.nextInt(10) < level.getProbOvni() * 10)
-		{
-		remainingAliens++;
-		ovni.setShipPos(8);
-		HayOvni = true;
-		}
-		
+
 		if(HayOvni)
 		{
 			if(ovni.GetShipH() - 1 >= 0)
@@ -617,6 +611,16 @@ public class Game{
 				remainingAliens --;
 			}
 			
+		}
+		else
+		{
+			if(rand.nextInt(10) < level.getProbOvni() * 10)
+			{
+				remainingAliens++;
+				ovni.reset();
+				ovni.setShipPos(8);
+				HayOvni = true;
+			}
 		}
 	}
 
@@ -712,19 +716,13 @@ public class Game{
 			}
 		}
 		
-		if(HayMisil && ovni.GetShipHP() > 0 && ovni.GetShipV() == misilpos[0] && ovni.GetShipH() == misilpos[1])
+		if(HayMisil && HayOvni && ovni.GetShipHP() > 0 && ovni.GetShipV() == misilpos[0] && ovni.GetShipH() == misilpos[1])
 		{
 			ovni.shipHitByUCMShip();
 			HayOvni = false;
 			shockWave = true;
 			HayMisil = false;
 			remainingAliens--;
-		}
-		
-		
-		if(player.GetHP() == 0)
-		{
-			gameOver = true;
 		}
 	}
 	
