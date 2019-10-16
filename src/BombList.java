@@ -8,15 +8,12 @@ public class BombList{
 	public void initialize(int n){
 		indice = n; 
 		for(int i = 0; i < n; i++) {
-		//	ListProyectil[i] = new Bomb();
+			ListProyectil[i] = new Bomb();
 		}
 	}
 	
 	public void SetBombsPos(int v, int h, int i) {
-		if(ListProyectil[i] == null)
-			ListProyectil[i] = new Bomb(v, h);
-		else
-			ListProyectil[i].SetBombPos(v, h);
+		ListProyectil[i].SetBombPos(v, h);
 		ListProyectil[i].bombExist();
 	}
 	
@@ -40,21 +37,22 @@ public class BombList{
 	
 	public void deleteBombs()
 	{
-		for(int i = 0; i<indice; i++) {
+		for(int i = 0; i < indice; i++) {
 			ListProyectil[i].reset();
 		}
 	}
 	
 	public void deleteBomb(int i)
 	{
-		ListProyectil[i] = null;
+		//ListProyectil[i] = null;
+		ListProyectil[i].reset();
 	}
 	
 	public boolean CheckBomb(int i) {
-		boolean status = false;
-		if(ListProyectil[i] != null && ListProyectil[i].CheckBomb()) 
-			status = true;
-		return status;
+		//boolean status = false;
+		//if(ListProyectil[i] != null && ListProyectil[i].CheckBomb()) 
+			//status = true;
+		return ListProyectil[i].CheckBomb();
 	}
 	
 

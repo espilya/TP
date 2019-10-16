@@ -1,10 +1,8 @@
 public class Bomb{
 	private int pos[] = new int[2];
-	private boolean exist;
+	private boolean exist = false;
 	
-	Bomb(int v, int h){
-		this.pos[0] = v;
-		this.pos[1] = h;
+	Bomb(){
 		exist = false;
 	}
 	

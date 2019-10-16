@@ -38,33 +38,36 @@ public class Main{
 	private static void jugar(String dif, int seed)
 	{
 		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
-		do
+		if(G.initialize(dif, seed, 8, 9))
 		{
-			G.initialize(dif, seed, 8, 9);
-			G.Print();
-			System.out.println(GP.toString(G));
-			while(!G.Win() && !G.Exit() && !G.GameOver())
+			do
 			{
-				do {
-				controller.run(G, seed);
-				}while(G.HayError());
-				if(G.update())
+				G.reset();
+				G.Print();
+				System.out.println(GP.toString(G));
+				while(!G.Win() && !G.Exit() && !G.GameOver())
 				{
-					G.Print();
-					System.out.println(GP.toString(G));
+					do {
+						controller.run(G, seed);
+					}while(G.HayError());
+					if(G.update())
+					{
+						G.Print();
+						System.out.println(GP.toString(G));
+					}
 				}
-			}
-			if(G.GameOver())
-			{
-				G.gameOverPrint();
-			}
-			else
-			{
-				if(G.Win())
+				if(G.GameOver())
 				{
-					G.gameWinPrint();
+					G.gameOverPrint();
 				}
-			}
-		}while(!G.Exit() && controller.continuar());
+				else
+				{
+					if(G.Win())
+					{
+						G.gameWinPrint();
+					}
+				}
+			}while(!G.Exit() && controller.continuar());
+		}
 	}
 }

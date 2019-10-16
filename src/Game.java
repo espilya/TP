@@ -209,64 +209,17 @@ public class Game{
 		numCols = cols;
 		board = new int[numRows][numCols][2];
 		boolean x = false;
-		exit = false;
 		difficulty = dificultad;
 		if(level.setDifficulty(dificultad))
 		{
 			x = true;
-			shipsDir = false;
-			gameOver = false;
-			HayOvni = false;
-			HayMisil = false;
-			player.SetHP(3);
-			points = 0;
-			shockWave = true;
-			nOfCycles = 1;
 			vel = level.getVelocidad();
 			frecDisp = level.getFrecDisparo();
-			player.setShipPos(7, 4);
-			
-			remainingAliens = level.getNumberDestroyerShip() + level.getNumberRegularShip();
-			
-			if(rand.nextInt(10) < level.getProbOvni() * 10)
-			{
-				remainingAliens++;
-				ovni.setShipPos(8);
-				HayOvni = true;
-			}
 			
 			bombs.initialize(level.getNumberDestroyerShip());
 			regularShips.initialize(level.getNumberRegularShip());
 			destroyerShips.initialize(level.getNumberDestroyerShip());
-			
-			switch(level.getDifficulty())
-			{
-			case easy:
-				for(int i = 0; i < level.getNumberRegularShip(); i++)
-					regularShips.SetRegShip(1, 3 + i, i);
-				
-				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
-					destroyerShips.SetDestShip(2, 4 + i, i);
-				break;
-				
-			case hard:
-				for(int i = 0; i < level.getNumberRegularShip(); i++)
-					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
-				
-				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
-					destroyerShips.SetDestShip(3, 4 + i, i);
-				break;
-				
-			case insane: 
-				for(int i = 0; i < level.getNumberRegularShip(); i++)
-					regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
-				
-				for(int i = 0; i < level.getNumberDestroyerShip(); i++)
-					destroyerShips.SetDestShip(3, 3 + i, i);
-				break;
-			}
 		}
-		
 		return x;
 	}
 	
@@ -331,7 +284,7 @@ public class Game{
 		Board();
 	}
 	
-	private static void ResetBoard() 
+	public static void ResetBoard() 
 	{
 		for(int i = 0; i < numRows; i++)
 		{
@@ -400,9 +353,10 @@ public class Game{
 	
 	public boolean update()    
 	{
+		boolean aux;
 		System.out.println(action);
 		userCommand();
-		if(print = true)
+		if(print)
 		{
 			nOfCycles++;
 			updateMissil();
@@ -443,24 +397,58 @@ public class Game{
 			   "^__^: Harm: 1 - Shield: 3\n";
 	}
 	
-	private static void reset()
+	public static void reset()
 	{
-		if(initialize(difficulty, semilla, numRows, numCols))
+		regularShips.reset();
+		destroyerShips.reset();
+		bombs.deleteBombs();
+		
+		exit = false;
+		shipsDir = false;
+		gameOver = false;
+		HayOvni = false;
+		HayMisil = false;
+		player.SetHP(3);
+		points = 0;
+		shockWave = true;
+		nOfCycles = 1;
+		player.setShipPos(7, 4);
+		
+		remainingAliens = level.getNumberDestroyerShip() + level.getNumberRegularShip();
+		
+		if(rand.nextInt(10) < level.getProbOvni() * 10)
 		{
-			destroyerShips.reset();
-			regularShips.reset();
-			bombs.deleteBombs();
-			player.reset();
-			
-			remainingAliens = 0;
-			nOfCycles = 0;
-			points = 0;
-			
-			shipsDir = true;
-			shockWave = true;
-			HayOvni = false;
-			HayMisil = false;
+			remainingAliens++;
+			ovni.setShipPos(8);
+			HayOvni = true;
 		}
+		
+		switch(level.getDifficulty())
+		{
+		case easy:
+			for(int i = 0; i < level.getNumberRegularShip(); i++)
+				regularShips.SetRegShip(1, 3 + i, i);
+			
+			for(int i = 0; i < level.getNumberDestroyerShip(); i++)
+				destroyerShips.SetDestShip(2, 4 + i, i);
+			break;
+			
+		case hard:
+			for(int i = 0; i < level.getNumberRegularShip(); i++)
+				regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
+			
+			for(int i = 0; i < level.getNumberDestroyerShip(); i++)
+				destroyerShips.SetDestShip(3, 4 + i, i);
+			break;
+			
+		case insane: 
+			for(int i = 0; i < level.getNumberRegularShip(); i++)
+				regularShips.SetRegShip((i / 4) + 1, (i % 4) + 3, i);
+			
+			for(int i = 0; i < level.getNumberDestroyerShip(); i++)
+				destroyerShips.SetDestShip(3, 3 + i, i);
+			break;
+		}	
 	}
 	
 	private static void moveUCM(int i)
@@ -516,6 +504,7 @@ public class Game{
 		
 		if(HayOvni)
 		{
+			HayOvni = false;
 			ovni.shipHitByUCMShip();
 			remainingAliens--;
 		}
