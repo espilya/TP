@@ -22,14 +22,16 @@ public class Controller {
 	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 	static Scanner in = new Scanner(System.in); 
 	static final String str = "\n\n\n\n\n\n\n\n";
+	private static boolean print;
+	private static boolean exit;
 
-	private static void user_input() { //devolver comandos al 'Game'. Para que 
-		System.out.print(">"); //>
+	private static void user_input() { 
+		System.out.print(">"); 
         input = in.next();
     	input = input.toLowerCase();
 	}
 	
-	public static boolean continuar() { //devolver comandos al 'Game'. Para que 
+	public static boolean continuar() { 
 		boolean answer;
 		System.out.print(str);
 		System.out.print("Desea continuar con el juego? (y/n)\n>");
@@ -43,66 +45,74 @@ public class Controller {
         return answer;
 	}
 	
-	public static void run(Game game, int seed) { 
-		user_input();
-		analize(game, input);
+	public void run(Game game) { 
+		exit = false;
+		do
+		{
+			user_input();
+			analize(game, input);
+		}while(!print && !exit);
+		game.SetExit(exit);
+		game.SetPrint(print);
 	}
 
 	private static void analize(Game game, String input) {
+		print = false;
 		switch (input) {
-		
-		case "move":
-		case "m":
-			checkMov(game);
-			break;
-			
-		case "shoot":
-		case "s":
-			game.SetCommand(Game.command.shoot);
-			break;
-			
-		case "shockwave":
-		case "w":
-			game.SetCommand(Game.command.shockwave);
-
-			break;
 			
 		case "reset":
 		case "r":
-			game.SetCommand(Game.command.reset);
+			game.reset();
 
 			break;
 			
 		case "list":
 		case "l":
-			game.SetCommand(Game.command.list);
-
+			System.out.print(game.list());
 			break;
 			
 		case "exit":
 		case "e":
-			game.SetCommand(Game.command.exit);
-
+			exit = true;
 			break;
 			
 		case "help":
 		case "h":
-			game.SetCommand(Game.command.help);
+			System.out.print(game.help());
 	
 			break;
 			
-		case "none":
-		case "n":
-		case "":
-		case " ":
-			game.SetCommand(Game.command.none);
-
-			break;
-
-		default: // error
-			//game.SetCommand(Game.command.none);
-			game.SetCommand(Game.command.error);
-
+		default:
+			print = true;
+			switch (input) 
+			{
+			
+			case "move":
+			case "m":
+				checkMov(game);
+				break;
+				
+			case "shoot":
+			case "s":
+				game.shoot();
+				break;
+				
+			case "shockwave":
+			case "w":
+				game.shockwave();
+	
+				break;
+				
+			case "none":
+			case "n":
+			case "":
+			case " ":
+				break;
+	
+			default: // error
+				System.out.print(game.error());
+				print = false;
+			}
 		}
 	}
 	
@@ -121,23 +131,23 @@ public class Controller {
     	step = Integer.parseInt(in.next());
         if(dir.equals("left") || dir.equals("l")){
         	if(step == 1)
-        		game.SetCommand(Game.command.moveL1);
+        		game.moveUCM(-1);
         	else if(step == 2) 
-        		game.SetCommand(Game.command.moveL2);
+        		game.moveUCM(-2);
         	else
         		ok = false;
         }
         else if(dir.equals("right") || dir.equals("r")){
         	if(step == 1)
-        		game.SetCommand(Game.command.moveR1);
+        		game.moveUCM(1);
         	else if(step == 2) 
-        		game.SetCommand(Game.command.moveR2);
+        		game.moveUCM(2);
         	else
         		ok = false;
         }
         else 
         	ok = false;
-        if(!ok) game.SetCommand(Game.command.error);
+        if(!ok) System.out.print(game.error());
 	}
 
 }

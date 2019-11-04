@@ -57,4 +57,17 @@ public class DestroyerShipList{
 			tableDestroyer[i].reset();
 		}
 	}
+	
+	public int buscar(int x, int y)
+	{
+		int i = -1;
+		for(int j = 0; j < indice && i == -1; j++)
+		{
+			if(tableDestroyer[i].GetDestH() == x && tableDestroyer[i].GetDestV() == y)
+			{
+				i = j;
+			}
+		}
+		return i;
+	}
 }

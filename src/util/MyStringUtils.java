@@ -1,3 +1,5 @@
+package util;
+
 //package MyStringUtils;
 
 public class MyStringUtils {

@@ -58,5 +58,18 @@ public class RegularShipList{
 			tableRegular[i].reset();
 		}
 	}
+	
+	public int buscar(int x, int y)
+	{
+		int i = -1;
+		for(int j = 0; j < indice && i == -1; j++)
+		{
+			if(tableRegular[i].GetRegH() == x && tableRegular[i].GetRegV() == y)
+			{
+				i = j;
+			}
+		}
+		return i;
+	}
 }
 

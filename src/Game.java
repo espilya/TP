@@ -1,109 +1,12 @@
 
 
 //TODO:
-//	-Representacion de help,list,error sin imprimir el tablero ??
 //	-Mejor represetacion de Win y GameOver
-//	-Arreglar los static, non-static
 
 import java.util.Random;
 
 public class Game{
 	
-	public enum command {
-		moveL1, moveL2, moveR1, moveR2, shoot, shockwave, reset, list, exit, help, none, error
-	}
-	
-	public enum casilla {
-		destroyer(0), regular(1), OVNI(2), UCMShip(3), misil(4), proyectil(5), empty(6), error(7);
-		private final int value;
-
-	    private casilla(int value) {
-	        this.value = value;
-	    }
-	    
-	    private static int valor(casilla x)
-	    {
-	    	int y;
-	    	switch(x)
-	    	{
-	    	case destroyer:
-	    		y = 0;
-	    		break;
-	    		
-	    	case regular:
-	    		y = 1;
-	    		break;
-	    		
-	    	case OVNI:
-	    		y = 2;
-	    		break;
-	    		
-	    	case UCMShip:
-	    		y = 3;
-	    		break;
-	    		
-	    	case misil:
-	    		y = 4;
-	    		break;
-	    		
-	    	case proyectil:
-	    		y = 5;
-	    		break;
-	    		
-	    	case empty:
-	    		y = 6;
-	    		break;
-	    		
-	    	default:
-	    		y = 7;
-	    	}
-	    	return y;
-	    }
-	    
-	    private static casilla tipo(int value)
-	    {
-	    	casilla x;
-	    	switch (value)
-	    	{
-	    	case 0:
-	    		x = casilla.destroyer;
-	    	break;
-	    		
-	    	case 1:
-	    		x = casilla.regular;
-	    	break;
-	    	
-	    	case 2:
-	    		x = casilla.OVNI;
-	    	break;
-	    	
-	    	case 3:
-	    		x = casilla.UCMShip;
-	    	break;
-	    	
-	    	case 4:
-	    		x = casilla.misil;
-	    	break;
-	    	
-	    	case 5:
-	    		x = casilla.proyectil;
-	    	break;
-	    	
-	    	case 6:
-	    		x = casilla.empty;
-	    	break;
-	    	
-	    	default: 
-	    		x = casilla.error;
-	    	}
-	    	return x;
-	    }
-	}
-	
-	
-	private casilla celda;
-	private command action;
-
 	private static int numRows = 8; 
 	private static int numCols = 9;
 	private static int semilla;
@@ -122,11 +25,8 @@ public class Game{
 	private static Level level = new Level();
 	//static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 	
-	private static String difficulty;
-	
 	static Random rand;
 	
-	private static int[][][] board;
 	//[numCols][numRows][0] = valor enumerado, [numCols][numRows][1] = indice lista (en caso de que sea destroyer, regular o bomb)
 	
 	private static boolean gameOver = false;
@@ -140,63 +40,55 @@ public class Game{
 	public Game() {
 		
 	}
-	
-	
-	
-	public void SetCommand(command x)
-	{
-		action = x;
-	}
-	
-	public boolean HayError()
-	{
-		return action == command.error;
-	}
+
 	
 	
 	public String toString(int v, int h){
-	
 		String aux;
-		celda = casilla.tipo(board[v][h][0]);
-			
-		switch (celda)
+		int pos;
+		if(player.GetShipH() == h && player.GetShipV() == v) 
 		{
-		case destroyer:
-			aux = destroyerShips.toString(board[v][h][1]);
-			break;
-			
-		case regular:
-			aux = regularShips.toString(board[v][h][1]);
-			break;
-			
-		case OVNI:
-			aux = ovni.toString();
-			break;
-			
-		case UCMShip:
 			aux = player.toString();
-			break;
-			
-		case misil:
-			aux = "oo";
-			break;
-			
-		case proyectil:
-			aux = bombs.toString(board[v][h][1]);
-			break;
-			
-		case empty:
-			aux = "";
-			break;
-			
-		default:
-			aux = "Error";
 		}
-		
+		else
+		{
+			if(misilpos[0] == h && misilpos[1] == v)
+			{
+				aux = "oo";
+			}
+			else
+			{
+				pos = destroyerShips.buscar(h, v);
+				if(pos != -1) 
+				{
+					aux = destroyerShips.toString(pos);
+				}
+				else
+				{
+					pos = regularShips.buscar(h, v);
+					if(pos != -1)
+					{
+						aux = regularShips.toString(pos);
+					}
+					else
+					{
+						pos = bombs.buscar(h, v);
+						if(pos != -1)
+						{
+							aux = bombs.toString(pos);	
+						}
+						else
+						{
+							aux = "";
+						}
+					}
+				}
+			}
+		}
 		return aux;
 	}
 		
-	public static boolean initialize(String dificultad, int seed, int rows, int cols) {
+	public boolean initialize(String dificultad, int seed, int rows, int cols) {
 		semilla = seed;
 		if(seed == -1)
 		{
@@ -207,9 +99,7 @@ public class Game{
 		
 		numRows = rows;
 		numCols = cols;
-		board = new int[numRows][numCols][2];
 		boolean x = false;
-		difficulty = dificultad;
 		if(level.setDifficulty(dificultad))
 		{
 			x = true;
@@ -222,55 +112,9 @@ public class Game{
 		}
 		return x;
 	}
+
 	
-	
-	private static void Board()
-	{
-		ResetBoard();
-		if(HayMisil)
-		{
-			board[misilpos[0]][misilpos[1]][0] = casilla.valor(casilla.misil);
-		}
-		
-		if(player.GetHP() > 0)
-		{
-		board[player.GetShipV()][player.GetShipH()][0] = casilla.valor(casilla.UCMShip);
-		}
-		
-		if(HayOvni)
-		{
-		board[ovni.GetShipV()][ovni.GetShipH()][0] = casilla.valor(casilla.OVNI);
-		}
-		
-		for(int i = 0; i < bombs.GetIndice(); i++)
-		{
-			if(bombs.CheckBomb(i) && bombs.GetProyectilV(i) >= 0)
-			{
-				board[bombs.GetProyectilV(i)][bombs.GetProyectilH(i)][0] = casilla.valor(casilla.proyectil);
-				board[bombs.GetProyectilV(i)][bombs.GetProyectilH(i)][1] = i;
-			}
-		}
-		
-		for(int i = 0; i < destroyerShips.GetIndice(); i++)
-		{
-			if(destroyerShips.GetDestShipHP(i) > 0)
-			{
-				board[destroyerShips.GetDestV(i)][destroyerShips.GetDestH(i)][0] = casilla.valor(casilla.destroyer);
-				board[destroyerShips.GetDestV(i)][destroyerShips.GetDestH(i)][1] = i;
-			}
-		}
-		
-		for(int i = 0; i < regularShips.GetIndice(); i++)
-		{
-			if(regularShips.GetRegShipHP(i) > 0)
-			{
-				board[regularShips.GetRegV(i)][regularShips.GetRegH(i)][0] = casilla.valor(casilla.regular);
-				board[regularShips.GetRegV(i)][regularShips.GetRegH(i)][1] = i;
-			}
-		}
-	}
-	
-	public static void Print()
+	public void Print()
 	{
 		String shockwave = "No";
 		if(shockWave)
@@ -280,82 +124,11 @@ public class Game{
 		String texto = "Life: " + player.GetHP() + "\nNumber of Cycles: " + nOfCycles + "\nPoints: " + points +
 				"\nRemaining Aliens: " + remainingAliens + "\nShockwave: " + shockwave;
 		System.out.println(texto);
-		
-		Board();
 	}
-	
-	public static void ResetBoard() 
+
+		
+	public void update()    
 	{
-		for(int i = 0; i < numRows; i++)
-		{
-			for(int j = 0; j < numCols; j++)
-			{
-				board[i][j][0] = casilla.valor(casilla.empty);
-			}
-		}
-	}
-	
-	private void userCommand() {
-		print = false;
-		switch(action){
-		case exit:
-			exit = true;
-		break;
-		
-		case help:
-			System.out.println(help());
-		break;
-		
-		case error:
-			System.out.println(error());
-		break;
-		
-		case list:
-			System.out.println(list());
-		break;
-		
-		case reset:
-			reset();
-		break;
-		default:
-			print = true;
-			switch(action)
-			{
-				case moveL1:
-					moveUCM(-1);
-				break;
-				
-				case moveL2:
-					moveUCM(-2);
-				break;
-				
-				case moveR1:
-					moveUCM(1);
-				break;
-				
-				case moveR2:
-					moveUCM(2);
-				break;
-				
-				case shockwave:
-					shockwave();
-				break;
-				
-				case none:
-				break;
-				
-				case shoot:
-					shoot();
-				break;
-			}
-		}
-	}
-	
-	public boolean update()    
-	{
-		boolean aux;
-		System.out.println(action);
-		userCommand();
 		if(print)
 		{
 			nOfCycles++;
@@ -371,10 +144,9 @@ public class Game{
 				killedOrNot(); 
 			}
 		}
-		return print;
 	}
 	
-	private static String help() {
+	public String help() {
 		return "[M]ove <left|right><1|2>: Moves UCM-Ship to the indicated direction.\n"
 		+ "[S]hoot: UCM-Ship launches a missile.\n" 
 		+ "shock[W]ave: UCM-Ship releases a shock wave.\n"
@@ -385,11 +157,11 @@ public class Game{
 		+ "[none]: Skips one cycle.\r\n";
 	}
 	
-	private static String error() {
+	public String error() {
 		return "El comando introducido no es valido\n";
 	}
 
-	private static String list()
+	public String list()
 	{
 		return "[R]egular Ship: Points - 5, Harm - 0, Shield - 3 \n" +
 			   "[D]estroyer Ship: Points - 10, Harm - 1, Shield - 1 \n" +
@@ -397,7 +169,17 @@ public class Game{
 			   "^__^: Harm: 1 - Shield: 3\n";
 	}
 	
-	public static void reset()
+	public void SetExit(boolean x) 
+	{
+		exit = x;
+	}
+	
+	public void SetPrint(boolean x)
+	{
+		print = x;
+	}
+	
+ 	public void reset()
 	{
 		regularShips.reset();
 		destroyerShips.reset();
@@ -451,7 +233,7 @@ public class Game{
 		}	
 	}
 	
-	private static void moveUCM(int i)
+	public void moveUCM(int i)
 	{
 		if(player.GetShipH() + i >= 0 && player.GetShipH() + i < numCols)
 		{
@@ -478,7 +260,7 @@ public class Game{
 		
 	}
 	
-	private static void shockwave()
+	public void shockwave()
 	{
 		for(int i = 0; i < destroyerShips.GetIndice(); i++)
 		{
@@ -510,7 +292,7 @@ public class Game{
 		}
 	}
 	
-	private static void shoot()
+	public void shoot()
 	{
 		if(!HayMisil)
 		{
@@ -716,7 +498,7 @@ public class Game{
 	}
 	
 	
-	public static void gameOverPrint() 
+	public void gameOverPrint() 
 	{
 		String texto = "\n\n\n\n\n\n HAS PERDIDO \n\n\n\n\n\n";
 		System.out.println(texto);

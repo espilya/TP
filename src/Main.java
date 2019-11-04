@@ -40,21 +40,19 @@ public class Main{
 		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
 		if(G.initialize(dif, seed, 8, 9))
 		{
-			do
+			while(!G.Exit())
 			{
 				G.reset();
 				G.Print();
 				System.out.println(GP.toString(G));
 				while(!G.Win() && !G.Exit() && !G.GameOver())
 				{
-					do {
-						controller.run(G, seed);
-					}while(G.HayError());
-					if(G.update())
-					{
-						G.Print();
-						System.out.println(GP.toString(G));
-					}
+			
+					controller.run(G);
+					
+					G.Print();
+					System.out.println(GP.toString(G));
+			
 				}
 				if(G.GameOver())
 				{
@@ -67,7 +65,8 @@ public class Main{
 						G.gameWinPrint();
 					}
 				}
-			}while(!G.Exit() && controller.continuar());
+			}
+			//}while(!G.Exit() && controller.continuar());
 		}
 	}
 }
