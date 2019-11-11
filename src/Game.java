@@ -473,7 +473,7 @@ public class Game{
 		remainingAliens = destroyerShips.GetContador() + regularShips.GetContador();
 	}
 	
-	
+
 	public void gameOverPrint() 
 	{
 		String texto = "\n\n\n\n\n\n HAS PERDIDO \n\n\n\n\n\n";
