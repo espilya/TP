@@ -52,8 +52,6 @@ public class Controller {
 			user_input();
 			analize(game, input);
 		}while(!print && !exit);
-		game.SetExit(exit);
-		game.SetPrint(print);
 	}
 
 	private static void analize(Game game, String input) {
@@ -150,4 +148,13 @@ public class Controller {
         if(!ok) System.out.print(game.error());
 	}
 
+	public boolean Exit()
+	{
+		return exit;
+	}
+
+	public boolean Print()
+	{
+		return print;
+	}
 }

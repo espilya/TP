@@ -31,11 +31,9 @@ public class Game{
 	
 	private static boolean gameOver = false;
 	private static boolean shipsDir = true;
-	private static boolean print;
 	private static boolean shockWave = true;
 	private static boolean HayOvni;
 	private static boolean HayMisil; //Hay o no un misil que no ha impactado
-	private static boolean exit;
 	
 	public Game() {
 		
@@ -129,20 +127,17 @@ public class Game{
 		
 	public void update()    
 	{
-		if(print)
+		nOfCycles++;
+		updateMissil();
+		killedOrNot(); 
+		
+		if((nOfCycles - 1) % vel == 0)
 		{
-			nOfCycles++;
-			updateMissil();
+			updateBombs();
 			killedOrNot(); 
-			
-			if((nOfCycles - 1) % vel == 0)
-			{
-				updateBombs();
-				killedOrNot(); 
-				updateOVNI();
-				updateNaves();
-				killedOrNot(); 
-			}
+			updateOVNI();
+			updateNaves();
+			killedOrNot(); 
 		}
 	}
 	
@@ -168,16 +163,7 @@ public class Game{
 			   "[O]vni: Points - 25, Harm - 0, Shield - 1 \n" + 
 			   "^__^: Harm: 1 - Shield: 3\n";
 	}
-	
-	public void SetExit(boolean x) 
-	{
-		exit = x;
-	}
-	
-	public void SetPrint(boolean x)
-	{
-		print = x;
-	}
+
 	
  	public void reset()
 	{
@@ -185,7 +171,6 @@ public class Game{
 		destroyerShips.reset();
 		bombs.deleteBombs();
 		
-		exit = false;
 		shipsDir = false;
 		gameOver = false;
 		HayOvni = false;
@@ -523,11 +508,6 @@ public class Game{
 	public int GetNumCols()
 	{
 		return numCols;
-	}
-	
-	public boolean Exit()
-	{
-		return exit;
 	}
 
 }
