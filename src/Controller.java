@@ -1,18 +1,3 @@
-
-//Clase para controlar la ejecuci�n del juego, preguntando al usuario qu�
-//quiere hacer y actualizando la partida de acuerdo a lo que �ste indique. La clase
-//Controller necesita al menos dos atributos privados:
-//
-//private Game game;
-//private Scanner in;
-//
-//El objeto in sirve para leer de la consola las �rdenes del usuario. La clase Controller 
-//implementa el m�todo p�blico public void run() que controla el bucle principal
-//del juego. Concretamente, mientras la partida no est� finalizada, solicita �rdenes al
-//usuario y las ejecuta.
-//import java.io.BufferedReader;
-//import java.io.IOException;
-//import java.io.InputStreamReader;
 import java.util.Scanner;
 
 public class Controller { 
@@ -23,7 +8,7 @@ public class Controller {
 	static Scanner in = new Scanner(System.in); 
 	static final String str = "\n\n\n\n\n\n\n\n";
 	private static boolean print;
-	private static boolean exit;
+	private static boolean exit = false;
 
 	private static void user_input() { 
 		System.out.print(">"); 
@@ -113,12 +98,7 @@ public class Controller {
 			}
 		}
 	}
-	
-    /// Below Statement used for getting String including sentence
-    //String s = ss.nextLine(); 
-	/// Below Statement used for return the first word in the sentence
-    //String s = ss.next();
-	
+
 	private static void checkMov(Game game) {  //move <left|right><1|2>
 		
 		boolean ok = true;

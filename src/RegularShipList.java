@@ -35,6 +35,7 @@ public class RegularShipList{
 		tableRegular[i].shipHitByUCMShip(harm);
 		if(tableRegular[i].GetShipHP() == 0) {
 			contador--;
+			tableRegular[i] = null;
 		}
 	}
 	
@@ -70,6 +71,11 @@ public class RegularShipList{
 			}
 		}
 		return i;
+	}
+	
+	public boolean exists(int i)
+	{
+		return tableRegular[i] != null;
 	}
 }
 

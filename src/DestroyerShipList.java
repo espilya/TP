@@ -18,6 +18,7 @@ public class DestroyerShipList{
 		tableDestroyer[i].shipHitByUCMShip(harm);
 		if(tableDestroyer[i].GetShipHP() == 0) {
 			contador--;
+			tableDestroyer[i] = null;
 		}
 	}
 	
@@ -48,6 +49,11 @@ public class DestroyerShipList{
 	
 	public String toString(int i) {
 		return "D[" + tableDestroyer[i].GetShipHP() +"]";
+	}
+	
+	public boolean exists(int i)
+	{
+		return tableDestroyer[i] != null;
 	}
 	
 	public void reset()
