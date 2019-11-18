@@ -16,8 +16,4 @@ public class Bomb{
 		this.pos[0] = v;
 		this.pos[1] = h;
 	}
-	
-	public String to_string() {
-		return ".";
-	}
 }

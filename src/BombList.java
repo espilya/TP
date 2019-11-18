@@ -35,7 +35,7 @@ public class BombList{
 		return indice;
 	}
 	
-	public String toString(int i) {
+	public String toString() {
 		return ".";
 	}
 	

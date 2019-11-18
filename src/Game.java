@@ -8,7 +8,6 @@ public class Game{
 	private static int numRows = 8; 
 	private static int numCols = 9;
 	private static int semilla;
-	private static int[] misilpos = new int[2];
 	private static double frecDisp;
 	private static int vel;
 	private static int nOfCycles;
@@ -21,15 +20,13 @@ public class Game{
 	private static BombList bombs = new BombList();
 	private static OVNI ovni = new OVNI();
 	private static Level level = new Level();
-	
-	static Random rand;
-	
+	private static Misil misil;
+	private static Random rand;
 	
 	private static boolean gameOver = false;
 	private static boolean shipsDir = true;
 	private static boolean shockWave = true;
 	private static boolean HayOvni;
-	private static boolean HayMisil; //Hay o no un misil que no ha impactado
 	
 	public Game() {
 		
@@ -46,9 +43,9 @@ public class Game{
 		}
 		else
 		{
-			if(misilpos[0] == h && misilpos[1] == v)
+			if(misil.GetMisilH() == h && misil.GetMisilV() == v)
 			{
-				aux = "oo";
+				aux = misil.toString();
 			}
 			else
 			{
@@ -69,7 +66,7 @@ public class Game{
 						pos = bombs.buscar(h, v);
 						if(pos != -1)
 						{
-							aux = bombs.toString(pos);	
+							aux = bombs.toString();	
 						}
 						else
 						{
@@ -90,7 +87,7 @@ public class Game{
 			semilla = r1.nextInt();
 		}
 		rand = new Random(semilla);
-		
+		misil = null;
 		numRows = rows;
 		numCols = cols;
 		boolean x = false;
@@ -169,7 +166,7 @@ public class Game{
 		shipsDir = false;
 		gameOver = false;
 		HayOvni = false;
-		HayMisil = false;
+		misil = null;
 		player.SetHP(3);
 		points = 0;
 		shockWave = true;
@@ -274,11 +271,10 @@ public class Game{
 	
 	public void shoot()
 	{
-		if(!HayMisil)
+		if(misil == null)
 		{
-			HayMisil = true;
-			misilpos[0] = player.GetShipV();
-			misilpos[1] = player.GetShipH();
+			misil = new Misil();
+			misil.SetMisilPos(player.GetShipV(), player.GetShipH());
 		}
 	}
 	
@@ -310,11 +306,11 @@ public class Game{
 	}
 	
 	private static void updateMissil() {
-		if(HayMisil) {
-			if(misilpos[0] - 1 >= 0)
-				misilpos[0] -= 1;
+		if(misil != null) {
+			if(misil.GetMisilV() - 1 >= 0)
+				misil.SetMisilPos(misil.GetMisilV() - 1, misil.GetMisilH());
 			else 
-				HayMisil = false;	
+				misil = null;	
 		}
 	}
 	
@@ -429,9 +425,9 @@ public class Game{
 	{
 		for(int i = 0; i < bombs.GetIndice(); i++) {
 			if(bombs.CheckBomb(i)) {
-				if(bombs.GetProyectilV(i) == misilpos[0] && bombs.GetProyectilH(i) == misilpos[1])
+				if(bombs.GetProyectilV(i) == misil.GetMisilV() && bombs.GetProyectilH(i) == misil.GetMisilH())
 				{
-					HayMisil = false;
+					misil = null;
 					bombs.deleteBomb(i);
 				}
 				else
@@ -447,28 +443,28 @@ public class Game{
 		
 		for(int i = 0; i < regularShips.GetIndice(); i++) 
 		{
-			if(HayMisil && regularShips.exists(i) && misilpos[0] == regularShips.GetRegV(i) && misilpos[1] == regularShips.GetRegH(i)) 
+			if(misil != null && regularShips.exists(i) && misil.GetMisilV() == regularShips.GetRegV(i) && misil.GetMisilH() == regularShips.GetRegH(i)) 
 			{
 				regularShips.shipHitByUCMShip(i, 1);
-				HayMisil = false;
+				misil = null;
 			}
 		}
 		
 		for(int i = 0; i<destroyerShips.GetIndice(); i++) 
 		{
-			if(HayMisil && destroyerShips.exists(i) && misilpos[0] == destroyerShips.GetDestV(i) && misilpos[1] == destroyerShips.GetDestH(i)) 
+			if(misil != null && destroyerShips.exists(i) && misil.GetMisilV() == destroyerShips.GetDestV(i) && misil.GetMisilH() == destroyerShips.GetDestH(i)) 
 			{
 				destroyerShips.shipHitByUCMShip(i, 1);
-				HayMisil = false;
+				misil = null;
 			}
 		}
 		
-		if(HayMisil && HayOvni && ovni.GetShipHP() > 0 && ovni.GetShipV() == misilpos[0] && ovni.GetShipH() == misilpos[1])
+		if(misil != null && HayOvni && ovni.GetShipHP() > 0 && ovni.GetShipV() == misil.GetMisilV() && ovni.GetShipH() == misil.GetMisilH())
 		{
 			ovni.shipHitByUCMShip();
 			HayOvni = false;
 			shockWave = true;
-			HayMisil = false;
+			misil = null;
 		}
 		remainingAliens = destroyerShips.GetContador() + regularShips.GetContador();
 	}
