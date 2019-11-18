@@ -217,20 +217,17 @@ public class Game{
 		}
 		else
 		{
-			if(i == 2 || i == -2)
+			if(i > 0)
 			{
-				if(i == 2)
-				{
-					i = 1;
-				}
-				else
-				{
-					i = -1;
-				}
-				if(player.GetShipH() + i >= 0 && player.GetShipH() + i < numCols)
-				{
-					player.setShipPos(player.GetShipV(), player.GetShipH() + i);
-				}
+				i--;
+			}
+			else
+			{
+				i++;
+			}
+			if(player.GetShipH() + i >= 0 && player.GetShipH() + i < numCols)
+			{
+				player.setShipPos(player.GetShipV(), player.GetShipH() + i);
 			}
 		}
 		
