@@ -87,7 +87,6 @@ public class Game{
 			semilla = r1.nextInt();
 		}
 		rand = new Random(semilla);
-		misil = null;
 		numRows = rows;
 		numCols = cols;
 		boolean x = false;
@@ -119,11 +118,10 @@ public class Game{
 		
 	public void update()    
 	{
-		nOfCycles++;
 		updateMissil();
 		killedOrNot(); 
 		
-		if((nOfCycles - 1) % vel == 0)
+		if((nOfCycles) % vel == 0)
 		{
 			updateBombs();
 			killedOrNot(); 
@@ -131,6 +129,7 @@ public class Game{
 			updateNaves();
 			killedOrNot(); 
 		}
+		nOfCycles++;
 	}
 	
 	public String help() {
