@@ -28,4 +28,12 @@ public class GameObjectBoard
 		return null;
 	}
 	
+	public void computerAction() {
+		
+	}
+	
+	public void update() {
+		
+	}
+	
 }

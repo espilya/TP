@@ -5,12 +5,22 @@ public abstract class AlienShip extends EnemyShip{
 		super(v, h);
 	}
 
+
 	public static boolean haveLanded() {
-		return false;
+		
+		if("naves" == "pos[0]") {
+			return false;
+		}
+		else
+			return false;
 	}
 
 	public static boolean allDead() {
-		return false;
+		if("{for in AllAliens.hp} " == "0") {
+			return false;
+		}
+		else
+			return false;
 	}
 
 }

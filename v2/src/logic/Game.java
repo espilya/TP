@@ -24,6 +24,7 @@ public class Game implements IPlayerController{
 	private static int points;
 	private static int remainingAliens = 0;
 	
+	private static BoardInitializer initializer; 
 	private static GameObjectBoard board; 
 	private static UCMShip player = new UCMShip();
 	
@@ -43,7 +44,10 @@ public class Game implements IPlayerController{
 	
 	
 	
-	
+//  =============================================
+//				<Copiado del pdf>
+//  =============================================
+
 	
 	public Game (Level level, Random random){
 		this.rand = random;
@@ -74,9 +78,15 @@ public class Game implements IPlayerController{
 		board.update();
 		nOfCycles += 1;
 	}
+//	=============================================
+//				</Copiado del pdf>
+//	=============================================
 	
 	public void boardInitializer() {
 		//El boardInitializer se encarga de añadir los objetos en el juego dependiendo del nivel.
+		
+		// -No sera un objeto?? en la linea 55 "initializer = new BoardInitializer();"
+		// 
 	}
 	//...
 	
@@ -88,6 +98,8 @@ public class Game implements IPlayerController{
 	}
 
 	
+	
+
 	
 	public String toString(int v, int h){
 		GameObject aux = board.buscar(v, h);
