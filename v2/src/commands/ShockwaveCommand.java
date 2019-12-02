@@ -16,13 +16,12 @@ public class ShockwaveCommand extends Command{
 
 	@Override
 	public boolean execute(Game game) {
-		game.shockwave();
-		return true;
+		return game.shockwave();
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
-		if(commandWords[0].equals(name) || commandWords[0].equals(shortCut))
+		if(commandWords.length == 1 && commandWords[0].equals(name) || commandWords[0].equals(shortCut))
 			return this;
 		else
 			return null;

@@ -25,7 +25,7 @@ public class ListCommand extends Command{
 
 	@Override
 	public Command parse(String[] commandWords) {
-		if(commandWords[0].equals(name) || commandWords[0].equals(shortCut))
+		if(commandWords.length == 1 && commandWords[0].equals(name) || commandWords[0].equals(shortCut))
 			return this;
 		else
 			return null;

@@ -1,6 +1,5 @@
 package Objects;
-public class Shockwave extends Weapon{
-
+public abstract class Shockwave extends Weapon{
 
 	Shockwave(){
 	

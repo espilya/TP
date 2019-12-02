@@ -1,5 +1,8 @@
 package Objects;
-public class EnemyShip extends Ship{
-	
+public abstract class EnemyShip extends Ship{
+
+	EnemyShip(int v, int h) {
+		super(v, h);
+	}
 	
 }

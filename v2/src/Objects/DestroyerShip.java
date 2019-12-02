@@ -1,32 +1,18 @@
 package Objects;
 public class DestroyerShip extends AlienShip{
-	private int pos[] = new int[2];
 	private int hp;
-	private int points;
+	private final int points = 10;
 	private boolean HaDisparado;
 	
 	
 	//rand
-	DestroyerShip(){
+	DestroyerShip(int v, int h){
+		super(v, h);
 		hp = 1;
-		points = 10;
 	}
 
-	public void shipHitByUCMShip(int harm) {
+	public void Hit(int harm) {
 		this.hp -= harm;
-	}
-	
-	public int GetDestV() {
-		return pos[0];
-	}
-	
-	public int GetDestH() {
-		return pos[1];
-	}
-	
-	public void setShipPos(int v, int h) {
-		this.pos[0] = v;
-		this.pos[1] = h;
 	}
 	
 	public int GetShipHP() {
@@ -34,7 +20,7 @@ public class DestroyerShip extends AlienShip{
 	}
 	
 	public int getPoints() {
-		return this.points;
+		return points;
 	}
 	
 	public void reset()
@@ -45,5 +31,10 @@ public class DestroyerShip extends AlienShip{
 	public boolean GetHaDisparado()
 	{
 		return HaDisparado;
+	}
+	
+	public String toString()
+	{
+		return "D[" + hp + "]";
 	}
 }

@@ -11,16 +11,11 @@ public class Controller {
 	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 	static Scanner in = new Scanner(System.in); 
 	static final String str = "\n\n\n\n\n\n\n\n";
-	private static boolean print;
-	private static boolean exit = false;
-
-	private static void user_input() { 
-		System.out.print(">"); 
-        input = in.next();
-    	input = input.toLowerCase();
-	}
+	private final String unknownCommandMsg = "Unknown command";
+	private final String PROMPT = "";
 	
-	public static boolean continuar() { 
+	public static boolean continuar() 
+	{ 
 		boolean answer;
 		System.out.print(str);
 		System.out.print("Desea continuar con el juego? (y/n)\n>");
@@ -34,28 +29,21 @@ public class Controller {
         return answer;
 	}
 	
-	public void run(Game game) { 
-		while (!game.Win() && !game.GameOver()){
+	public void run(Game game) 
+	{ 
+		while (!game.GameOver())
+		{
 			System.out.println(PROMPT);
 			String[] words = in.nextLine().toLowerCase().trim().split ("\\s+");
-			Command command = CommandGenerator.parse(words);
-			if (command != null) {
-			if (command.execute(game))
-			System.out.println(game);
+			Command command = CommandGenerator.parseCommand(words);
+			if (command != null) 
+			{
+				if (command.execute(game))
+					System.out.println(game);
 			}
-			else {
-			System.out.format(unknownCommandMsg);
-			}
-			}
-	}
-
-	public boolean Exit()
-	{
-		return exit;
-	}
-
-	public boolean Print()
-	{
-		return print;
+			else 
+				System.out.format(unknownCommandMsg);
+			
+		}
 	}
 }

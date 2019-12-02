@@ -2,21 +2,20 @@ package commands;
 import logic.Game;
 
 
-public class UpdateCommand extends Command{
+public class ShootCommand extends Command{
 
-	private final static String help = "Avanza un ciclo sin realizar ninguna accion"; 
-	private final static String name = "update";
-	private final static String details = "[U]pdate";
-	private final static String shortCut = "u";
+	private final static String help = "UCM-Ship shhots a misil.\n";
+	private final static String name = "shoot";
+	private final static String details = "[S]hoot";
+	private final static String shortCut = "s";
 
-		public UpdateCommand() {
+		public ShootCommand() {
 			super(name, shortCut, details, help);	
 		}
 
 
-	//falta
 	public boolean execute(Game game) {
-		
+		game.shockwave();
 		return true;
 	}
 

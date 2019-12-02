@@ -1,30 +1,16 @@
 package Objects;
 public class RegularShip extends AlienShip{
-	private int pos[] = new int[2];
 	private int hp;
-	private int points;
+	private final int points = 5;
 
 	//rand
-	RegularShip(){
+	RegularShip(int v, int h){
+		super(v, h);
 		hp = 2;
-		points = 5;
 	}
 	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
-	public void shipHitByUCMShip(int harm) {
+	public void Hit(int harm) {
 		this.hp -= harm;
-	}
-	
-	public int GetRegV() {
-		return pos[0];
-	}
-	
-	public int GetRegH() {
-		return pos[1];
-	}
-	
-	public void setShipPos(int v, int h) {
-		this.pos[0] = v;
-		this.pos[1] = h;
 	}
 	
 	public int GetShipHP() {
@@ -32,11 +18,16 @@ public class RegularShip extends AlienShip{
 	}
 	
 	public int getPoints() {
-		return this.points;
+		return points;
 	}
 	
 	public void reset()
 	{
 		hp = 2;
+	}
+	
+	public String toString()
+	{
+		return "R[" + hp + "]";
 	}
 }

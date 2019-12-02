@@ -8,23 +8,17 @@ public class CommandGenerator{
 			new ExitCommand(),
 			new UpdateCommand(),
 			new MoveCommand(),
-			new ShockwaveCommand()
+			new ShockwaveCommand(),
+			new ShootCommand()
 		};
 	
 	public static Command parseCommand(String[] commandWords)
 	{
 		Command aux = null;
-		if(commandWords.length >= 1)
+	
+		for(int i = 0; i < availableCommands.length && aux == null; i++)
 		{
-			for(int i = 0; i < commandWords.length; i++)
-			{
-				commandWords[i].toLowerCase();
-			}
-			
-			for(int i = 0; i < availableCommands.length && aux == null; i++)
-			{
-				aux = availableCommands[i].parse(commandWords);
-			}
+			aux = availableCommands[i].parse(commandWords);
 		}
 		return aux;
 	}

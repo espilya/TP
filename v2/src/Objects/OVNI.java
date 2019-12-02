@@ -1,29 +1,18 @@
 package Objects;
 public class OVNI extends EnemyShip{
-	private int pos[] = new int[2];
+
 	private int hp;
 	private int points;
 
-	OVNI(){
-		this.hp = 1;
-		this.points = 25;
-		pos[1] = 0;
+	public OVNI(int v, int h){
+		super(v, h);
+		hp = 1;
+		points = 25;
+		row = 0;
 	}
-	public void shipHitByUCMShip() {
-		this.hp -= 1;
+	public void Hit(int harm) {
+		this.hp -= harm;
 	}
-	
-	public int GetShipH() {
-		return pos[0];
-	}
-	
-	public int GetShipV() {
-		return pos[1];
-	}
-	
-	public void setShipPos(int h) {
-		this.pos[0] = h;
-	}	
 	
 	public int GetShipHP() {
 		return hp;
@@ -34,7 +23,7 @@ public class OVNI extends EnemyShip{
 	}
 	
 	public String toString() {
-		return "O[" + this.hp +"]";
+		return "O[" + hp +"]";
 	}
 	
 	public void reset()

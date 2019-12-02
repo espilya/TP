@@ -1,11 +1,10 @@
 package logic;
-//TODO:
-//	-Mejor represetacion de Win y GameOver
 
 import java.util.Random;
 
 import Objects.AlienShip;
 import Objects.GameObject;
+import Objects.GameObjectBoard;
 import Objects.Misil;
 import Objects.OVNI;
 import Objects.Ship;
@@ -15,46 +14,7 @@ import interfaces.IPlayerController;
 
 public class Game implements IPlayerController{
 	
-	private static GameObjectBoard board; 
-	private static UCMShip player = new UCMShip();
-	
-	public Game (Level level, Random random){
-		this.rand = random;
-		this.level = level;
-		initializer = new BoardInitializer();
-		initGame();
-		}
-	
-	public void initGame () {
-		currentCycle = 0;
-		board = initializer . initialize (this, level );
-		player = new UCMShip(this, DIM_X / 2, DIM_Y − 1);
-		board.add(player);
-		}
-	
-	//....
-	
-	public boolean aliensWin() {
-		return !player.isAlive () || AlienShip.haveLanded();
-	}
-	
-	private boolean playerWin () {
-		eturn AlienShip.allDead();
-	}
-	
-	public void update() {
-		board.computerAction();
-		board.update();
-		currentCycle += 1;
-	}
-	
-	public void boardInitializer() {
-		//El boardInitializer se encarga de añadir los objetos en el juego dependiendo del nivel.
-	}
-	//...
-	
-	//
-	
+
 	private static int numRows = 8; 
 	private static int numCols = 9;
 	private static int semilla;
@@ -64,7 +24,9 @@ public class Game implements IPlayerController{
 	private static int points;
 	private static int remainingAliens = 0;
 	
-
+	private static GameObjectBoard board; 
+	private static UCMShip player = new UCMShip();
+	
 	private static Ship regularShips = new Ship();
 	private static GameObject destroyerShips = new GameObject();
 	private static Weapon bombs = new Weapon();
@@ -79,6 +41,48 @@ public class Game implements IPlayerController{
 	private static boolean HayOvni;
 	private static boolean exit;
 	
+	
+	
+	
+	
+	public Game (Level level, Random random){
+		this.rand = random;
+		this.level = level;
+		initializer = new BoardInitializer();
+		initGame();
+		}
+	
+	public void initGame () {
+		nOfCycles = 0;
+		board = initializer.initialize (this, level );
+		player = new UCMShip(this, numCols / 2, numRows - 1);
+		board.add(player);
+		}
+	
+	//....
+	
+	public boolean Lose() {
+		return !player.isAlive () || AlienShip.haveLanded();
+	}
+	
+	private boolean Win () {
+		return AlienShip.allDead();
+	}
+	
+	public void update() {
+		board.computerAction();
+		board.update();
+		nOfCycles += 1;
+	}
+	
+	public void boardInitializer() {
+		//El boardInitializer se encarga de añadir los objetos en el juego dependiendo del nivel.
+	}
+	//...
+	
+	//
+	
+	
 	public Game() {
 		
 	}
@@ -86,48 +90,11 @@ public class Game implements IPlayerController{
 	
 	
 	public String toString(int v, int h){
-		String aux;
-		int pos;
-		if(player.GetShipH() == h && player.GetShipV() == v) 
-		{
-			aux = player.toString();
-		}
+		GameObject aux = board.buscar(v, h);
+		if(aux != null)
+			return aux.toString();
 		else
-		{
-			if(misil.GetMisilH() == h && misil.GetMisilV() == v)
-			{
-				aux = misil.toString();
-			}
-			else
-			{
-				pos = destroyerShips.buscar(h, v);
-				if(pos != -1) 
-				{
-					aux = destroyerShips.toString(pos);
-				}
-				else
-				{
-					pos = regularShips.buscar(h, v);
-					if(pos != -1)
-					{
-						aux = regularShips.toString(pos);
-					}
-					else
-					{
-						pos = bombs.buscar(h, v);
-						if(pos != -1)
-						{
-							aux = bombs.toString();	
-						}
-						else
-						{
-							aux = "";
-						}
-					}
-				}
-			}
-		}
-		return aux;
+			return "";
 	}
 		
 	public boolean initialize(String dificultad, int seed, int rows, int cols) {
@@ -264,7 +231,7 @@ public class Game implements IPlayerController{
 		
 	}
 	
-	public void shockwave()
+	public boolean shockwave()
 	{
 		for(int i = 0; i < destroyerShips.GetIndice(); i++)
 		{
@@ -294,20 +261,17 @@ public class Game implements IPlayerController{
 			ovni.shipHitByUCMShip();
 			remainingAliens--;
 		}
+		return true
 	}
 	
-	public void shoot()
+	public boolean shootMissile();
 	{
 		if(misil == null)
 		{
 			misil = new Misil();
 			misil.SetMisilPos(player.GetShipV(), player.GetShipH());
 		}
-	}
-	
-	public boolean Win()
-	{
-		return remainingAliens == 0;
+		return true;
 	}
 	
 	private static void updateBombs(){
@@ -511,7 +475,7 @@ public class Game implements IPlayerController{
 	
 	public boolean GameOver()
 	{
-		return (player.GetHP() == 0 || gameOver);
+		return Win() || Lose();
 	}
 	
 	public int GetNumRows()
@@ -527,6 +491,36 @@ public class Game implements IPlayerController{
 	public void SetExit()
 	{
 		exit = true;
+	}
+
+	@Override
+	public boolean move(int numCells) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean shockWave() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void receivePoints(int points) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void enableShockWave() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void enableMissile() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
