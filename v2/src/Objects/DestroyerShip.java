@@ -1,15 +1,18 @@
 package Objects;
+
+import logic.Game;
+
 public class DestroyerShip extends AlienShip{
 	private int hp;
 	private final int points = 10;
 	private boolean HaDisparado;
 	private final int harm = 1;
 	private final int FinalHP = 1;
-	
+	public final String Detail = "DestroyerShip";
 	
 	//rand
-	public DestroyerShip(int v, int h){
-		super(v, h);
+	public DestroyerShip(String t, Game g){
+		super(t, g);
 		hp = FinalHP;
 	}
 

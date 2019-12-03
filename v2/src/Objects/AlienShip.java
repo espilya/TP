@@ -1,8 +1,11 @@
 package Objects;
+
+import logic.Game;
+
 public abstract class AlienShip extends EnemyShip{
 
-	public AlienShip(int v, int h) {
-		super(v, h);
+	public AlienShip(String t, Game g) {
+		super(t, g);
 	}
 
 
@@ -16,9 +19,8 @@ public abstract class AlienShip extends EnemyShip{
 	}
 
 	public static boolean allDead() {
-		if("{for in AllAliens.hp} " == "0") {
+		if("{for in AllAliens.hp} " == "0")
 			return false;
-		}
 		else
 			return false;
 	}

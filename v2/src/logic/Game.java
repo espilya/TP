@@ -6,7 +6,7 @@ import Objects.AlienShip;
 import Objects.DestroyerShip;
 import Objects.GameObject;
 import Objects.GameObjectBoard;
-import Objects.Misil;
+import Objects.UcmMissile;
 import Objects.OVNI;
 import Objects.RegularShip;
 import Objects.Ship;
@@ -16,20 +16,19 @@ import interfaces.IPlayerController;
 
 public class Game implements IPlayerController{
 
-	private static int numRows = 8; 
-	private static int numCols = 9;
+	private final static int numRows = 8; 
+	private final static int numCols = 9;
 	private static double frecDisp;
 	private static int vel;
 	private static int nOfCycles;
 	private static int points;
-	private static int remainingAliens = 0;
+	private static int remainingAliens;
 	
 	private static BoardInitializer initializer; 
 	private static GameObjectBoard board; 
 	private static UCMShip player;
 	
-	private static Level level = new Level();
-	private static Misil misil;
+	private static Level level;
 	private static Random rand;
 	
 	private static boolean gameOver;
@@ -99,7 +98,7 @@ public class Game implements IPlayerController{
 		System.out.println(texto);
 	}
 
-		
+	//Bien, mirar funciones a las que llama
 	public void Update()    
 	{
 		updateMissil();

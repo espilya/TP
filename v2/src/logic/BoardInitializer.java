@@ -1,3 +1,5 @@
+package logic;
+
 import Objects.GameObjectBoard;
 
 public class BoardInitializer

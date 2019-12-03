@@ -1,9 +1,13 @@
 package Objects;
+
+import logic.Game;
+
 public class Bomb extends Weapon{
 	private final int harm = 1;
+	public final String Detail = "Bomb";
 	
-	Bomb(int v, int h){
-		super(v, h);
+	Bomb(String t, Game g){
+		super(t, g);
 	}
 	
 	public int GetHarm()
@@ -14,5 +18,16 @@ public class Bomb extends Weapon{
 	public String toString()
 	{
 		return ".";
+	}
+	
+	public boolean moveX(int x)
+	{
+		return true;
+	}
+	
+	public boolean moveY(int y)
+	{
+		row += y;
+		return row > 0;
 	}
 }

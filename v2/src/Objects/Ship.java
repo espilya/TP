@@ -1,11 +1,16 @@
 package Objects;
 
-public abstract class Ship extends GameObject{
-	Ship(int v, int h) {
-		super(v, h);
+import logic.Game;
+
+public class Ship extends GameObject{
+	Ship(String t, Game g) {
+		super(t, g);
 	}
 	
-	public abstract void Hit(int harm);
+	public void Hit(int harm)
+	{
+		
+	}
 	
 }
 

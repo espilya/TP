@@ -1,13 +1,17 @@
 package Objects;
+
+import logic.Game;
+
 public class OVNI extends EnemyShip{
 
 	private int hp;
-	private int points;
+	private final int points = 25;
+	private final int FinalHP = 1;
+	public final String Detail = "OVNI";
 
-	public OVNI(int v, int h){
-		super(v, h);
-		hp = 1;
-		points = 25;
+	public OVNI(String t, Game g){
+		super(t, g);
+		hp = FinalHP;
 		row = 0;
 	}
 	public void Hit(int harm) {
@@ -22,8 +26,13 @@ public class OVNI extends EnemyShip{
 		return this.points;
 	}
 	
+	public int getFinalHP()
+	{
+		return FinalHP;
+	}
+	
 	public String toString() {
-		return "O[" + hp +"]";
+		return "O[" + hp + "]";
 	}
 	
 	public void reset()

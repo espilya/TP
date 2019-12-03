@@ -3,15 +3,14 @@ import logic.Game;
 
 public class UCMShip extends Ship{
 	private int hp;
-	Game game;
 	private final int harm = 1;
 	private final int FinalHP = 3;
-
+	public final String Detail = "UCMShip";
 	
-	public UCMShip(Game game, int v, int h){
-		super(v, h);
+	public UCMShip(String t, Game g){
+		super(t, g);
 		hp = FinalHP;
-		this.game = game;
+
 	}
 	
 	public void Hit(int harm) {
@@ -41,8 +40,21 @@ public class UCMShip extends Ship{
 		return FinalHP;
 	}
 	
+	public boolean moveX(int x)
+	{
+		boolean aux;
+		aux = col + x > 0 && col + x < game.GetNumCols();
+		if(aux)
+		{
+			col += x;
+		}
+		return aux;
+	}	
 	
-	
+	public boolean moveY(int y)
+	{
+		return true;
+	}
 
 	
 

@@ -1,10 +1,14 @@
 package Objects;
+
+import logic.Game;
+
 public class UcmMissile extends Weapon{
 	private final int harm = 1;
+	public final String Detail = "Misil";
 	
-	UcmMissile(int v, int h)
+	UcmMissile(String t, Game g)
 	{
-		super(v, h);
+		super(t, g);
 	}
 	public int GetHarm()
 	{
@@ -13,5 +17,16 @@ public class UcmMissile extends Weapon{
 	
 	public String toString() {
 		return "oo";
+	}
+	
+	public boolean moveX(int x)
+	{
+		return true;
+	}
+	
+	public boolean moveY(int y)
+	{
+		row -= y;
+		return row < game.GetNumCols();
 	}
 }

@@ -1,15 +1,19 @@
 package Objects;
+
+import logic.Game;
+
 public class RegularShip extends AlienShip{
 	private int hp;
 	private final int points = 5;
 	private final int FinalHP = 2;
+	public final String Detail = "RegularShip";
 
-	//rand
-	public RegularShip(int v, int h){
-		super(v, h);
+
+	public RegularShip(String t, Game g){
+		super(t, g);
 		hp = FinalHP;
 	}
-	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
+
 	public void Hit(int harm) {
 		this.hp -= harm;
 	}
