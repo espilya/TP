@@ -1,13 +1,18 @@
 package logic;
+
+import java.util.Random;
+
 public class Main{
 	int semilla;
-	static  Game G = new Game();
+	static Game G;
+	static Level L;
+	static Random rand = new Random();
 	static Controller controller = new Controller();
 	public static void main(String[] args){	
 		switch(args.length)
 		{
 		case 1:
-			jugar(args[0], -1);
+			jugar(args[0], rand.nextInt());
 			break;
 			
 		case 2:
@@ -22,35 +27,26 @@ public class Main{
 	
 	private static void jugar(String dif, int seed)
 	{
+		Random rand = new Random(seed);
 		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
-		if(G.initialize(dif, seed, 8, 9))
+		if(L.setDifficulty(dif))
 		{
-			while(!controller.Exit())
+			G = new Game(L, rand);
+			G.initGame();
+			G.reset();
+			G.Print();
+			System.out.println(GP.toString(G));
+	
+			controller.run(G);
+			if(G.GameOver())
 			{
-				G.reset();
-				G.Print();
-				System.out.println(GP.toString(G));
-				while(!G.Win() && !controller.Exit() && !G.GameOver())
+				G.gameOverPrint();
+			}
+			else
+			{
+				if(G.Win())
 				{
-					controller.run(G);
-					if(controller.Print())
-					{
-						G.update();
-						G.Print();
-						System.out.println(GP.toString(G));
-					}
-			
-				}
-				if(G.GameOver())
-				{
-					G.gameOverPrint();
-				}
-				else
-				{
-					if(G.Win())
-					{
-						G.gameWinPrint();
-					}
+					G.gameWinPrint();
 				}
 			}
 		}

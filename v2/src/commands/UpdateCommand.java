@@ -14,9 +14,8 @@ public class UpdateCommand extends Command{
 		}
 
 
-	//falta
-	public boolean execute(Game game) {
-		
+
+	public boolean execute(Game game) {	
 		return true;
 	}
 

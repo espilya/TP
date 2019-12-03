@@ -19,8 +19,8 @@ public class ListCommand extends Command{
 				   "[D]estroyer Ship: Points - 10, Harm - 1, Shield - 1 \n" +
 				   "[O]vni: Points - 25, Harm - 0, Shield - 1 \n" + 
 				   "^__^: Harm: 1 - Shield: 3\n";
-		System.out.print(aux);
-		return true;
+		System.out.print(game.List());
+		return false;
 	}
 
 	@Override

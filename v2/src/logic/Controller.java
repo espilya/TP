@@ -31,19 +31,20 @@ public class Controller {
 	
 	public void run(Game game) 
 	{ 
+		Command command = null;
 		while (!game.GameOver())
 		{
 			System.out.println(PROMPT);
 			String[] words = in.nextLine().toLowerCase().trim().split ("\\s+");
-			Command command = CommandGenerator.parseCommand(words);
-			if (command != null) 
+			while(command == null)
 			{
-				if (command.execute(game))
-					System.out.println(game);
-			}
-			else 
+			command = CommandGenerator.parseCommand(words);
+			if(command == null)
 				System.out.format(unknownCommandMsg);
-			
+			}
+		
+			if (command.execute(game))
+				System.out.println(game);
 		}
 	}
 }

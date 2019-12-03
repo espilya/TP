@@ -16,7 +16,7 @@ private final static String shortCut = "e";
 	@Override
 	public boolean execute(Game game) {
 		game.SetExit();
-		return true;
+		return false;
 	}
 
 	@Override
