@@ -10,13 +10,7 @@ public class Shockwave extends Weapon{
 		super(t, g);
 	}
 
-	public boolean moveY(int y)
-	{
-		return true;
-	}
-	
-	public boolean moveX(int x)
-	{
-		return true;
+	public void use(){
+//		como realizaremos los aliens?? segun los aliens depende como les hacemos danyo
 	}
 }

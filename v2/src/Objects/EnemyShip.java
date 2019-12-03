@@ -11,7 +11,8 @@ public class EnemyShip extends Ship{
 	public boolean moveX(int x)
 	{
 		boolean aux;
-		aux = col + x > 0 && col + x < game.GetNumCols();
+		int mov = col + x;
+		aux = (mov >= 0) && (mov < game.GetNumCols());
 		if(aux)
 		{
 			col += x;
@@ -19,10 +20,12 @@ public class EnemyShip extends Ship{
 		return aux;
 	}
 	
+
 	public boolean moveY(int y)
 	{
 		boolean aux;
-		aux = row + y < game.GetNumCols() - 1;
+		int mov = row + y;
+		aux = mov > 0;
 		if(aux)
 		{
 			row += y;

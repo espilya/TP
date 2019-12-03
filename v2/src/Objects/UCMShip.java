@@ -6,11 +6,12 @@ public class UCMShip extends Ship{
 	private final int harm = 1;
 	private final int FinalHP = 3;
 	public final String Detail = "UCMShip";
+	private boolean canShoot = true; // true ==> puede disparar
+	private int pos;
 	
 	public UCMShip(String t, Game g){
 		super(t, g);
 		hp = FinalHP;
-
 	}
 	
 	public void Hit(int harm) {
@@ -28,6 +29,7 @@ public class UCMShip extends Ship{
 	public void reset(){
 		hp = 3;
 	}
+	
 	public boolean isAlive() {
 		return hp > 0;
 	}
@@ -43,10 +45,11 @@ public class UCMShip extends Ship{
 	public boolean moveX(int x)
 	{
 		boolean aux;
-		aux = col + x > 0 && col + x < game.GetNumCols();
+		int mov = pos + x;
+		aux = (mov >= 0) && (mov < game.GetNumCols());
 		if(aux)
 		{
-			col += x;
+			pos += x;
 		}
 		return aux;
 	}	

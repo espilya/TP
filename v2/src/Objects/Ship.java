@@ -7,10 +7,7 @@ public class Ship extends GameObject{
 		super(t, g);
 	}
 	
-	public void Hit(int harm)
-	{
-		
-	}
+
 	
 }
 

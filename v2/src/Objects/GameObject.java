@@ -18,8 +18,8 @@ public class GameObject implements IAttack{
 	
 	GameObject(String t, Game g)
 	{
-		type = t;
-		game = g;
+		this.type = t;
+		this.game = g;
 	}
 	
 	public int getRow()

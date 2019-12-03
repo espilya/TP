@@ -20,12 +20,7 @@ public class Bomb extends Weapon{
 		return ".";
 	}
 	
-	public boolean moveX(int x)
-	{
-		return true;
-	}
-	
-	public boolean moveY(int y)
+	public boolean move(int y)
 	{
 		row += y;
 		return row > 0;

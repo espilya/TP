@@ -5,17 +5,21 @@ public class Misil{
 	Misil(){
 	}
 
-	public int GetMisilV() {
+	public int GetPosX() {
 		return pos[0];
 	}
 	
-	public int GetMisilH() {
+	public int GetPosY() {
 		return pos[1];
 	}
 	
-	public void SetMisilPos(int v, int h) {
-		this.pos[0] = v;
-		this.pos[1] = h;
+	public void SetPos(int x, int y) {
+		this.pos[0] = x;
+		this.pos[1] = y;
+	}
+	
+	public void Move() {
+		this.pos[0]++;
 	}
 	
 	public String toString() {
