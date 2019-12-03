@@ -17,7 +17,7 @@ public class HelpCommand extends Command{
 	@Override
 	public boolean execute(Game game) {
 		System.out.print(CommandGenerator.commandHelp());
-		return true;
+		return false;
 	}
 
 	@Override

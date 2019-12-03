@@ -2,11 +2,12 @@ package Objects;
 public class RegularShip extends AlienShip{
 	private int hp;
 	private final int points = 5;
+	private final int FinalHP = 2;
 
 	//rand
-	RegularShip(int v, int h){
+	public RegularShip(int v, int h){
 		super(v, h);
-		hp = 2;
+		hp = FinalHP;
 	}
 	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
 	public void Hit(int harm) {
@@ -29,5 +30,9 @@ public class RegularShip extends AlienShip{
 	public String toString()
 	{
 		return "R[" + hp + "]";
+	}
+	
+	public int GetFinHP() {
+		return FinalHP;
 	}
 }

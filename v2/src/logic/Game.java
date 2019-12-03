@@ -3,21 +3,21 @@ package logic;
 import java.util.Random;
 
 import Objects.AlienShip;
+import Objects.DestroyerShip;
 import Objects.GameObject;
 import Objects.GameObjectBoard;
 import Objects.Misil;
 import Objects.OVNI;
+import Objects.RegularShip;
 import Objects.Ship;
 import Objects.UCMShip;
 import Objects.Weapon;
 import interfaces.IPlayerController;
 
 public class Game implements IPlayerController{
-	
 
 	private static int numRows = 8; 
 	private static int numCols = 9;
-	private static int semilla;
 	private static double frecDisp;
 	private static int vel;
 	private static int nOfCycles;
@@ -26,19 +26,15 @@ public class Game implements IPlayerController{
 	
 	private static BoardInitializer initializer; 
 	private static GameObjectBoard board; 
-	private static UCMShip player = new UCMShip();
+	private static UCMShip player;
 	
-	private static Ship regularShips = new Ship();
-	private static GameObject destroyerShips = new GameObject();
-	private static Weapon bombs = new Weapon();
-	private static OVNI ovni = new OVNI();
 	private static Level level = new Level();
 	private static Misil misil;
 	private static Random rand;
 	
-	private static boolean gameOver = false;
-	private static boolean shipsDir = true;
-	private static boolean shockWave = true;
+	private static boolean gameOver;
+	private static boolean shipsDir;
+	private static boolean shockWave; //Comprobar si es necesario 
 	private static boolean HayOvni;
 	private static boolean exit;
 	
@@ -48,7 +44,7 @@ public class Game implements IPlayerController{
 //				<Copiado del pdf>
 //  =============================================
 
-	
+	//Bien
 	public Game (Level level, Random random){
 		this.rand = random;
 		this.level = level;
@@ -56,51 +52,32 @@ public class Game implements IPlayerController{
 		initGame();
 		}
 	
+	//Bien
 	public void initGame () {
 		nOfCycles = 0;
-		board = initializer.initialize (this, level );
+		board = initializer.initialize(this, level);
 		player = new UCMShip(this, numCols / 2, numRows - 1);
 		board.add(player);
 		}
 	
-	//....
-	
+	//Bien, corregir funciones a las que llama
 	public boolean Lose() {
 		return !player.isAlive () || AlienShip.haveLanded();
 	}
 	
+	//Bien, corregir funciones a las que llama
 	private boolean Win () {
 		return AlienShip.allDead();
 	}
 	
+	//Bien
 	public void update() {
 		board.computerAction();
 		board.update();
 		nOfCycles += 1;
 	}
-//	=============================================
-//				</Copiado del pdf>
-//	=============================================
-	
-	public void boardInitializer() {
-		//El boardInitializer se encarga de añadir los objetos en el juego dependiendo del nivel.
-		
-		// -No sera un objeto?? en la linea 55 "initializer = new BoardInitializer();"
-		// 
-	}
-	//...
-	
-	//
-	
-	
-	public Game() {
-		
-	}
 
-	
-	
-
-	
+	//Bien
 	public String toString(int v, int h){
 		GameObject aux = board.buscar(v, h);
 		if(aux != null)
@@ -108,31 +85,8 @@ public class Game implements IPlayerController{
 		else
 			return "";
 	}
-		
-	public boolean initialize(String dificultad, int seed, int rows, int cols) {
-		semilla = seed;
-		if(seed == -1)
-		{
-			Random r1 = new Random();
-			semilla = r1.nextInt();
-		}
-		rand = new Random(semilla);
-		numRows = rows;
-		numCols = cols;
-		boolean x = false;
-		if(level.setDifficulty(dificultad))
-		{
-			x = true;
-			vel = level.getVelocidad();
-			frecDisp = level.getFrecDisparo();
-			
-			regularShips.initialize(level.getNumberRegularShip());
-			destroyerShips.initialize(level.getNumberDestroyerShip());
-		}
-		return x;
-	}
 
-	
+	//Creo que bien, mirar shockwave
 	public void Print()
 	{
 		String shockwave = "No";
@@ -273,10 +227,10 @@ public class Game implements IPlayerController{
 			ovni.shipHitByUCMShip();
 			remainingAliens--;
 		}
-		return true
+		return true;
 	}
 	
-	public boolean shootMissile();
+	public boolean shootMissile()
 	{
 		if(misil == null)
 		{
@@ -472,37 +426,43 @@ public class Game implements IPlayerController{
 		remainingAliens = destroyerShips.GetContador() + regularShips.GetContador();
 	}
 	
-
+	
+	//Bien
 	public void gameOverPrint() 
 	{
 		String texto = "\n\n\n\n\n\n HAS PERDIDO \n\n\n\n\n\n";
 		System.out.println(texto);
 	}
 	
+	//Bien
 	public void gameWinPrint()
 	{
 		String texto = "\n\n HA GANADO \n\n";
 		System.out.println(texto);
 	}
 	
+	//Bien
 	public boolean GameOver()
 	{
-		return Win() || Lose();
+		return Win() || Lose() || exit;
 	}
 	
+	//Bien
 	public int GetNumRows()
 	{
 		return numRows;
 	}
 	
+	//Bien
 	public int GetNumCols()
 	{
 		return numCols;
 	}
-
-	public void SetExit()
+	
+	//Bien
+	public void SetExit(boolean x)
 	{
-		exit = true;
+		exit = x;
 	}
 
 	@Override
@@ -517,10 +477,9 @@ public class Game implements IPlayerController{
 		return false;
 	}
 
-	@Override
+	//Bien
 	public void receivePoints(int points) {
-		// TODO Auto-generated method stub
-		
+		this.points += points;
 	}
 
 	@Override
@@ -533,6 +492,23 @@ public class Game implements IPlayerController{
 	public void enableMissile() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	//Bien
+	public String List() {
+		String aux;
+		UCMShip s = new UCMShip(this, 0, 0);
+		RegularShip r = new RegularShip(0, 0);
+		DestroyerShip d = new DestroyerShip(0, 0);
+		aux = "^__^ : Harm - " + s.getHarm() + ", Shield - " + s.GetFinHP() + "\n"
+		+ "[R]egular Ship : Harm - 0, Shield - " + r.GetFinHP() + ", Points - " + r.getPoints() + "\n"
+		+ "[D]estroyer Ship : Harm - " + d.getHarm() + ", Shield - " + d.GetFinHP() + ", Points - " + d.getPoints() + "\n"
+		+ "[O]vni : Harm - 0, Shield - " + ", Points - " + "\n";
+		return aux;
+	}
+	//Bien
+	public boolean Exit() {
+		return exit;
 	}
 
 }

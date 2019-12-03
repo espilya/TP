@@ -3,14 +3,26 @@ public class DestroyerShip extends AlienShip{
 	private int hp;
 	private final int points = 10;
 	private boolean HaDisparado;
+	private final int harm = 1;
+	private final int FinalHP = 1;
 	
 	
 	//rand
-	DestroyerShip(int v, int h){
+	public DestroyerShip(int v, int h){
 		super(v, h);
-		hp = 1;
+		hp = FinalHP;
 	}
 
+	public int GetFinHP()
+	{
+		return FinalHP;
+	}
+	
+	public int getHarm()
+	{
+		return harm;
+	}
+	
 	public void Hit(int harm) {
 		this.hp -= harm;
 	}

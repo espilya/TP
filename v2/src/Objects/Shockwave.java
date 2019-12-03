@@ -1,8 +1,13 @@
 package Objects;
-public abstract class Shockwave extends Weapon{
+public class Shockwave extends Weapon{
 
 	Shockwave(){
 	
+	}
+
+	@Override
+	public String toString() {
+		return "";
 	}
 
 }

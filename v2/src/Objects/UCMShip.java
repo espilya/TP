@@ -1,15 +1,18 @@
 package Objects;
-
+import logic.Game;
 
 public class UCMShip extends Ship{
 	private int hp;
+	Game game;
+	private final int harm = 1;
+	private final int FinalHP = 3;
 
-	//rand
-	public UCMShip(int v, int h){
+	
+	public UCMShip(Game game, int v, int h){
 		super(v, h);
-		hp = 3;
+		hp = FinalHP;
+		this.game = game;
 	}
-	//UCMShip tiene 3 puntos de vida y cada disparo le hace 1, solo hay una nave alien que dispara
 	
 	public void Hit(int harm) {
 		this.hp -= harm;
@@ -28,6 +31,14 @@ public class UCMShip extends Ship{
 	}
 	public boolean isAlive() {
 		return hp > 0;
+	}
+
+	public int getHarm() {
+		return harm;
+	}
+
+	public int GetFinHP() {
+		return FinalHP;
 	}
 	
 	
