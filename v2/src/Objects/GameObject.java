@@ -43,7 +43,9 @@ public abstract class GameObject implements IAttack {
 		this.live = (damage >= this.live)? 0 : this.live-damage;
 	}
 
-
+	public void hit(int damage) {
+		
+	}
 
 	public int GetHarm()
 	{

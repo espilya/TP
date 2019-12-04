@@ -40,6 +40,7 @@ public class OVNI extends EnemyShip{
 
 	public boolean die()
 	{
+		pos[0]=-1; pos[1]=-1;
 		exists = false;
 		game.enableShockWave();
 		return false;

@@ -23,8 +23,9 @@ public class Bomb extends Weapon{
 		return harm;
 	}
 
-	public void Hit(int harm)
+	public void hit(int harm)
 	{
+		receiveBombAttack(1);
 		live = 0;
 	}
 

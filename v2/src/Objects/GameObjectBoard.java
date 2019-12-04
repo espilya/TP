@@ -64,6 +64,7 @@ public class GameObjectBoard
 		while(i < contador - 1)
 		{
 			GObject[i] = GObject[i + 1];
+			i++;
 		}
 		contador--;
 	}
@@ -72,6 +73,8 @@ public class GameObjectBoard
 	public void update() {
 
 	}
+	
+
 
 	//Bien
 	private void checkAttacks() {
@@ -151,14 +154,14 @@ public class GameObjectBoard
 		}
 	}
 
-	//Bien
+
 	public void computerAction(boolean move) {
 		MoveMisil();
 		checkAttacks();
 
 		if(move)
 			MoveOther();
-
+		
 		shoot();
 		MoveBombs();
 		checkAttacks();
@@ -166,11 +169,16 @@ public class GameObjectBoard
 
 	public void ShockWave()
 	{
-		for(int i = 0; i < contador; i++)
+		int i = 0;
+		while(i < contador)
 		{
-			GObject[i].receiveShockWaveAttack(1);
+			if(!GObject[i].getDetail().equals(UCMShip.Detail))
+				GObject[i].receiveShockWaveAttack(1);
+			
 			if(!GObject[i].isAlive() && GObject[i].die())
 				remove(GObject[i]);
+			else
+				i++;
 		}
 	}
 

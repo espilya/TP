@@ -40,8 +40,9 @@ public class UcmMissile extends Weapon{
 		return "oo";
 	}
 
-	public void Hit(int harm)
+	public void hit(int harm)
 	{
+		receiveBombAttack(1);
 		live = 0;
 	}
 }
