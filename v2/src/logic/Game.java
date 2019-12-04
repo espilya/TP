@@ -2,16 +2,9 @@ package logic;
 
 import java.util.Random;
 
-import Objects.AlienShip;
-import Objects.DestroyerShip;
 import Objects.GameObject;
 import Objects.GameObjectBoard;
-import Objects.UcmMissile;
-import Objects.OVNI;
-import Objects.RegularShip;
-import Objects.Ship;
 import Objects.UCMShip;
-import Objects.Weapon;
 import interfaces.IPlayerController;
 
 public class Game implements IPlayerController{
@@ -20,6 +13,7 @@ public class Game implements IPlayerController{
 	private final int numCols = 9;
 	private int nOfCycles;
 	private int points;
+	private boolean misil;
 
 	private static BoardInitializer initializer;
 	private static GameObjectBoard board;
@@ -42,9 +36,11 @@ public class Game implements IPlayerController{
 	//Bien, hacer funciones a las que llama
 	public void initGame () {
 		nOfCycles = 0;
+		misil = false;
 		shockwave = true;
 		exit = false;
 		board = initializer.initialize(this, this.level);
+		initializer.initializeEnemy();
 		player = new UCMShip(this, this.numCols / 2, this.numRows - 1);
 		board.add(player);
 		}
@@ -82,8 +78,9 @@ public class Game implements IPlayerController{
 		}
 
 	//Bien
-	public String toString(int v, int h){
-		return board.toString(v, h);
+	public String toString(int h, int v){
+		
+		return board.toString(h, v);
 	}
 
 	//Bien
@@ -107,6 +104,7 @@ public class Game implements IPlayerController{
 		{
 			board.add(player.getProyectil());
 		}
+		update();
 		return aux;
 	}
 
@@ -168,6 +166,7 @@ public class Game implements IPlayerController{
 				return false;
 			}
 		}
+		update();
 		return true;
 	}
 
@@ -177,6 +176,7 @@ public class Game implements IPlayerController{
 		{
 			board.ShockWave();
 		}
+		update();
 		return aux;
 	}
 
@@ -225,5 +225,17 @@ public class Game implements IPlayerController{
 		return object.getCol() >= 0 && object.getCol() < this.numCols && object.getRow() >= 0 && object.getRow() < this.numRows;
 	}
 
+	@Override
+	public void enableMissile() {
+		misil = true;
+	}
 
+	public void disableMissile() {
+		misil = false;
+	}
+	
+	public boolean GetMisil()
+	{
+		return misil;
+	}
 }

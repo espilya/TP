@@ -24,8 +24,8 @@ public class UcmMissile extends Weapon{
 	}
 
 	public boolean MoveY() {
-		this.pos[1]++;
-		if(this.pos[1] <= game.GetNumRows())
+		this.pos[1]--;
+		if(this.pos[1] < 0)
 			return false;
 
 		return true;

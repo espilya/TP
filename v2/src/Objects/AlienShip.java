@@ -20,7 +20,7 @@ public abstract class AlienShip extends EnemyShip{
 
 	public boolean MoveY()
 	{
-		pos[1] -= 1;
-		return pos[1] > 0;
+		pos[1] += 1;
+		return pos[1] < game.GetNumRows() - 1;
 	}
 }

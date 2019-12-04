@@ -1,7 +1,6 @@
 package logic;
 
 import Objects.DestroyerShip;
-import Objects.GameObject;
 import Objects.GameObjectBoard;
 import Objects.OVNI;
 import Objects.RegularShip;
@@ -11,17 +10,24 @@ public class BoardInitializer {
 	private Level level ;
 	private GameObjectBoard board;
 	private Game game;
+	private int IniRow;
 
 	public GameObjectBoard initialize(Game game, Level level) {  //por ahora solo inicializa los regShip, desShip
 		this. level = level;
 		this. game = game;
 		board = new GameObjectBoard(game, level);
-		initializeOvni () ;
-		initializeRegularAliens () ;
-		initializeDestroyerAliens () ;
 		return board;
+		
 	}
 
+	public void initializeEnemy() {
+		this.IniRow = game.GetNumRows() -(level.getNumRegularAliens() + level.getNumDestroyerAliens());
+		initializeOvni () ;
+		initializeDestroyerAliens () ;
+		initializeRegularAliens () ;
+		
+	}
+	
 	private void initializeOvni () {
 		game.addObject(new OVNI(game, 0, 7));
 	}
@@ -39,20 +45,22 @@ public class BoardInitializer {
 	private void initializeRegularAliens () {
 		int total = level.getNumRegularAliens();
 		int perRow = level.getNumRegularAliensPerRow();
-		int posX = 2;
-		int posY = 6;
-		for(int i=0; i<total; i++) {
-				game.addObject(new RegularShip(game, i+posX, posY));
-				if(i%5==0)
-					posY--;
+
+	
+		for(int i = 0; i < total; i++)
+		{
+			game.addObject(new RegularShip(game, 2 + i, IniRow - i / perRow));
 		}
 	}
 
 	private void initializeDestroyerAliens () {
-		int numOfRowsOfRegular = level.getNumRowsOfRegularAliens();
-		int posY = 6- numOfRowsOfRegular;
-		for(int i=0; i<level.getNumDestroyerAliens(); i++) {
-			game.addObject(new DestroyerShip(game, i+2 , posY));
+		int total = level.getNumDestroyerAliens();
+		int perRow = level.getNumDestroyerAliensPerRow();
+		
+		for(int i = 0; i < total; i++)
+		{
+			game.addObject(new DestroyerShip(game, 2 + i % perRow, IniRow - i / perRow));
 		}
+		this.IniRow -= total / perRow;
 	}
 }

@@ -4,7 +4,7 @@ import logic.Game;
 
 public class UCMShip extends Ship{
 	public UCMShip(Game game, int x, int y) {
-		super(game, x, y);
+		super(game, game.GetNumCols() / 2, game.GetNumRows() - 1);
 		live = FinalHP;
 		}
 
@@ -38,9 +38,12 @@ public class UCMShip extends Ship{
 
 	public boolean shoot()
 	{
-		if(misil == null || !misil.isAlive())
+		if(misil == null ||  !game.isOnBoard(misil))
+				game.disableMissile();
+		if(!game.GetMisil())
 		{
 			misil = new UcmMissile(game, super.pos[0], super.pos[1]);
+			game.enableMissile();
 			return true;
 		}
 		return false;

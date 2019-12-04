@@ -35,8 +35,8 @@ public class Bomb extends Weapon{
 
 	public boolean MoveY()
 	{
-		pos[1]--;
-		return pos[1] >= 0;
+		pos[1]++;
+		return pos[1] < game.GetNumRows();
 	}
 
 	protected String getDetail()

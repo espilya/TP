@@ -1,38 +1,39 @@
 package Objects;
 
+import logic.Game;
 import logic.Level;
 
 public class GameObjectBoard
 {
-	GameObject[] GObject;
+	GameObject[] GObject = new GameObject[30];
 	boolean HaveLanded;
 	int nOfAliens;
+	int contador;
+	Game game;
 
-	public GameObjectBoard(Level level)
+	public GameObjectBoard(Game game, Level level)
 	{
+		this.game = game;
 		init(level);
 	}
 
 	private void init(Level level)
 	{
 		HaveLanded = false;
+		contador = 0;
 		nOfAliens = level.getNumDestroyerAliens() + level.getNumRegularAliens();
 	}
 
 	//Bien
-	private int getCurrentObjects () {
-		return GObject.length;
-	}
-
-	//Bien
 	public void add(GameObject object) {
-		GObject[this.getCurrentObjects()] = object;
+		GObject[contador] = object;
+		contador++;
 	}
 
 	//Bien
-	private GameObject getObjectInPosition (int row, int col) {
+	private GameObject getObjectInPosition (int col, int row) {
 		int i = 0;
-		while(i < this.getCurrentObjects())
+		while(i < contador)
 		{
 			if(GObject[i].getRow() == row && GObject[i].getCol() == col)
 			{
@@ -46,7 +47,7 @@ public class GameObjectBoard
 	//Bien
 	private int getIndex(GameObject x) {
 		int i = 0;
-		while(i < this.getCurrentObjects())
+		while(i < contador)
 		{
 			if(GObject[i] == x)
 			{
@@ -60,10 +61,11 @@ public class GameObjectBoard
 	//Bien
 	private void remove (GameObject object) {
 		int i = this.getIndex(object);
-		while(i < this.getCurrentObjects() - 1)
+		while(i < contador - 1)
 		{
 			GObject[i] = GObject[i + 1];
 		}
+		contador--;
 	}
 
 	//No se que hace
@@ -76,27 +78,49 @@ public class GameObjectBoard
 		int i, j;
 		boolean aux, stop;
 		i = 0;
-		while(i < this.getCurrentObjects() - 1)
+		while(i < contador - 1)
 		{
-			j = 0;
+			j = i+1;
 			aux = true;
 			stop = false;
-			while(j < this.getCurrentObjects())
+			while(!stop && j < contador)
 			{
-				if(!stop && this.GObject[i].getRow() == this.GObject[j].getRow() && this.GObject[i].getCol() == this.GObject[j].getCol())
+				if(this.GObject[i].getRow() == this.GObject[j].getRow() && this.GObject[i].getCol() == this.GObject[j].getCol())
 				{
 					if(GObject[i].getDetail().equals(UcmMissile.Detail))
+					{
 						GObject[j].receiveMissileAttack(GObject[i].GetHarm());
+						remove(GObject[i]);
+						game.disableMissile();
+						aux = true;
+					}
 
 					else if(GObject[i].getDetail().equals(Bomb.Detail))
+					{
+						aux = true;
+						remove(GObject[i]);
 						GObject[j].receiveBombAttack(GObject[i].GetHarm());
-
-					if(GObject[j].getDetail().equals(UcmMissile.Detail))
+					}
+						
+				
+					else if(GObject[j].getDetail().equals(UcmMissile.Detail))
+					{
 						GObject[i].receiveMissileAttack(GObject[i].GetHarm());
+						remove(GObject[j]);
+						game.disableMissile();
+						aux = true;
+					}
 
 					else if(GObject[j].getDetail().equals(Bomb.Detail))
-						GObject[i].receiveBombAttack(GObject[i].GetHarm());
+					{
+						aux = true;
+						GObject[j].receiveBombAttack(GObject[i].GetHarm());
+						remove(GObject[j]);
+					}
 					stop = true;
+					
+					
+					
 					if(!GObject[i].isAlive() && GObject[i].die())
 					{
 						if(GObject[i].getDetail().equals(DestroyerShip.Detail) || GObject[i].getDetail().equals(RegularShip.Detail))
@@ -105,6 +129,7 @@ public class GameObjectBoard
 						remove(GObject[i]);
 						aux = false;
 					}
+					
 					if(!GObject[j].isAlive() && GObject[j].die())
 					{
 						if(GObject[j].getDetail().equals(DestroyerShip.Detail) || GObject[j].getDetail().equals(RegularShip.Detail))
@@ -112,11 +137,8 @@ public class GameObjectBoard
 
 						remove(GObject[j]);
 					}
-					else
-					{
-						j++;
-					}
 				}
+				
 				else
 				{
 					j++;
@@ -144,15 +166,17 @@ public class GameObjectBoard
 
 	public void ShockWave()
 	{
-		for(int i = 0; i < this.getCurrentObjects(); i++)
+		for(int i = 0; i < contador; i++)
 		{
 			GObject[i].receiveShockWaveAttack(1);
+			if(!GObject[i].isAlive() && GObject[i].die())
+				remove(GObject[i]);
 		}
 	}
 
 	private void MoveMisil()
 	{
-		for(int i = 0; i < this.getCurrentObjects(); i++)
+		for(int i = 0; i < contador; i++)
 		{
 			if(GObject[i].getDetail().equals(UcmMissile.Detail) && !GObject[i].MoveY() && GObject[i].die())
 			{
@@ -164,7 +188,7 @@ public class GameObjectBoard
 	private void MoveOther()
 	{
 		MoveOVNI();
-		if(!MoveAlienShipsX(1))
+		if(MoveAlienShipsX(1))
 		{
 			MoveAlienShipsX(-1);
 			MoveAlienShipsY();
@@ -174,11 +198,12 @@ public class GameObjectBoard
 	private boolean MoveAlienShipsX(int x)
 	{
 		boolean aux = false;
-		for(int i = 0; i < this.getCurrentObjects(); i++)
+		for(int i = 0; i < contador; i++)
 		{
-			if((GObject[i].getDetail().equals(RegularShip.Detail) || GObject[i].getDetail().equals(DestroyerShip.Detail)) && !GObject[i].MoveX(x))
+			if(GObject[i].getDetail().equals(RegularShip.Detail) || GObject[i].getDetail().equals(DestroyerShip.Detail))
 			{
-				aux = true;
+				if(!GObject[i].MoveX(x))
+					aux = true;
 			}
 		}
 		return aux;
@@ -186,7 +211,7 @@ public class GameObjectBoard
 
 	private void MoveBombs()
 	{
-		for(int i = 0; i < this.getCurrentObjects(); i++)
+		for(int i = 0; i < contador; i++)
 		{
 			if(GObject[i].getDetail().equals(Bomb.Detail) && !GObject[i].MoveY())
 			{
@@ -197,18 +222,18 @@ public class GameObjectBoard
 
 	private void MoveOVNI()
 	{
-		for(int i = 0; i < this.getCurrentObjects(); i++)
+		for(int i = 0; i < contador; i++)
 		{
 			if(GObject[i].getDetail().equals(OVNI.Detail))
 			{
-				GObject[i].MoveY();
+				GObject[i].MoveX(i);
 			}
 		}
 	}
 
 	private void MoveAlienShipsY()
 	{
-		for(int i = 0; i < this.getCurrentObjects(); i++)
+		for(int i = 0; i < contador; i++)
 		{
 			if((GObject[i].getDetail().equals(RegularShip.Detail) || GObject[i].getDetail().equals(DestroyerShip.Detail)) && !GObject[i].MoveY())
 			{
@@ -220,11 +245,11 @@ public class GameObjectBoard
 
 	//Bien
 	private void shoot() {
-		for(int i = 0; i < this.getCurrentObjects(); i++)
+		for(int i = 0; i < contador; i++)
 		{
 			if(GObject[i].getDetail().contentEquals(DestroyerShip.Detail) && GObject[i].shoot())
 			{
-				GObject[this.getCurrentObjects()] = GObject[i].getProyectil();
+				GObject[contador] = GObject[i].getProyectil();
 			}
 		}
 	}
@@ -236,11 +261,11 @@ public class GameObjectBoard
 	}
 
 	//Bien
-	public String toString(int row, int col) {
-		GameObject object = getObjectInPosition(row, col);
+	public String toString(int col, int row) {
+		GameObject object = getObjectInPosition(col, row);
 		if(object == null)
 		{
-			return null;
+			return "";
 		}
 		return object.toString();
 	}

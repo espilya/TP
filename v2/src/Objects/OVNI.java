@@ -21,7 +21,7 @@ public class OVNI extends EnemyShip{
 		{
 			exists = true;
 			pos[0] = game.GetNumCols() - 1;
-			pos[1] = game.GetNumRows() - 1;
+			pos[1] = 0;
 		}
 	}
 

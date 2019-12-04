@@ -31,27 +31,16 @@ public class Controller {
 	
 	public void run(Game game) { 
 		Command command = null;
-		while (!game.isFinished())
+
+		System.out.println(PROMPT);
+		String[] words = in.nextLine().toLowerCase().trim().split ("\\s+");
+		while(command == null)
 		{
-			System.out.println(PROMPT);
-			String[] words = in.nextLine().toLowerCase().trim().split ("\\s+");
-			while(command == null)
-			{
-				command = CommandGenerator.parseCommand(words);
-				if(command == null)
-					System.out.format(unknownCommandMsg);
-			}
-		
-			if (command.execute(game))
-				System.out.println(game);
-		}
-		if(!game.Exit()){
-			if(game.Win()){
-				game.gameWinPrint();
-			}
-			else{
-				game.gameOverPrint();
-			}
+			command = CommandGenerator.parseCommand(words);
+			if(command == null)
+				System.out.format(unknownCommandMsg);
+			else
+				command.execute(game);
 		}
 	}
 }
