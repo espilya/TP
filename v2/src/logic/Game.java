@@ -54,12 +54,12 @@ public class Game implements IPlayerController{
 	//Bien
 	public void initGame () {
 		nOfCycles = 0;
-		board = initializer.initialize(this, level);
-		player = new UCMShip(this, numCols / 2, numRows - 1);
+		board = initializer.initialize(this.level);
+		player = new UCMShip(this.numCols / 2, this.numRows - 1); //corregir la funcion que inicializa al ucmShip
 		board.add(player);
 		}
 	
-	//Bien, corregir funciones a las que llama
+	//Bien
 	public boolean Lose() {
 		return !player.isAlive () || AlienShip.haveLanded();
 	}
@@ -69,12 +69,36 @@ public class Game implements IPlayerController{
 		return AlienShip.allDead();
 	}
 	
-	//Bien
-	public void update() {
-		board.computerAction();
-		board.update();
-		nOfCycles += 1;
+	public boolean isFinished() {
+		return Win() || Lose() || exit;
+		}
+	
+	public void addObject(GameObject object) {
+		board.add(object);
+		}
+	
+	public boolean isOnBoard( /* coordenadas */ ) {
+		return false/* condicion de rango sobre las coordenadas */ ;
+		}
+	
+	public void exit() {
+		exit = true;
+		}
+	
+	public String infoToString() {
+		return ""/* cadena estado−juego para imprimir junto con el tablero */ ;
+		}
+	
+	public String positionToString( /* coordinadas */ ) {
+		return board.toString( /* coordinadas */ );
 	}
+	
+	
+	
+	
+	
+	
+
 
 	//Bien
 	public String toString(int v, int h){
@@ -98,6 +122,14 @@ public class Game implements IPlayerController{
 		System.out.println(texto);
 	}
 
+//	////////////////////			!!HAY 2 UPDATE!! 			//////////////////////////////
+	//Bien
+	public void update() {
+		board.computerAction();
+		board.update();
+		nOfCycles += 1;
+	}
+	
 	//Bien, mirar funciones a las que llama
 	public void Update()    
 	{
@@ -447,13 +479,13 @@ public class Game implements IPlayerController{
 	}
 	
 	//Bien
-	public int GetNumRows()
+	public static int GetNumRows()
 	{
 		return numRows;
 	}
 	
 	//Bien
-	public int GetNumCols()
+	public static int GetNumCols()
 	{
 		return numCols;
 	}
@@ -496,7 +528,7 @@ public class Game implements IPlayerController{
 	//Bien
 	public String List() {
 		String aux;
-		UCMShip s = new UCMShip(this, 0, 0);
+		UCMShip s = new UCMShip( 0, 0);
 		RegularShip r = new RegularShip(0, 0);
 		DestroyerShip d = new DestroyerShip(0, 0);
 		aux = "^__^ : Harm - " + s.getHarm() + ", Shield - " + s.GetFinHP() + "\n"
@@ -505,9 +537,4 @@ public class Game implements IPlayerController{
 		+ "[O]vni : Harm - 0, Shield - " + ", Points - " + "\n";
 		return aux;
 	}
-	//Bien
-	public boolean Exit() {
-		return exit;
-	}
-
 }

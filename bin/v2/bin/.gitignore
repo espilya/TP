@@ -1,6 +1,6 @@
 /Objects/
-/commands/
 /interfaces/
 /logic/
-/stringUtils/
-/util/
+/PrinterTypes.class
+/FileContentsVerifier.class
+/GameObjectGenerator.class

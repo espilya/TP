@@ -2,38 +2,42 @@ package Objects;
 import interfaces.IAttack;
 import logic.Game;
 
-public class GameObject implements IAttack{
+public abstract class GameObject implements IAttack {
 
-	protected int row;
-	protected int col;
-	protected final String type;
+	protected int pos[] = new int[2]; //x, y
+	protected int live;
 	protected Game game;
 	
-//	private static int semilla;
-//	private static double frecDisp;
-//	private static int vel;
-//	private static int nOfCycles;
-//	private static int points;
-//	private static int remainingAliens = 0;
+	public GameObject(Game game, int x, int y , int live) {
+		pos[0] = x; pos[1] = y;
+		this. game = game;
+		this. live = live;
+	}
+	public int getRow(){return pos[0];}
+	public int getCol(){return pos[1];}
 	
-	GameObject(String t, Game g)
-	{
-		this.type = t;
-		this.game = g;
+	public boolean isAlive() {
+		return this.live > 0;
 	}
 	
-	public int getRow()
-	{
-		return row;
-	}
-	
-	public int getCol()
-	{
-		return col;
+	public int getLive() {
+		return this.live;
 	}
 
-	public String toString()
-	{
-		return null;
-	}		
+	public boolean isOnPosition( int x, int y ) {
+		return (x==pos[0] && y==pos[1]);
+	}
+	
+	public void getDamage (int damage) {
+		this.live = (damage >= this.live)? 0 : this.live-damage;
+	}
+	
+	public boolean isOut() {
+		return !game.isOnBoard( /* coordinadas */ );
+	}
+	
+		public abstract void computerAction();
+		public abstract void onDelete();
+		public abstract void move();
+		public abstract String toString();	
 }

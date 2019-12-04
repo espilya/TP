@@ -14,6 +14,11 @@ public class UCMShip extends Ship{
 		hp = FinalHP;
 	}
 	
+	public UCMShip(int x, int y){ 
+		super(t, g);
+		hp = FinalHP;
+	}
+	
 	public void Hit(int harm) {
 		this.hp -= harm;
 	}
