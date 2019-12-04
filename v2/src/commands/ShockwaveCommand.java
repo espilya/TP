@@ -15,7 +15,7 @@ public class ShockwaveCommand extends Command{
 		}
 
 	public boolean execute(Game game) {
-		return game.shockwave();
+		return game.shockWave();
 	}
 
 

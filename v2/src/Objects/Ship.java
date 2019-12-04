@@ -2,12 +2,11 @@ package Objects;
 
 import logic.Game;
 
-public class Ship extends GameObject{
-	Ship(String t, Game g) {
-		super(t, g);
-	}
-	
+public abstract class Ship extends GameObject{
 
+	public Ship(Game game, int x, int y) {
+		super(game, x, y);
+	}
 	
 }
 

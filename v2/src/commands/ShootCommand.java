@@ -15,8 +15,7 @@ public class ShootCommand extends Command{
 
 
 	public boolean execute(Game game) {
-		game.shockwave();
-		return true;
+		return game.shootMissile();
 	}
 
 

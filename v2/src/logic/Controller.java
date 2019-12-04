@@ -32,7 +32,7 @@ public class Controller {
 	public void run(Game game) 
 	{ 
 		Command command = null;
-		while (!game.GameOver())
+		while (!game.isFinished())
 		{
 			System.out.println(PROMPT);
 			String[] words = in.nextLine().toLowerCase().trim().split ("\\s+");
@@ -45,6 +45,17 @@ public class Controller {
 		
 			if (command.execute(game))
 				System.out.println(game);
+		}
+		if(!game.Exit())
+		{
+			if(game.Win())
+			{
+				game.gameWinPrint();
+			}
+			else
+			{
+				game.gameOverPrint();
+			}
 		}
 	}
 }

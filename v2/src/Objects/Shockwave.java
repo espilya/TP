@@ -4,13 +4,28 @@ import logic.Game;
 
 public class Shockwave extends Weapon{
 
-	public final String Detail = "Shockwave";
-	
-	Shockwave(String t, Game g){
-		super(t, g);
+	public Shockwave(Game game, int x, int y) {
+		super(game, x, y);
+		// TODO Auto-generated constructor stub
 	}
 
-	public void use(){
-//		como realizaremos los aliens?? segun los aliens depende como les hacemos danyo
+	protected final String Detail = "Shockwave";
+
+	public boolean isAlive()
+	{
+		return true;
+	}
+	
+	public void Hit(int harm)
+	{
+		
+	}
+	
+	public String GetDetail() {
+		return Detail;
+	}
+
+	public String toString() {
+		return null;
 	}
 }

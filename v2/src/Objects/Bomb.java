@@ -3,16 +3,24 @@ package Objects;
 import logic.Game;
 
 public class Bomb extends Weapon{
+	
+	public Bomb(Game game, int x, int y) {
+		super(game, x, y);
+		live = 1;
+	}
+
 	private final int harm = 1;
 	public final String Detail = "Bomb";
 	
-	Bomb(String t, Game g){
-		super(t, g);
-	}
 	
 	public int GetHarm()
 	{
 		return harm;
+	}
+	
+	public void Hit(int harm)
+	{
+		live = 0;
 	}
 	
 	public String toString()
@@ -20,9 +28,17 @@ public class Bomb extends Weapon{
 		return ".";
 	}
 	
-	public boolean move(int y)
+	public boolean MoveY(int x)
 	{
-		row += y;
-		return row > 0;
+		if(x == 0)
+		{
+			pos[1] -= 1;
+			return pos[1] < game.GetNumRows();
+		}
+		return true;
+	}
+
+	public String GetDetail() {
+		return Detail;
 	}
 }

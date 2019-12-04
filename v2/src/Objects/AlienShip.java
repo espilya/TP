@@ -4,20 +4,23 @@ import logic.Game;
 
 public abstract class AlienShip extends EnemyShip{
 
-	public AlienShip(String t, Game g) {
-		super(t, g);
+	private int dir;
+	
+	public AlienShip(Game game, int x, int y) {
+		super(game, x, y);
+		dir = -1;
 	}
-
-
-	public static boolean haveLanded() {
-		
-
-			return false;
+	
+	public boolean MoveX(int x)
+	{
+		dir = dir * x;
+		pos[0] += dir;
+		return pos[0] >= 0 && pos[0] < game.GetNumCols();
 	}
-
-	public static boolean allDead() {
-
-			return false;
+	
+	public boolean MoveY(int y)
+	{
+		pos[1] -= 1;
+		return pos[1] > 0;
 	}
-
 }

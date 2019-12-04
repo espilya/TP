@@ -3,35 +3,24 @@ package Objects;
 import logic.Game;
 
 public class DestroyerShip extends AlienShip{
-	private int hp;
-	private final int points = 10;
-	private boolean HaDisparado;
-	private final int harm = 1;
-	private final int FinalHP = 1;
-	public final String Detail = "DestroyerShip";
-	
-	//rand
-	public DestroyerShip(String t, Game g){
-		super(t, g);
-		hp = FinalHP;
+	public DestroyerShip(Game game, int x, int y) {
+		super(game, x, y);
+		super.live = FinalHP;
+		bomba = null;
 	}
 
-	public int GetFinHP()
-	{
-		return FinalHP;
-	}
+	private final int points = 10;
+	private Bomb bomba;
+	private final int harm = 0;
+	private final int FinalHP = 1;
+	private final String Detail = "DestroyerShip";
+	
+	//rand
+
 	
 	public int getHarm()
 	{
 		return harm;
-	}
-	
-	public void Hit(int harm) {
-		this.hp -= harm;
-	}
-	
-	public int GetShipHP() {
-		return hp;
 	}
 	
 	public int getPoints() {
@@ -40,16 +29,31 @@ public class DestroyerShip extends AlienShip{
 	
 	public void reset()
 	{
-		hp = 1;
+		live = FinalHP;
 	}
 	
-	public boolean GetHaDisparado()
+	public String GetDetail()
 	{
-		return HaDisparado;
+		return Detail;
 	}
 	
 	public String toString()
 	{
-		return "D[" + hp + "]";
+		return "D[" + live + "]";
+	}
+
+	public boolean shoot()
+	{
+		if(bomba == null || !bomba.isAlive() && game.getNextDouble() <= game.getProbShoot())
+		{
+			bomba = new Bomb(game, super.pos[0], super.pos[1]);
+			return true;
+		}
+		return false;
+	}
+
+	public GameObject getProyectil()
+	{
+		return bomba;
 	}
 }

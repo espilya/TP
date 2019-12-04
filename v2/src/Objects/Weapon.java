@@ -2,10 +2,12 @@ package Objects;
 
 import logic.Game;
 
-public class Weapon extends GameObject{
+public abstract class Weapon extends GameObject{
 
-	Weapon(String t, Game g) {
-		super(t, g);
-	} 
+	public Weapon(Game game, int x, int y) {
+		super(game, x, y);
+	}
+
+
 	
 }

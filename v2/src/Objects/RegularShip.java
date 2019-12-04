@@ -3,24 +3,16 @@ package Objects;
 import logic.Game;
 
 public class RegularShip extends AlienShip{
-	private int hp;
+	
+	public RegularShip(Game game, int x, int y) {
+		super(game, x, y);
+		live = FinalHP;
+	}
+
 	private final int points = 5;
 	private final int FinalHP = 2;
 	public final String Detail = "RegularShip";
 
-
-	public RegularShip(String t, Game g){
-		super(t, g);
-		hp = FinalHP;
-	}
-
-	public void Hit(int harm) {
-		this.hp -= harm;
-	}
-	
-	public int GetShipHP() {
-		return hp;
-	}
 	
 	public int getPoints() {
 		return points;
@@ -28,15 +20,15 @@ public class RegularShip extends AlienShip{
 	
 	public void reset()
 	{
-		hp = 2;
+		live = FinalHP;
 	}
 	
 	public String toString()
 	{
-		return "R[" + hp + "]";
+		return "R[" + live + "]";
 	}
 	
-	public int GetFinHP() {
-		return FinalHP;
+	public String GetDetail() {
+		return Detail;
 	}
 }
