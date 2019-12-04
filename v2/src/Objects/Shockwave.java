@@ -15,13 +15,14 @@ public class Shockwave extends Weapon{
 	{
 		return true;
 	}
-	
+
 	public void Hit(int harm)
 	{
-		
+
 	}
-	
-	public String GetDetail() {
+
+	protected String getDetail()
+	{
 		return Detail;
 	}
 

@@ -4,3 +4,6 @@
 /PrinterTypes.class
 /FileContentsVerifier.class
 /GameObjectGenerator.class
+/commands/
+/stringUtils/
+/util/

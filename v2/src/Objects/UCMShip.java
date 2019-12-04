@@ -10,21 +10,32 @@ public class UCMShip extends Ship{
 
 	private final int harm = 0;
 	private final int FinalHP = 3;
-	public final String Detail = "UCMShip";
+	protected final static String Detail = "UCMShip";
 	private UcmMissile misil;
-	
+
 	public String toString() {
 		return "^__^";
 	}
-	
+
 	public void reset(){
 		live = FinalHP;
+	}
+
+	protected String getDetail()
+	{
+		return Detail;
+	}
+
+	public boolean receiveBombAttack(int damage)
+	{
+		live -= damage;
+		return true;
 	}
 
 	public int getHarm() {
 		return harm;
 	}
-	
+
 	public boolean shoot()
 	{
 		if(misil == null || !misil.isAlive())
@@ -34,24 +45,21 @@ public class UCMShip extends Ship{
 		}
 		return false;
 	}
-	
+
 	public GameObject getProyectil()
 	{
 		return misil;
 	}
-	
+
 	public boolean moveX(int x)
 	{
 		boolean aux;
-		aux = pos[0] + 1 < game.GetNumCols();
+		aux = pos[0] + x < game.GetNumCols() && pos[0] + x >= 0;
 		if(aux)
 		{
-			pos[0] += 1;
+			pos[0] += x;
 		}
 		return aux;
 	}
-	
-	public String GetDetail() {
-		return Detail;
-	}
+
 }

@@ -13,30 +13,30 @@ public class DestroyerShip extends AlienShip{
 	private Bomb bomba;
 	private final int harm = 0;
 	private final int FinalHP = 1;
-	private final String Detail = "DestroyerShip";
-	
+	protected static final String Detail = "DestroyerShip";
+
 	//rand
 
-	
+
 	public int getHarm()
 	{
 		return harm;
 	}
-	
+
 	public int getPoints() {
 		return points;
 	}
-	
+
 	public void reset()
 	{
 		live = FinalHP;
 	}
-	
+
 	public String GetDetail()
 	{
 		return Detail;
 	}
-	
+
 	public String toString()
 	{
 		return "D[" + live + "]";
@@ -52,8 +52,8 @@ public class DestroyerShip extends AlienShip{
 		return false;
 	}
 
-	public GameObject getProyectil()
+	protected String getDetail()
 	{
-		return bomba;
+		return Detail;
 	}
 }

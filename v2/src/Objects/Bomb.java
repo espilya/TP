@@ -3,42 +3,44 @@ package Objects;
 import logic.Game;
 
 public class Bomb extends Weapon{
-	
+
 	public Bomb(Game game, int x, int y) {
 		super(game, x, y);
 		live = 1;
 	}
 
 	private final int harm = 1;
-	public final String Detail = "Bomb";
-	
-	
+	protected static final String Detail = "Bomb";
+
+	public boolean receiveMissileAttack(int damage)
+	{
+		live = 0;
+		return true;
+	}
+
 	public int GetHarm()
 	{
 		return harm;
 	}
-	
+
 	public void Hit(int harm)
 	{
 		live = 0;
 	}
-	
+
 	public String toString()
 	{
 		return ".";
 	}
-	
-	public boolean MoveY(int x)
+
+	public boolean MoveY()
 	{
-		if(x == 0)
-		{
-			pos[1] -= 1;
-			return pos[1] < game.GetNumRows();
-		}
-		return true;
+		pos[1]--;
+		return pos[1] >= 0;
 	}
 
-	public String GetDetail() {
+	protected String getDetail()
+	{
 		return Detail;
 	}
 }

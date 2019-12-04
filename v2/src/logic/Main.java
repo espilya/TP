@@ -8,6 +8,8 @@ public class Main{
 	static Level L;
 	static Random rand = new Random();
 	static Controller controller = new Controller();
+	
+	
 	public static void main(String[] args){	
 		switch(args.length)
 		{
@@ -29,30 +31,24 @@ public class Main{
 	{
 		Random rand = new Random(seed);
 		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
-		if(L.setDifficulty(dif))
-		{
+		
+			L = Level.parse(dif);
+		
 			G = new Game(L, rand);
 			G.initGame();
-			G.reset();
-			G.Print();
 			System.out.println(GP.toString(G));
-	
 			controller.run(G);
-			if(G.GameOver())
-			{
+			G.reset();
+			if(G.Lose()){
 				G.gameOverPrint();
 			}
-			else
-			{
+			else{
 				if(G.Win())
 				{
 					G.gameWinPrint();
 				}
 			}
-		}
-		else
-		{
-			System.out.println("Error" + "\n" + "Argumentos de entrada no validos");
-		}
+	//		System.out.println("Error" + "\n" + "Argumentos de entrada no validos");
+	
 	}
 }

@@ -29,8 +29,7 @@ public class Controller {
         return answer;
 	}
 	
-	public void run(Game game) 
-	{ 
+	public void run(Game game) { 
 		Command command = null;
 		while (!game.isFinished())
 		{
@@ -38,22 +37,19 @@ public class Controller {
 			String[] words = in.nextLine().toLowerCase().trim().split ("\\s+");
 			while(command == null)
 			{
-			command = CommandGenerator.parseCommand(words);
-			if(command == null)
-				System.out.format(unknownCommandMsg);
+				command = CommandGenerator.parseCommand(words);
+				if(command == null)
+					System.out.format(unknownCommandMsg);
 			}
 		
 			if (command.execute(game))
 				System.out.println(game);
 		}
-		if(!game.Exit())
-		{
-			if(game.Win())
-			{
+		if(!game.Exit()){
+			if(game.Win()){
 				game.gameWinPrint();
 			}
-			else
-			{
+			else{
 				game.gameOverPrint();
 			}
 		}

@@ -10,29 +10,36 @@ public class UcmMissile extends Weapon{
 	}
 
 	private final int harm = 1;
-	public final String Detail = "Misil";
-	
+	protected final static String Detail = "Misil";
+
 	public int GetHarm()
 	{
 		return harm;
 	}
 
-	public boolean MoveY(int x) { 
-		this.pos[0]++;
-		if(x < 0 && this.pos[0] <= game.GetNumRows())
-			return false;
-		else
-			return true;
+	public boolean receiveBombAttack(int damage)
+	{
+		live = 0;
+		return true;
 	}
-	
+
+	public boolean MoveY() {
+		this.pos[1]++;
+		if(this.pos[1] <= game.GetNumRows())
+			return false;
+
+		return true;
+	}
+
+	protected String getDetail()
+	{
+		return Detail;
+	}
+
 	public String toString() {
 		return "oo";
 	}
-	
-	public String GetDetail() {
-		return Detail;
-	}
-	
+
 	public void Hit(int harm)
 	{
 		live = 0;

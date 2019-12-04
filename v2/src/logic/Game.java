@@ -16,19 +16,19 @@ import interfaces.IPlayerController;
 
 public class Game implements IPlayerController{
 
-	private final int numRows = 8; 
+	private final int numRows = 8;
 	private final int numCols = 9;
 	private int nOfCycles;
 	private int points;
-	
-	private static BoardInitializer initializer; 
-	private static GameObjectBoard board; 
+
+	private static BoardInitializer initializer;
+	private static GameObjectBoard board;
 	private static UCMShip player;
-	
+
 	private Level level;
 	private Random rand;
-	
-	private static boolean shockWave; //Comprobar si es necesario 
+
+	private boolean shockwave; //Comprobar si es necesario
 	private static boolean exit;
 
 	//Bien
@@ -38,49 +38,46 @@ public class Game implements IPlayerController{
 		initializer = new BoardInitializer();
 		initGame();
 		}
-	
+
 	//Bien, hacer funciones a las que llama
 	public void initGame () {
 		nOfCycles = 0;
+		shockwave = true;
+		exit = false;
 		board = initializer.initialize(this, this.level);
-		player = new UCMShip(this, this.numCols / 2, this.numRows - 1); //corregir la funcion que inicializa al ucmShip
+		player = new UCMShip(this, this.numCols / 2, this.numRows - 1);
 		board.add(player);
 		}
-	
+
 	//Bien
 	public boolean Lose() {
 		return !player.isAlive () || board.AliensHaveLanded();
 	}
-	
+
 	//Bien, corregir funciones a las que llama
 	public boolean Win () {
 		return board.allDead();
 	}
-	
+
 	//Bien
 	public boolean isFinished() {
 		return Win() || Lose() || exit;
 		}
-	
+
 	//Creo que sobra, ya esta el add del GameObjectBoard
 	public void addObject(GameObject object) {
 		board.add(object);
 		}
 
-	//Tal y como lo he hecho no es necesario
-	public boolean isOnBoard( /* coordenadas */ ) {
-		return false/* condicion de rango sobre las coordenadas */ ;
-		}
-	
-	//Bien, mirar board.remainingAliens() y corregir shockwave
+	//Bien
 	public String infoToString() {
-		String shockwave = "No";
-		if(shockWave)
+		String aux = "No";
+		if(this.shockwave)
 		{
-			shockwave = "Si";
+			aux = "Si";
 		}
 		String texto = "Life: " + player.getLive() + "\nNumber of Cycles: " + nOfCycles + "\nPoints: " + points +
-				"\nRemaining Aliens: " + board.remainingAliens() + "\nShockwave: " + shockwave;
+				"\nRemaining Aliens: " + board.remainingAliens() + "\nShockwave: " + aux;
 		return texto;
 		}
 
@@ -95,13 +92,13 @@ public class Game implements IPlayerController{
 		board.update(); //No se que tiene que hacer
 		nOfCycles += 1;
 	}
-	
-	//Hacer entero
-	public boolean reset()
+
+	//Hacer reset game
+	public void reset()
 	{
-		return false;
+		this.initGame();
 	}
-	
+
 	//Bien
 	public boolean shootMissile()
 	{
@@ -112,33 +109,33 @@ public class Game implements IPlayerController{
 		}
 		return aux;
 	}
-	
+
 	//Bien
-	public void gameOverPrint() 
+	public void gameOverPrint()
 	{
 		String texto = "\n\n\n\n\n\n HAS PERDIDO \n\n\n\n\n\n";
 		System.out.println(texto);
 	}
-	
+
 	//Bien
 	public void gameWinPrint()
 	{
 		String texto = "\n\n HA GANADO \n\n";
 		System.out.println(texto);
 	}
-	
+
 	//Bien
 	public int GetNumRows()
 	{
 		return numRows;
 	}
-	
+
 	//Bien
 	public int GetNumCols()
 	{
 		return numCols;
 	}
-	
+
 	//Bien
 	public void SetExit(boolean x)
 	{
@@ -175,8 +172,12 @@ public class Game implements IPlayerController{
 	}
 
 	public boolean shockWave() {
-		// TODO Auto-generated method stub
-		return false;
+		boolean aux = this.shockwave;
+		if(this.shockwave)
+		{
+			board.ShockWave();
+		}
+		return aux;
 	}
 
 	//Bien
@@ -186,13 +187,7 @@ public class Game implements IPlayerController{
 
 	//Hacer entero
 	public void enableShockWave() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	//Sobra, ya lo hace ShootMisil
-	public void enableMissile() {
-		// TODO Auto-generated method stub	
+		this.shockwave = true;
 	}
 
 	//Bien
@@ -215,7 +210,6 @@ public class Game implements IPlayerController{
 		return this.level.getShootFrequency();
 	}
 
-	
 	//Bien
 	public boolean Exit() {
 		return exit;
@@ -225,5 +219,11 @@ public class Game implements IPlayerController{
 	public Level getLevel() {
 		return level;
 	}
+
+
+	public boolean isOnBoard(GameObject object) {
+		return object.getCol() >= 0 && object.getCol() < this.numCols && object.getRow() >= 0 && object.getRow() < this.numRows;
+	}
+
 
 }
