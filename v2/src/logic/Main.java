@@ -37,6 +37,7 @@ public class Main{
 			
 			while(!G.isFinished())
 			{
+				System.out.println(G.infoToString());
 				System.out.println(GP.toString(G));
 				controller.run(G);
 			}
@@ -51,7 +52,5 @@ public class Main{
 				}
 			}
 			G.reset();
-	//		System.out.println("Error" + "\n" + "Argumentos de entrada no validos");
-	
 	}
 }

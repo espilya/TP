@@ -39,10 +39,4 @@ public class UcmMissile extends Weapon{
 	public String toString() {
 		return "oo";
 	}
-
-	public void hit(int harm)
-	{
-		receiveBombAttack(1);
-		live = 0;
-	}
 }

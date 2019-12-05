@@ -61,25 +61,32 @@ public class GameObjectBoard
 	//Bien
 	private void remove (GameObject object) {
 		int i = this.getIndex(object);
+		
+		int points = object.getPoints();
+		game.receivePoints(points);
+		
+		if(object.getDetail().equals(DestroyerShip.Detail) || object.getDetail().equals(RegularShip.Detail))
+			this.nOfAliens--;
+		
 		while(i < contador - 1)
-		{
+		{	
 			GObject[i] = GObject[i + 1];
 			i++;
 		}
 		contador--;
+		GObject[contador] = null;
 	}
 
 	//No se que hace
 	public void update() {
 
 	}
-	
 
 
 	//Bien
 	private void checkAttacks() {
 		int i, j;
-		boolean aux, stop;
+		boolean aux, stop, delete;
 		i = 0;
 		while(i < contador - 1)
 		{
@@ -90,56 +97,65 @@ public class GameObjectBoard
 			{
 				if(this.GObject[i].getRow() == this.GObject[j].getRow() && this.GObject[i].getCol() == this.GObject[j].getCol())
 				{
-					if(GObject[i].getDetail().equals(UcmMissile.Detail))
+					aux = true;
+					if(GObject[i].getDetail().equals(UcmMissile.Detail) || GObject[i].getDetail().equals(SuperMisil.Detail))
 					{
 						GObject[j].receiveMissileAttack(GObject[i].GetHarm());
+						GObject[i].receiveBombAttack(1);
+						if(!GObject[j].isAlive() && GObject[j].die())
+						{
+							remove(GObject[j]);
+						}
 						remove(GObject[i]);
-						game.disableMissile();
-						aux = true;
 					}
 
 					else if(GObject[i].getDetail().equals(Bomb.Detail))
 					{
-						aux = true;
-						remove(GObject[i]);
+						delete = !GObject[j].getClass().equals(DestroyerShip.Detail);
 						GObject[j].receiveBombAttack(GObject[i].GetHarm());
+						GObject[i].receiveMissileAttack(1);
+						if(!GObject[j].isAlive() && GObject[j].die())
+						{
+							remove(GObject[j]);
+						}
+						
+						if(delete)
+							remove(GObject[i]);
+						else
+							aux = false;
 					}
 						
 				
-					else if(GObject[j].getDetail().equals(UcmMissile.Detail))
+					else if(GObject[j].getDetail().equals(UcmMissile.Detail) || GObject[i].getDetail().equals(SuperMisil.Detail))
 					{
-						GObject[i].receiveMissileAttack(GObject[i].GetHarm());
+						GObject[j].receiveBombAttack(1);
+						GObject[i].receiveMissileAttack(GObject[j].GetHarm());
 						remove(GObject[j]);
-						game.disableMissile();
-						aux = true;
+						if(!GObject[i].isAlive() && GObject[i].die())
+						{
+							remove(GObject[i]);
+							aux = false;
+						}
 					}
 
 					else if(GObject[j].getDetail().equals(Bomb.Detail))
 					{
-						aux = true;
-						GObject[j].receiveBombAttack(GObject[i].GetHarm());
-						remove(GObject[j]);
+						delete = !GObject[i].getClass().equals(DestroyerShip.Detail);
+						GObject[j].receiveMissileAttack(1);
+						GObject[i].receiveBombAttack(GObject[j].GetHarm());
+						if(delete)
+							remove(GObject[j]);
+						else
+							aux = false;
+						if(!GObject[i].isAlive() && GObject[i].die())
+						{
+							remove(GObject[i]);
+							aux = false;
+						}
 					}
-					stop = true;
-					
-					
-					
-					if(!GObject[i].isAlive() && GObject[i].die())
-					{
-						if(GObject[i].getDetail().equals(DestroyerShip.Detail) || GObject[i].getDetail().equals(RegularShip.Detail))
-							this.nOfAliens--;
-
-						remove(GObject[i]);
+					else
 						aux = false;
-					}
-					
-					if(!GObject[j].isAlive() && GObject[j].die())
-					{
-						if(GObject[j].getDetail().equals(DestroyerShip.Detail) || GObject[j].getDetail().equals(RegularShip.Detail))
-							this.nOfAliens--;
-
-						remove(GObject[j]);
-					}
+					stop = true;
 				}
 				
 				else
@@ -160,7 +176,10 @@ public class GameObjectBoard
 		checkAttacks();
 
 		if(move)
+		{
 			MoveOther();
+			checkAttacks();
+		}
 		
 		shoot();
 		MoveBombs();
@@ -219,11 +238,16 @@ public class GameObjectBoard
 
 	private void MoveBombs()
 	{
-		for(int i = 0; i < contador; i++)
+		int i = 0;
+		while(i < contador)
 		{
 			if(GObject[i].getDetail().equals(Bomb.Detail) && !GObject[i].MoveY())
 			{
 				this.remove(GObject[i]);
+			}
+			else
+			{
+				i++;
 			}
 		}
 	}
@@ -258,6 +282,7 @@ public class GameObjectBoard
 			if(GObject[i].getDetail().contentEquals(DestroyerShip.Detail) && GObject[i].shoot())
 			{
 				GObject[contador] = GObject[i].getProyectil();
+				contador++;
 			}
 		}
 	}
@@ -271,7 +296,7 @@ public class GameObjectBoard
 	//Bien
 	public String toString(int col, int row) {
 		GameObject object = getObjectInPosition(col, row);
-		if(object == null)
+		if(object == null || !object.isAlive())
 		{
 			return "";
 		}

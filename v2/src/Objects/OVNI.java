@@ -25,7 +25,7 @@ public class OVNI extends EnemyShip{
 		}
 	}
 
-	public int GetPoints() {
+	public int getPoints() {
 		return this.points;
 	}
 

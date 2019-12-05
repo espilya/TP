@@ -23,8 +23,8 @@ public abstract class GameObject implements IAttack {
 
 	public void setPos(int row, int col)
 	{
-		pos[0] = row;
-		pos[1] = col;
+		pos[0] = col;
+		pos[1] = row;
 	}
 
 	public boolean isAlive() {
@@ -41,10 +41,6 @@ public abstract class GameObject implements IAttack {
 
 	public void getDamage (int damage) {
 		this.live = (damage >= this.live)? 0 : this.live-damage;
-	}
-
-	public void hit(int damage) {
-		
 	}
 
 	public int GetHarm()
@@ -81,9 +77,9 @@ public abstract class GameObject implements IAttack {
 		return null;
 	}
 
-		//public abstract void computerAction();   para que?
-		//public abstract void onDelete();		para que?
 		public abstract String toString();
 
+		public abstract int getPoints();
+		
 		protected abstract String getDetail();
 }

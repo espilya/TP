@@ -13,4 +13,10 @@ public abstract class EnemyShip extends Ship{
 		live -= damage;
 		return true;
 	}
+	
+	public boolean receiveShockWaveAttack(int damage)
+	{
+		live -= damage;
+		return true;
+	}
 }

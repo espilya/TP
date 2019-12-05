@@ -19,30 +19,31 @@ public class MoveCommand extends Command{
 
 	private boolean checkMov(String[] commandWords) {  //move <left|right><1|2>
 		
-		boolean ok = false;
+		boolean ok1 = false;
+		boolean ok2 = false;
 
 		if(commandWords[2].equalsIgnoreCase("1"))
 		{
 	    	step = 1;
-	    	ok = true;
+	    	ok1 = true;
 		}
 	    else if(commandWords[2].equalsIgnoreCase("2")) 
 	    {
 	    	step = 2;
-	    	ok = true;
+	    	ok1 = true;
 	    }
 
 	    if(commandWords[1].equals("left") || commandWords[1].equals("l"))
 	    {
 	       	dir = -1;
-	       	ok = true;
+	       	ok2 = true;
 	    }
 	    else if(commandWords[1].equals("right") || commandWords[1].equals("r"))
 	    {
 	       	dir = 1;
-	       	ok = true;
+	       	ok2 = true;
 	    }
-        return ok;
+        return ok1 && ok2;
 	}
 
 

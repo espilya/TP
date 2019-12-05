@@ -8,7 +8,7 @@ public class Shockwave extends Weapon{
 		super(game, -1, -1);
 	}  
 
-	protected final String Detail = "Shockwave";
+	protected static final String Detail = "Shockwave";
 
 	public boolean isAlive()
 	{

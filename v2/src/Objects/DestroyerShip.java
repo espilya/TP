@@ -32,11 +32,6 @@ public class DestroyerShip extends AlienShip{
 		live = FinalHP;
 	}
 
-	public String GetDetail()
-	{
-		return Detail;
-	}
-
 	public String toString()
 	{
 		return "D[" + live + "]";
@@ -44,7 +39,7 @@ public class DestroyerShip extends AlienShip{
 
 	public boolean shoot()
 	{
-		if(bomba == null || !bomba.isAlive() && game.getNextDouble() <= game.getProbShoot())
+		if((bomba == null || !bomba.isAlive() || !game.isOnBoard(bomba)) && game.getNextDouble() <= game.getProbShoot())
 		{
 			bomba = new Bomb(game, super.pos[0], super.pos[1]);
 			return true;
@@ -55,5 +50,10 @@ public class DestroyerShip extends AlienShip{
 	protected String getDetail()
 	{
 		return Detail;
+	}
+
+	public GameObject getProyectil()
+	{
+		return bomba;
 	}
 }

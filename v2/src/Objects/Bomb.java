@@ -23,15 +23,9 @@ public class Bomb extends Weapon{
 		return harm;
 	}
 
-	public void hit(int harm)
-	{
-		receiveBombAttack(1);
-		live = 0;
-	}
-
 	public String toString()
 	{
-		return ".";
+		return "..";
 	}
 
 	public boolean MoveY()

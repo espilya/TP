@@ -7,10 +7,9 @@ public abstract class Ship extends GameObject{
 	public Ship(Game game, int x, int y) {
 		super(game, x, y);
 	}
-
-	public boolean receiveShockWaveAttack(int damage)
+	
+	public int getPoints()
 	{
-		live -= damage;
-		return true;
+		return 0;
 	}
 }

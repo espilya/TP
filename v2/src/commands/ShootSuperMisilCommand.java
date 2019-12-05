@@ -2,20 +2,20 @@ package commands;
 import logic.Game;
 
 
-public class ShootCommand extends Command{
+public class ShootSuperMisilCommand extends Command{
 
-	private final static String help = "UCM-Ship shots a misil.\n";
-	private final static String name = "shoot";
-	private final static String details = "[S]hoot";
-	private final static String shortCut = "s";
+	private final static String help = "UCM-Ship shots a supermisil.\n";
+	private final static String name = "shootsupermisil";
+	private final static String details = "[S]hoot[S]upermisil";
+	private final static String shortCut = "ss";
 
-		public ShootCommand() {
+		public ShootSuperMisilCommand() {
 			super(name, shortCut, details, help);	
 		}
 
 
 	public boolean execute(Game game) {
-		return game.shootMissile(false);
+		return game.shootMissile(true);
 	}
 
 

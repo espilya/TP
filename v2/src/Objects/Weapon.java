@@ -9,5 +9,8 @@ public abstract class Weapon extends GameObject{
 	}
 
 
-
+	public int getPoints()
+	{
+		return 0;
+	}
 }

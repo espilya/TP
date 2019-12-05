@@ -9,7 +9,9 @@ public class CommandGenerator{
 			new UpdateCommand(),
 			new MoveCommand(),
 			new ShockwaveCommand(),
-			new ShootCommand()
+			new ShootCommand(),
+			new BuySuperMisilCommand(),
+			new ShootSuperMisilCommand()
 		};
 	
 	public static Command parseCommand(String[] commandWords)

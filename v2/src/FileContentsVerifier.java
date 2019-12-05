@@ -1,4 +1,3 @@
-
 //por ahora lo comente porque no tiene ningun sentido
 
 //package /* nombre de paquete */ ;
@@ -15,7 +14,7 @@
 //		foundInFileString += linePrefix;
 //	}
 //	
-//	// Donâ€™t catch NumberFormatException.
+//	// Don’t catch NumberFormatException.
 //	public boolean verifyCycleString(String cycleString) {
 //		String[] words = cycleString.split (separator1);
 //		appendToFoundInFileString(words[0]);
@@ -32,7 +31,7 @@
 //		return true;
 //	}
 //	
-//	// Donâ€™t catch NumberFormatException.
+//	// Don’t catch NumberFormatException.
 //	public boolean verifyOvniString(String lineFromFile, Game game, int armour) {
 //		String[] words = lineFromFile.split(separator1);
 //		appendToFoundInFileString(words[0]);
@@ -44,7 +43,7 @@
 //		return true;
 //	}
 //	
-//	// Donâ€™t catch NumberFormatException.
+//	// Don’t catch NumberFormatException.
 //	public boolean verifyPlayerString(String lineFromFile, Game game, int armour) {
 //		String[] words = lineFromFile.split(separator1);
 //		appendToFoundInFileString(words[0]);
@@ -59,7 +58,7 @@
 //		return true;
 //	}
 //	
-//	// Donâ€™t catch NumberFormatException.
+//	// Don’t catch NumberFormatException.
 //	public boolean verifyAlienShipString(String lineFromFile, Game game, int armour) {
 //		String[] words = lineFromFile.split(separator1);
 //		appendToFoundInFileString(words[0]);
@@ -74,7 +73,7 @@
 //		return true;
 //	}
 //	
-//	// Donâ€™t catch NumberFormatException.
+//	// Don’t catch NumberFormatException.
 //	public boolean verifyWeaponString(String lineFromFile, Game game) {
 //		String[] words = lineFromFile.split(separator1);
 //		if (words.length != 2) 
@@ -136,13 +135,4 @@
 //	
 //	// Use a regular expression to verify the string of concatenated prefixes found
 //	public boolean verifyLines() {
-//		// TO DO: compare foundInFileString with a regular expression
-//		return true;
-//	}
 //	
-//	// text explaining allowed concatenated prefixes
-//	public String toString() {
-//		// TO DO
-//		return "";
-//	}
-//}

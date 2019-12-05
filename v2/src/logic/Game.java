@@ -13,7 +13,7 @@ public class Game implements IPlayerController{
 	private final int numCols = 9;
 	private int nOfCycles;
 	private int points;
-	private boolean misil;
+	private int nSuperMisil;
 
 	private static BoardInitializer initializer;
 	private static GameObjectBoard board;
@@ -34,9 +34,9 @@ public class Game implements IPlayerController{
 		}
 
 	//Bien, hacer funciones a las que llama
-	public void initGame () {
+	private void initGame () {
 		nOfCycles = 0;
-		misil = false;
+		nSuperMisil = 0;
 		shockwave = true;
 		exit = false;
 		board = initializer.initialize(this, this.level);
@@ -50,7 +50,7 @@ public class Game implements IPlayerController{
 		return !player.isAlive () || board.AliensHaveLanded();
 	}
 
-	//Bien, corregir funciones a las que llama
+	//Bien
 	public boolean Win () {
 		return board.allDead();
 	}
@@ -60,7 +60,7 @@ public class Game implements IPlayerController{
 		return Win() || Lose() || exit;
 		}
 
-	//Creo que sobra, ya esta el add del GameObjectBoard
+	//Bien
 	public void addObject(GameObject object) {
 		board.add(object);
 		}
@@ -73,7 +73,7 @@ public class Game implements IPlayerController{
 			aux = "Si";
 		}
 		String texto = "Life: " + player.getLive() + "\nNumber of Cycles: " + nOfCycles + "\nPoints: " + points +
-				"\nRemaining Aliens: " + board.remainingAliens() + "\nShockwave: " + aux;
+				"\nRemaining Aliens: " + board.remainingAliens() + "\nShockwave: " + aux + "\nSuperMisil: " + this.nSuperMisil;
 		return texto;
 		}
 
@@ -97,9 +97,9 @@ public class Game implements IPlayerController{
 	}
 
 	//Bien
-	public boolean shootMissile()
+	public boolean shootMissile(boolean x)
 	{
-		boolean aux = player.shoot();
+		boolean aux = player.shoot(x);
 		if(aux)
 		{
 			board.add(player.getProyectil());
@@ -143,9 +143,10 @@ public class Game implements IPlayerController{
 	//Bien
 	public boolean move(int numCells) {
 		int i = numCells;
-		if(player.getCol() + i >= 0 && player.getCol() + i < numCols)
+		if(player.MoveX(i))
 		{
-			player.setPos(player.getRow(), player.getCol() + i);
+			update();
+			return true;
 		}
 		else
 		{
@@ -157,17 +158,17 @@ public class Game implements IPlayerController{
 			{
 				i++;
 			}
-			if(player.getCol() + i >= 0 && player.getCol() + i < numCols)
+			if(player.MoveX(i))
 			{
-				player.setPos(player.getRow(), player.getCol() + i);
+				update();
+				return true;
 			}
 			else
 			{
 				return false;
 			}
 		}
-		update();
-		return true;
+
 	}
 
 	public boolean shockWave() {
@@ -185,6 +186,11 @@ public class Game implements IPlayerController{
 		this.points += points;
 	}
 
+	public int GetPoints()
+	{
+		return points;
+	}
+	
 	//Hacer entero
 	public void enableShockWave() {
 		this.shockwave = true;
@@ -220,22 +226,39 @@ public class Game implements IPlayerController{
 		return level;
 	}
 
-
+	//Bien
 	public boolean isOnBoard(GameObject object) {
 		return object.getCol() >= 0 && object.getCol() < this.numCols && object.getRow() >= 0 && object.getRow() < this.numRows;
 	}
 
-	@Override
-	public void enableMissile() {
-		misil = true;
+
+	//No Hace nada
+	public void enableMissile() {}
+
+
+	public boolean shootMissile() {
+
+		return false;
 	}
 
-	public void disableMissile() {
-		misil = false;
+	public int getSuperMisil() {
+		return nSuperMisil;
 	}
+
 	
-	public boolean GetMisil()
+	public void reduceSuperMisil() {
+		nSuperMisil--;
+	}
+
+
+	public boolean buySuperMisil()
 	{
-		return misil;
+		boolean aux = points >= 0;
+		if(aux)
+		{
+			points -= 20;
+			nSuperMisil++;
+		}
+		return aux;
 	}
 }
