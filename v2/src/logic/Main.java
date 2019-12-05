@@ -45,7 +45,7 @@ public class Main{
 		Random rand = new Random(seed);
 		L = Level.parse(dif);		
 		G = new Game(L, rand);
-		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
+		BoardPrinter GP = new BoardPrinter(G.GetNumRows(), G.GetNumCols());
 			
 			while(!G.isFinished())
 			{
