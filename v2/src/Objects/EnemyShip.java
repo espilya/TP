@@ -19,4 +19,11 @@ public abstract class EnemyShip extends Ship{
 		live -= damage;
 		return true;
 	}
+	
+	public boolean receiveExplosion(int damage, int x, int y) 
+	{
+		if((pos[0] == x || pos[0] == x + 1 || pos[0] == x - 1) && (pos[1] == y || pos[1] == y + 1 || pos[1] == y - 1))
+				live -= damage;
+		return true;
+	}
 }

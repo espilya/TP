@@ -45,7 +45,7 @@ public abstract class GameObject implements IAttack {
 
 	public int GetHarm()
 	{
-		return 1;
+		return 0;
 	}
 
 	public boolean isOut() {

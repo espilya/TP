@@ -65,7 +65,7 @@ public class GameObjectBoard
 		int points = object.getPoints();
 		game.receivePoints(points);
 		
-		if(object.getDetail().equals(DestroyerShip.Detail) || object.getDetail().equals(RegularShip.Detail))
+		if(object.getDetail().equals(DestroyerShip.Detail) || object.getDetail().equals(RegularShip.Detail) || object.getDetail().equals(ExplosivShip.Detail))
 			this.nOfAliens--;
 		
 		while(i < contador - 1)
@@ -102,6 +102,8 @@ public class GameObjectBoard
 					{
 						GObject[j].receiveMissileAttack(GObject[i].GetHarm());
 						GObject[i].receiveBombAttack(1);
+						if(GObject[j].getDetail().equals(ExplosivShip.Detail))
+							game.explosion(GObject[j].getCol(), GObject[j].getRow());
 						if(!GObject[j].isAlive() && GObject[j].die())
 						{
 							remove(GObject[j]);
@@ -130,6 +132,8 @@ public class GameObjectBoard
 					{
 						GObject[j].receiveBombAttack(1);
 						GObject[i].receiveMissileAttack(GObject[j].GetHarm());
+						if(GObject[i].getDetail().equals(ExplosivShip.Detail))
+							game.explosion(GObject[i].getCol(), GObject[i].getRow());
 						remove(GObject[j]);
 						if(!GObject[i].isAlive() && GObject[i].die())
 						{
@@ -177,6 +181,7 @@ public class GameObjectBoard
 
 		if(move)
 		{
+			makeExplosiv();
 			MoveOther();
 			checkAttacks();
 		}
@@ -274,7 +279,21 @@ public class GameObjectBoard
 		}
 	}
 
-
+	private void makeExplosiv()
+	{
+		int x, y, live;
+		for(int i = 0; i < contador; i++)
+		{
+			if(GObject[i].getDetail().equals(RegularShip.Detail) && game.getNextDouble() < game.getLevel().getTurnExplodeFrequency())
+			{
+				x = GObject[i].getCol();
+				y = GObject[i].getRow();
+				live = GObject[i].getLive();
+				GObject[i] = new ExplosivShip(game, x, y, live);
+			}
+		}
+	}
+	
 	//Bien
 	private void shoot() {
 		for(int i = 0; i < contador; i++)

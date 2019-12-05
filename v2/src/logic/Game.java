@@ -261,4 +261,9 @@ public class Game implements IPlayerController{
 		}
 		return aux;
 	}
+
+	public void explosion(int i, int j) {
+		// TODO Auto-generated method stub
+		
+	}
 }
