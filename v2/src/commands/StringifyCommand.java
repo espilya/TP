@@ -5,10 +5,10 @@ import logic.Game;
 public class StringifyCommand extends Command{
 	
 
-	private final static String help = "UCM-Ship shots a misil.\n";
-	private final static String name = "shoot";
-	private final static String details = "[S]hoot";
-	private final static String shortCut = "s";
+	private final static String help = "";
+	private final static String name = "";
+	private final static String details = "";
+	private final static String shortCut = "";
 
 		public StringifyCommand() {
 			super(name, shortCut, details, help);	

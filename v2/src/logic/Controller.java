@@ -10,7 +10,7 @@ public class Controller {
 	private static String input;
 	private static int numRows = 8; 
 	private static int numCols = 9;
-	static BoardPrinter GPrint = new BoardPrinter(numRows, numCols);
+	static GamePrinter GPrint = new GamePrinter(numRows, numCols);
 	static Scanner in = new Scanner(System.in); 
 	static final String str = "\n\n\n\n\n\n\n\n";
 	private final String unknownCommandMsg = "Unknown command";
@@ -48,7 +48,11 @@ public class Controller {
 //					words = in.nextLine().trim(). split ("\\s+");
 //				}
 			} 
-			catch (CommandExecuteException | CommandParseException e) {
+			catch (CommandExecuteException e) {
+				System.err.println("Exception: " + e);
+			}
+			catch(CommandParseException e) {
+				System.err.println(unknownCommandMsg);
 				System.err.println("Exception: " + e);
 			}
 		}

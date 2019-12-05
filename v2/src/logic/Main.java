@@ -2,7 +2,6 @@ package logic;
 
 import java.util.Random;
 
-import exceptions.CommandParseException;
 import exceptions.ProgramExecuteException;
 
 public class Main{
@@ -29,9 +28,8 @@ public class Main{
 				throw new ProgramExecuteException();
 			}
 		}
-		catch(Error e ) {
+		catch(Error | ProgramExecuteException e ) {
 			System.err.println("Exception: " + e + "level must be one of: 'EASY, HARD, INSANE'");
-			System.err.println("Usage ==> Main <EASY|HARD|INSANE> [seed]");
 		}
 		catch(NumberFormatException e) {
 			System.err.println("Exception: " + e + ":= It's not a number. The seed must be a number");
@@ -45,12 +43,13 @@ public class Main{
 		Random rand = new Random(seed);
 		L = Level.parse(dif);		
 		G = new Game(L, rand);
-		BoardPrinter GP = new BoardPrinter(G.GetNumRows(), G.GetNumCols());
+		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
 			
 			while(!G.isFinished())
 			{
 				System.out.println(G.infoToString());
 				System.out.println(GP.toString(G));
+				
 				controller.run(G);
 			}
 			if(G.Lose()){

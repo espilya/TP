@@ -16,6 +16,7 @@ public class CommandGenerator{
 			new BuySuperMisilCommand(),
 			new ShootSuperMisilCommand(),
 			new NoneCommand()//,
+//			new StringifyCommand(),
 //			new FalseCommand()//comando incorrecto
 		};
 	

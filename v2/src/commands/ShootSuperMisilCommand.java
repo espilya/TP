@@ -1,4 +1,5 @@
 package commands;
+import exceptions.CommandExecuteException;
 import logic.Game;
 
 
@@ -14,8 +15,11 @@ public class ShootSuperMisilCommand extends Command{
 		}
 
 
-	public boolean execute(Game game) {
-		return game.shootMissile(true);
+	public boolean execute(Game game) throws CommandExecuteException {
+		boolean shoot = game.shootMissile(true);
+		if(!shoot)
+			throw new CommandExecuteException("'Disparar supermisil' No dispones de supermissil");
+		return shoot;
 	}
 
 

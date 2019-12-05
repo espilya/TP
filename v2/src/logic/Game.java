@@ -25,7 +25,10 @@ public class Game implements IPlayerController{
 	private boolean shockwave; //Comprobar si es necesario
 	private static boolean exit;
 
-	//Bien
+	public int getnOfCycles (){
+		return this.nOfCycles;
+		}
+	
 	public Game (Level level, Random random){
 		this.rand = random;
 		this.level = level;
