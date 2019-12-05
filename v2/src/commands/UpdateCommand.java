@@ -16,6 +16,7 @@ public class UpdateCommand extends Command{
 
 
 	public boolean execute(Game game) {	
+		game.update();
 		return true;
 	}
 

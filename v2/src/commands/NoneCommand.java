@@ -17,10 +17,11 @@ public class NoneCommand extends Command {
 	
 	public boolean execute(Game game) {
 		System.out.print("You've decided to wait..\n\n\n\n");
+		game.update();
 		return true;
 	}
 
-	@Override
+
 	public Command parse(String[] commandWords) {
 		if(commandWords.length == 1 && (commandWords[0].equals(name) || commandWords[0].equals(shortCut)))
 			return this;
