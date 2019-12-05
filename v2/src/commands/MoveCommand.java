@@ -1,4 +1,6 @@
 package commands;
+import exceptions.CommandExecuteException;
+import exceptions.CommandParseException;
 import logic.Game;
 
 
@@ -17,10 +19,30 @@ public class MoveCommand extends Command{
 		}
 
 
-	private boolean checkMov(String[] commandWords) {  //move <left|right><1|2>
+	private boolean checkMov(String[] commandWords) throws CommandParseException {  //move <left|right><1|2>
 		
 		boolean ok1 = false;
 		boolean ok2 = false;
+		
+		if(commandWords.length == 1)
+			throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento de dirreccion");
+
+		
+	    if(commandWords[1].equals("left") || commandWords[1].equals("l"))
+	    {
+	       	dir = -1;
+	       	ok2 = true;
+	    }
+	    else if(commandWords[1].equals("right") || commandWords[1].equals("r"))
+	    {
+	       	dir = 1;
+	       	ok2 = true;
+	    }
+	    else
+	    	throw new CommandParseException("'Dirreccion para mover'");
+	    
+		if(commandWords.length == 2)
+			throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento cantidad de casillas a mover");
 
 		if(commandWords[2].equalsIgnoreCase("1"))
 		{
@@ -32,34 +54,37 @@ public class MoveCommand extends Command{
 	    	step = 2;
 	    	ok1 = true;
 	    }
+	    else
+	    	throw new CommandParseException("'Casillas para mover'");
 
-	    if(commandWords[1].equals("left") || commandWords[1].equals("l"))
-	    {
-	       	dir = -1;
-	       	ok2 = true;
-	    }
-	    else if(commandWords[1].equals("right") || commandWords[1].equals("r"))
-	    {
-	       	dir = 1;
-	       	ok2 = true;
-	    }
+
         return ok1 && ok2;
 	}
 
 
 	@Override
-	public boolean execute(Game game) {
-		game.move(dir * step);
+	public boolean execute(Game game) throws CommandExecuteException {
+		if(!game.move(dir * step))
+			throw new CommandExecuteException("'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
 		return true;
 	}
 
 
 	@Override
 	public Command parse(String[] commandWords) {
-		if(commandWords.length == 3 && (commandWords[0].equals(name) || commandWords[0].equals(shortCut)) && checkMov(commandWords))
-			return this;
-		else
-			return null;
+		boolean ok = false;
+		try {
+			 ok =(commandWords[0].equals(name) || commandWords[0].equals(shortCut)) && checkMov(commandWords);
+		}
+		catch(CommandParseException e){
+			System.err.println("Exception: " + e);
+		}
+		
+			if(commandWords.length == 3 && ok)
+				return this;
+			else
+				return null;
+
 	}
 	
 	public String helpText()

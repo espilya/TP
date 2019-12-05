@@ -1,4 +1,5 @@
 package commands;
+import exceptions.CommandExecuteException;
 import logic.Game;
 
 
@@ -19,7 +20,7 @@ public abstract class Command{
 		this.help = help;
 		}
 	
-	public abstract boolean execute(Game game);
+	public abstract boolean execute(Game game) throws CommandExecuteException;
 	public abstract Command parse(String[] commandWords);
 	protected boolean matchCommandName(String name) {
 	return this.shortCut.equalsIgnoreCase(name) ||

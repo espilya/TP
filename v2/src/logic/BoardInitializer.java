@@ -21,10 +21,11 @@ public class BoardInitializer {
 	}
 
 	public void initializeEnemy() {
-		this.IniRow = game.GetNumRows() -(level.getNumRegularAliens() + level.getNumDestroyerAliens());
+		this.IniRow = 1; 
 		initializeOvni () ;
-		initializeDestroyerAliens () ;
 		initializeRegularAliens () ;
+		initializeDestroyerAliens () ;
+
 		
 	}
 	
@@ -44,23 +45,28 @@ public class BoardInitializer {
 
 	private void initializeRegularAliens () {
 		int total = level.getNumRegularAliens();
-		int perRow = level.getNumRegularAliensPerRow();
-
-	
+//		int perRow = level.getNumRegularAliensPerRow();
+//		int numRows = level.getNumRowsOfRegularAliens();
+		
 		for(int i = 0; i < total; i++)
 		{
-			game.addObject(new RegularShip(game, 2 + i, IniRow - i / perRow));
+			game.addObject(new RegularShip(game, 2+(i%4), IniRow));
+			if(i==3 || i==7 || i==11 || i==14)
+				IniRow++;
 		}
+
 	}
 
 	private void initializeDestroyerAliens () {
 		int total = level.getNumDestroyerAliens();
 		int perRow = level.getNumDestroyerAliensPerRow();
-		
+		int toRight = 2;
+		if(total == 2)
+			toRight = 3;
 		for(int i = 0; i < total; i++)
 		{
-			game.addObject(new DestroyerShip(game, 2 + i % perRow, IniRow - i / perRow));
+			game.addObject(new DestroyerShip(game, toRight + i % perRow, IniRow));
 		}
-		this.IniRow -= total / perRow;
+//		this.IniRow -= total / perRow;
 	}
 }

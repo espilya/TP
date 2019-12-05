@@ -1,4 +1,5 @@
 package commands;
+import exceptions.CommandExecuteException;
 import logic.Game;
 
 
@@ -14,8 +15,11 @@ public class ShockwaveCommand extends Command{
 			// TODO Auto-generated constructor stub
 		}
 
-	public boolean execute(Game game) {
-		return game.shockWave();
+	public boolean execute(Game game) throws CommandExecuteException {
+		boolean shock = game.shockWave();
+		if(!shock)
+			throw new CommandExecuteException("'ShockWave' No dispones de armas tipo ShockWave.");
+		return shock;
 	}
 
 

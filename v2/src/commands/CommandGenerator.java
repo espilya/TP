@@ -1,4 +1,7 @@
 package commands;
+
+import exceptions.CommandParseException;
+
 public class CommandGenerator{
 
 	private static Command[] availableCommands = {
@@ -11,10 +14,12 @@ public class CommandGenerator{
 			new ShockwaveCommand(),
 			new ShootCommand(),
 			new BuySuperMisilCommand(),
-			new ShootSuperMisilCommand()
+			new ShootSuperMisilCommand(),
+			new NoneCommand()//,
+//			new FalseCommand()//comando incorrecto
 		};
 	
-	public static Command parseCommand(String[] commandWords)
+	public static Command parseCommand(String[] commandWords) throws CommandParseException //throws CommandParseException
 	{
 		Command aux = null;
 	
@@ -22,6 +27,9 @@ public class CommandGenerator{
 		{
 			aux = availableCommands[i].parse(commandWords);
 		}
+		if(aux == null)
+			//aux = availableCommands[11];
+			throw new CommandParseException("'Comando incorreto o desconocido'");
 		return aux;
 	}
 	

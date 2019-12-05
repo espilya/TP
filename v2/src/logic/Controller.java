@@ -3,6 +3,8 @@ import java.util.Scanner;
 
 import commands.Command;
 import commands.CommandGenerator;
+import exceptions.CommandExecuteException;
+import exceptions.CommandParseException;
 
 public class Controller { 
 	private static String input;
@@ -12,7 +14,7 @@ public class Controller {
 	static Scanner in = new Scanner(System.in); 
 	static final String str = "\n\n\n\n\n\n\n\n";
 	private final String unknownCommandMsg = "Unknown command";
-	private final String PROMPT = "";
+	private final String PROMPT = ">";
 	
 	public static boolean continuar() 
 	{ 
@@ -29,18 +31,47 @@ public class Controller {
         return answer;
 	}
 	
-	public void run(Game game) { 
+	public void run(Game game){ 
 		Command command = null;
 
-		System.out.println(PROMPT);
-		String[] words = in.nextLine().toLowerCase().trim().split ("\\s+");
-		while(command == null)
-		{
-			command = CommandGenerator.parseCommand(words);
-			if(command == null)
-				System.out.format(unknownCommandMsg);
-			else
-				command.execute(game);
+
+		while (command == null){
+			try {
+				System.out.print(PROMPT);
+				String[] words = in.nextLine().toLowerCase().trim().split ("\\s+");
+				command = CommandGenerator.parseCommand(words);
+				if (command != null) {
+					command.execute(game);
+				} 
+//				else{
+//					System.out.print(PROMPT);
+//					words = in.nextLine().trim(). split ("\\s+");
+//				}
+			} 
+			catch (CommandExecuteException | CommandParseException e) {
+				System.err.println("Exception: " + e);
+			}
 		}
+		
+		
+//		while(command == null)
+//		{
+//			command = CommandGenerator.parseCommand(words);
+//			if(command == null) {
+//				//System.out.format(unknownCommandMsg);
+//				try {
+//					{
+//						
+//					}
+//				} catch(CommandExecuteExceptions | CommandParseException e) { 
+//					System.err.println("Exception: " + e);
+//					}
+//				System.out.print(PROMPT);
+//				words = in.nextLine().toLowerCase().trim().split ("\\s+");
+//			}
+//			else
+//				command.execute(game);
+//
+//		}
 	}
 }
