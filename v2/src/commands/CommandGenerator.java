@@ -23,14 +23,18 @@ public class CommandGenerator{
 	public static Command parseCommand(String[] commandWords) throws CommandParseException //throws CommandParseException
 	{
 		Command aux = null;
-	
-		for(int i = 0; i < availableCommands.length && aux == null; i++)
+		if(commandWords[0].length() != 0)
 		{
-			aux = availableCommands[i].parse(commandWords);
+			for(int i = 0; i < availableCommands.length && aux == null; i++)
+			{
+				aux = availableCommands[i].parse(commandWords);
+			}
+			if(aux == null)
+	
+				throw new CommandParseException("'Comando incorreto o desconocido'");
 		}
-		if(aux == null)
-			//aux = availableCommands[11];
-			throw new CommandParseException("'Comando incorreto o desconocido'");
+		else
+			aux = new NoneCommand();
 		return aux;
 	}
 	

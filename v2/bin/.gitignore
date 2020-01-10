@@ -1,11 +1,4 @@
-/Objects/
-/interfaces/
 /logic/
-/PrinterTypes.class
-/FileContentsVerifier.class
-/GameObjectGenerator.class
 /commands/
-/stringUtils/
-/util/
-/exceptions/
 /printer/
+/Objects/

@@ -1,8 +1,9 @@
-package logic;
+package printer;
 
+import logic.Game;
 import stringUtils.MyStringUtils;
 
-public class GamePrinter{
+public class BoardPrinter extends GamePrinter{
 	
 	int numRows; 
 	int numCols;
@@ -10,51 +11,12 @@ public class GamePrinter{
 	final String space = " ";
 	
 	
-	public GamePrinter (int sizeY, int sizeX) {
+	public BoardPrinter (int sizeY, int sizeX) {
 		this.numRows = sizeY;
 		this.numCols = sizeX;	
 	}
 	
-	public void serialPrint(Game game) {
-//		La primera línea será siempre — Space Invaders v2.0 —
-//		La segunda línea es una línea en blanco
-//		La tercera línea dará información sobre el Game: G;totalCycles
-//		La cuarta línea dará información sobre el Level: L;level
-//		Después, en cada línea, daremos información sobre los objetos de juego que estén en
-//		el tablero:
-//		• Ovni: O;x;y;live
-//		• Regular alien: R;x,y;live;cyclesNextAlienMove;dir
-//		• Destroyer alien: D;x,y;live;cyclesNextAlienMove;dir
-//		• Explosive alien: E;x,y;live;cyclesNextAlienMove;dir
-//		• Bomb: B;x,y
-//		• Missile: M;x,y
-//		• Supermissile: X;x,y
-//		• UCMShip (player): P;x,y;live;points;superpower;missiles
-		System.out.println("— Space Invaders v2.0 —");
-		System.out.println("");
-		System.out.println(game.getnOfCycles());
-		System.out.println(game.getLevel());
-		for(int i = 0; i < numRows; i++) {
-			for(int j = 0; j < numCols; j++) {
-				if(game.toString(i, j).charAt(0)=='R') {
-					System.out.println("R" + ";" + i+j+game.toString(i, j).charAt(2));
-				}
-				else if(game.toString(i, j).charAt(0)=='D') {
-					System.out.println("D" + ";" + i+j+game.toString(i, j).charAt(2));
-				}
-				else if(game.toString(i, j).charAt(0)=='E') {
-					System.out.println("E" + ";" + i+j+game.toString(i, j).charAt(2));
-				}
-				else if(game.toString(i, j).charAt(0)=='O') {
-					System.out.println("O" + ";" + i+j+game.toString(i, j).charAt(2));
-				}
-		// 		...
-			}
-		}
 
-		
-		
-	}
 	
 
 	

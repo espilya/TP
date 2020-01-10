@@ -22,13 +22,9 @@ private final static String shortCut = "r";
 	@Override
 	public Command parse(String[] commandWords) {
 		if(commandWords.length == 1 && commandWords[0].equals(name) || commandWords[0].equals(shortCut))
-			return this;
+			return new ResetCommand();
 		else
 			return null;
 	}
 	
-	public String helpText()
-	{
-		return details + " : " + help + "\n";
-	}
 }

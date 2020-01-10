@@ -37,6 +37,6 @@ public class SuperMisil extends Weapon{
 	}
 
 	public String toString() {
-		return "oo";
+		return "<>";
 	}
 }

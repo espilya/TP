@@ -1,5 +1,6 @@
 package commands;
 import logic.Game;
+import printer.GamePrinter;
 
 
 public class HelpCommand extends Command{
@@ -16,20 +17,17 @@ public class HelpCommand extends Command{
 
 	@Override
 	public boolean execute(Game game) {
-		System.out.print(CommandGenerator.commandHelp());
+		GamePrinter.commandPrinter(CommandGenerator.commandHelp());
 		return false;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
 		if(commandWords.length == 1 && commandWords[0].equals(name) || commandWords[0].equals(shortCut))
-			return this;
+			return new HelpCommand();
 		else
 			return null;
 	}
 	
-	public String helpText()
-	{
-		return details + " : " + help + "\n";
-	}
+
 }

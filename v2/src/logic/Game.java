@@ -111,19 +111,11 @@ public class Game implements IPlayerController{
 		return aux;
 	}
 
-	//Bien
-	public void gameOverPrint()
+	public int getUCMLife()
 	{
-		String texto = "\n\n\n\n\n\n HAS PERDIDO \n\n\n\n\n\n";
-		System.out.println(texto);
+		return player.getLive();
 	}
 
-	//Bien
-	public void gameWinPrint()
-	{
-		String texto = "\n\n HA GANADO \n\n";
-		System.out.println(texto);
-	}
 
 	//Bien
 	public int GetNumRows()

@@ -17,6 +17,12 @@ public class MoveCommand extends Command{
  	public MoveCommand() {
 			super(name, shortCut, details, help);	
 		}
+ 	
+ 	public MoveCommand(int a, int b) {
+		super(name, shortCut, details, help);	
+		dir = a;
+		step = b;
+	}
 
 
 	private boolean checkMov(String[] commandWords) throws CommandParseException {  //move <left|right><1|2>
@@ -81,14 +87,10 @@ public class MoveCommand extends Command{
 		}
 		
 			if(commandWords.length == 3 && ok)
-				return this;
+				return new MoveCommand(dir, step);
 			else
 				return null;
 
 	}
 	
-	public String helpText()
-	{
-		return details + " : " + help + "\n";
-	}
 }

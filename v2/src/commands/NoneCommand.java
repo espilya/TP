@@ -1,6 +1,7 @@
 package commands;
 
 import logic.Game;
+import printer.GamePrinter;
 
 public class NoneCommand extends Command {
 
@@ -16,21 +17,17 @@ public class NoneCommand extends Command {
 
 	
 	public boolean execute(Game game) {
-		System.out.print("You've decided to wait..\n\n\n\n");
-		game.update();
+		GamePrinter.commandPrinter("You've decided to wait..\n\n\n\n");
+//		game.update();
 		return true;
 	}
 
 
 	public Command parse(String[] commandWords) {
 		if(commandWords.length == 1 && (commandWords[0].equals(name) || commandWords[0].equals(shortCut)))
-			return this;
+			return new NoneCommand();
 		else
 			return null;
 	}
 	
-	public String helpText()
-	{
-		return details + " : " + help + "\n";
-	}
 }

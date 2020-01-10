@@ -1,5 +1,7 @@
 package commands;
 import logic.Game;
+import printer.GamePrinter;
+import printer.Stringifier;
 
 
 public class StringifyCommand extends Command{
@@ -9,6 +11,7 @@ public class StringifyCommand extends Command{
 	private final static String name = "";
 	private final static String details = "";
 	private final static String shortCut = "";
+	Stringifier printer;
 
 		public StringifyCommand() {
 			super(name, shortCut, details, help);	
@@ -16,19 +19,18 @@ public class StringifyCommand extends Command{
 
 
 	public boolean execute(Game game) {
-		return game.shootMissile();
+		printer = new Stringifier(game);
+//		GamePrinter.commandPrinter(" ");
+		System.out.println(printer);
+		return false;
 	}
 
 
 	public Command parse(String[] commandWords) {
 		if(commandWords.length == 1 && commandWords[0].equals(name) || commandWords[0].equals(shortCut))
-			return this;
+			return new StringifyCommand();
 		else
 			return null;
 	}
 	
-	public String helpText()
-	{
-		return details + " : " + help + "\n";
-	}
 }
