@@ -20,7 +20,7 @@ public class StringifyCommand extends Command{
 
 	public boolean execute(Game game) {
 		printer = new Stringifier(game);
-//		GamePrinter.commandPrinter(" ");
+//		GamePrinter.commandPrinter(printer);
 		System.out.println(printer);
 		return false;
 	}

@@ -151,7 +151,6 @@ public class Game implements IPlayerController {
 			} else {
 				throw new CommandExecuteException(
 						"'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
-				return false;
 			}
 		}
 

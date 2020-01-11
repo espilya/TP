@@ -1,19 +1,19 @@
 package commands;
+
 import exceptions.CommandExecuteException;
 import logic.Game;
 
-
-public class ShockwaveCommand extends Command{
+public class ShockwaveCommand extends Command {
 
 	private final static String help = "UCM-Ship releases a shock wave.\n";
 	private final static String name = "shockwave";
 	private final static String details = "shock[W]ave";
 	private final static String shortCut = "w";
 
-		public ShockwaveCommand() {
-			super(name, shortCut, details, help);	
-			// TODO Auto-generated constructor stub
-		}
+	public ShockwaveCommand() {
+		super(name, shortCut, details, help);
+		// TODO Auto-generated constructor stub
+	}
 
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean shock = game.shockWave();
@@ -22,9 +22,8 @@ public class ShockwaveCommand extends Command{
 		return shock;
 	}
 
-
 	public Command parse(String[] commandWords) {
-		if(commandWords.length == 1 && commandWords[0].equals(name) || commandWords[0].equals(shortCut))
+		if (commandWords.length == 1 && commandWords[0].equals(name) || commandWords[0].equals(shortCut))
 			return new ShockwaveCommand();
 		else
 			return null;
