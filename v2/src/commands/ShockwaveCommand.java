@@ -17,8 +17,8 @@ public class ShockwaveCommand extends Command{
 
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean shock = game.shockWave();
-		if(!shock)
-			throw new CommandExecuteException("'ShockWave' No dispones de armas tipo ShockWave.");
+//		if(!shock)
+//			throw new CommandExecuteException("'ShockWave' No dispones de armas tipo ShockWave.");
 		return shock;
 	}
 

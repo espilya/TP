@@ -70,8 +70,8 @@ public class MoveCommand extends Command{
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
-		if(!game.move(dir * step))
-			throw new CommandExecuteException("'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
+		game.move(dir * step);
+//			throw new CommandExecuteException("'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
 		return true;
 	}
 

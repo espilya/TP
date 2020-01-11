@@ -17,8 +17,8 @@ public class ShootSuperMisilCommand extends Command{
 
 	public boolean execute(Game game) throws CommandExecuteException {
 		boolean shoot = game.shootMissile(true);
-		if(!shoot)
-			throw new CommandExecuteException("'Disparar supermisil' No dispones de supermissil");
+//		if(!shoot)
+//			throw new CommandExecuteException("'Disparar supermisil' No dispones de supermissil");
 		return shoot;
 	}
 

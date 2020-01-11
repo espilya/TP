@@ -29,9 +29,8 @@ public class CommandGenerator{
 			{
 				aux = availableCommands[i].parse(commandWords);
 			}
-			if(aux == null)
-	
-				throw new CommandParseException("'Comando incorreto o desconocido'");
+//			if(aux == null)
+//				throw new CommandParseException("'Comando incorreto o desconocido'");
 		}
 		else
 			aux = new NoneCommand();

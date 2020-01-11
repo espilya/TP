@@ -5,20 +5,21 @@ sin load
   * es una indicación que no sabéis usar polimorfismo / vinculación dinámica
   * por si solo, es razón suficiente para suspender
 
-- Patrón comando
-  * no hace falta lanzar una excepción en CommandGenerator, basta con devolver null en este caso
-  
-- Excepciones: bastante pobre
+
+- Excepciones:(HACE FALTA MODIFICAR EL MoveCommand y hacerlo un poco de otra manera para lanzar la excep. en 'un nivel mas bajo')
   * las excepciones se deberían lanzar en el punto del código donde ocurre el error
     + no deberían lanzarse en los comandos
     * mirar el primer punto de la sección "Mejorar la calidad del código" de la P.12 del enunciado
+
   * deberías haber definido unas excepciones nuevas (excepciones de bajo nivel)
     + se lanzan cada excepción de bajo nivel donde ocurre el error en cuestión
     + se recoge en el método execute del comando y se envuelve en una excepción de alto nivel
     + la excepción de alto nivel (CommandExecuteException) se recoge en el Controller
 
+
 - Impresión
   * en vez de la impresión desde los comandos, usa excepciones
+
 
 - strungfy
 - SaveCommand sin implementar (no fue opcional)
