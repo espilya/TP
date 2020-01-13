@@ -1,4 +1,3 @@
-sin load
 - el uso del atributo "details" para saber de qué clase se trata
   * es una manera muy primitiva de reproducir la funcionalidad de instanceof / getClass
   * se ha advertido en clase que no se puede usar instanceof / getClass en la práctica
@@ -25,6 +24,8 @@ sin load
 -----------------------------
 
 
-- Stringify
+- Stringify:
+--bien hecho?
 
-- SaveCommand sin implementar (no fue opcional)
+- SaveCommand sin implementar:
+--falta pasar el nombre para guardar el fichero
