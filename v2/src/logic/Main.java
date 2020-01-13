@@ -36,31 +36,5 @@ public class Main{
 		}
 	}
 	
-//	private static void jugar(String dif, int seed)
-//	{
-//	
-//		Random rand = new Random(seed);
-//		L = Level.parse(dif);		
-//		G = new Game(L, rand);
-//		GamePrinter GP = new GamePrinter(G.GetNumRows(), G.GetNumCols());
-//			
-//			while(!G.isFinished())
-//			{
-//				System.out.println(G.infoToString());
-//				System.out.println(GP.toString(G));
-//				
-//				controller.run(G);
-//			}
-//			if(G.Lose()){
-//				G.gameOverPrint();
-//				
-//			}
-//			else{
-//				if(G.Win())
-//				{
-//					G.gameWinPrint();
-//				}
-//			}
-//			G.reset();
-//	}
+
 }
