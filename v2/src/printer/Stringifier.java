@@ -42,7 +42,7 @@ public class Stringifier extends GamePrinter {
 					res += "O" + ";" + i + "," + j + aux.charAt(2);
 				} else if (aux.charAt(0) == '^') {
 					res += "^__^;" + i + "," + j + ";" + game.getUCMLife() + ";" + game.GetPoints();
-					if (game.shockWave())
+					if (game.GetShockWave())
 						res += "1;";
 					else
 						res += "0;";

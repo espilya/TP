@@ -146,6 +146,11 @@ public class Game implements IPlayerController {
 		}
 
 	}
+	
+	
+	public boolean GetShockWave() {
+		return this.shockwave;
+	}
 
 	public boolean shockWave() throws CommandExecuteException {
 		boolean aux = this.shockwave;

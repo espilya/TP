@@ -1,0 +1,30 @@
+sin load
+- el uso del atributo "details" para saber de qué clase se trata
+  * es una manera muy primitiva de reproducir la funcionalidad de instanceof / getClass
+  * se ha advertido en clase que no se puede usar instanceof / getClass en la práctica
+  * es una indicación que no sabéis usar polimorfismo / vinculación dinámica
+  * por si solo, es razón suficiente para suspender
+
+
+- Excepciones:
+(---SOLO FALTA MODIFICAR EL MoveCommand y hacerlo un poco de otra manera para lanzar la excep. en 'un nivel mas bajo'---)
+(---HAY QUE QUITAR LA FUNCION 'checkMov', A OTRO SITIO---)
+  * las excepciones se deberían lanzar en el punto del código donde ocurre el error
+    + no deberían lanzarse en los comandos
+    * mirar el primer punto de la sección "Mejorar la calidad del código" de la P.12 del enunciado
+
+  * deberías haber definido unas excepciones nuevas (excepciones de bajo nivel)
+    + se lanzan cada excepción de bajo nivel donde ocurre el error en cuestión
+    + se recoge en el método execute del comando y se envuelve en una excepción de alto nivel
+    + la excepción de alto nivel (CommandExecuteException) se recoge en el Controller
+
+- Impresión
+  * en vez de la impresión desde los comandos, usa excepciones
+
+
+-----------------------------
+
+
+- Stringify
+
+- SaveCommand sin implementar (no fue opcional)

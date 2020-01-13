@@ -64,4 +64,12 @@ public class BoardPrinter extends GamePrinter{
 		
 		return str.toString();
 	}
+
+
+
+	@Override
+	protected void setGame(Game game) {
+		// TODO Auto-generated method stub
+		
+	}
 }
