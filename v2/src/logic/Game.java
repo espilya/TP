@@ -106,11 +106,11 @@ public class Game implements IPlayerController {
 		if (aux) {
 			board.add(player.getProyectil());
 		}
-		update();
-		if (!aux || !x)
+		if (!aux && !x)
 			throw new CommandExecuteException("'Disparar misil' Ya existe un misil. Se economico!");
-		else if (!aux || x)
+		else if (!aux && x)
 			throw new CommandExecuteException("'Disparar supermisil' No dispones de supermissil");
+		update();
 		return aux;
 	}
 
@@ -229,11 +229,14 @@ public class Game implements IPlayerController {
 		nSuperMisil--;
 	}
 
-	public boolean buySuperMisil() {
-		boolean aux = points >= 0;
+	public boolean buySuperMisil() throws CommandExecuteException {
+		boolean aux = points >= 20;
 		if (aux) {
 			points -= 20;
 			nSuperMisil++;
+		}
+		else {
+			throw new 	CommandExecuteException("'Compra de SuperMisil' No se dispone de los puntos necesarios \n");
 		}
 		return aux;
 	}

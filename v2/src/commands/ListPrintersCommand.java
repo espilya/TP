@@ -2,6 +2,7 @@ package commands;
 
 import logic.Game;
 import printer.GamePrinter;
+import printer.PrinterGenerator.PrinterTypes;
 
 public class ListPrintersCommand extends Command {
 
@@ -16,7 +17,9 @@ public class ListPrintersCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		GamePrinter.commandPrinter(game.List());
+
+		GamePrinter.commandPrinter(PrinterTypes.printerHelp(game));
+
 		return false;
 	}
 

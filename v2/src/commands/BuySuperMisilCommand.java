@@ -1,6 +1,8 @@
 package commands;
 
+import exceptions.CommandExecuteException;
 import logic.Game;
+import printer.GamePrinter;
 
 public class BuySuperMisilCommand extends Command {
 
@@ -13,11 +15,9 @@ public class BuySuperMisilCommand extends Command {
 		super(name, shortCut, details, help);
 	}
 
-	public boolean execute(Game game) {
+	public boolean execute(Game game) throws CommandExecuteException {
 		if (game.buySuperMisil())
-			System.out.println("SuperMisil comprado con exito \n");
-		else
-			System.out.println("No se ha podido comprar SuperMisil con exito, no dispone de los puntos suficientes \n");
+			GamePrinter.commandPrinter("SuperMisil comprado con exito \n");
 		return false;
 	}
 

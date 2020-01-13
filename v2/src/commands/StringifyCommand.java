@@ -7,10 +7,10 @@ import printer.Stringifier;
 public class StringifyCommand extends Command{
 	
 
-	private final static String help = "";
-	private final static String name = "";
-	private final static String details = "";
-	private final static String shortCut = "";
+	private final static String help = "Serialization";
+	private final static String name = "stringify";
+	private final static String details = "s[T]ringify";
+	private final static String shortCut = "t";
 	Stringifier printer;
 
 		public StringifyCommand() {
@@ -19,9 +19,10 @@ public class StringifyCommand extends Command{
 
 
 	public boolean execute(Game game) {
+
+		//crear 'printer'
 		printer = new Stringifier(game);
-//		GamePrinter.commandPrinter(printer);
-		System.out.println(printer);
+		GamePrinter.commandPrinter(printer.toString(game));
 		return false;
 	}
 

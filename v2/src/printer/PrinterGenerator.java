@@ -34,8 +34,7 @@ public class PrinterGenerator {
 			return helpString;
 		}
 
-		// Assumes a max of one object of each printer type is needed (otherwise return
-		// copy)
+
 		public GamePrinter getObject(Game game) {
 			printerObject.setGame(game);
 			return printerObject;
