@@ -10,7 +10,6 @@ public class UcmMissile extends Weapon{
 	}
 
 	private final int harm = 1;
-	protected final static String Detail = "Misil";
 
 	public int GetHarm()
 	{
@@ -31,12 +30,11 @@ public class UcmMissile extends Weapon{
 		return true;
 	}
 
-	protected String getDetail()
-	{
-		return Detail;
-	}
-
 	public String toString() {
 		return "oo";
+	}
+	
+	public boolean isMisil() {
+		return true;
 	}
 }

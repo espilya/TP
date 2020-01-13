@@ -24,9 +24,7 @@ public abstract class AlienShip extends EnemyShip{
 		return pos[1] < game.GetNumRows() - 1;
 	}
 	
-	public boolean die()
-	{
-		game.explosion(pos[0], pos[1]);
+	public boolean isAlien() {
 		return true;
 	}
 }

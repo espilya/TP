@@ -10,7 +10,6 @@ public class UCMShip extends Ship{
 
 	private final int harm = 0;
 	private final int FinalHP = 3;
-	protected final static String Detail = "UCMShip";
 	private GameObject misil;
 
 	public String toString() {
@@ -19,11 +18,6 @@ public class UCMShip extends Ship{
 
 	public void reset(){
 		live = FinalHP;
-	}
-
-	protected String getDetail()
-	{
-		return Detail;
 	}
 
 	public boolean receiveBombAttack(int damage)
@@ -71,6 +65,10 @@ public class UCMShip extends Ship{
 		}
 		else
 			return false;
+	}
+ 	
+ 	public boolean isUCMShip() {
+		return true;
 	}
 
 }

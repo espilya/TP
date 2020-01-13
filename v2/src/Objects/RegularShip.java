@@ -11,7 +11,6 @@ public class RegularShip extends AlienShip{
 
 	private final int points = 5;
 	private final int FinalHP = 2;
-	protected static final String Detail = "RegularShip";
 
 
 	public int getPoints() {
@@ -27,9 +26,8 @@ public class RegularShip extends AlienShip{
 	{
 		return "R[" + live + "]";
 	}
-
-	protected String getDetail()
-	{
-		return Detail;
+	
+	public boolean isRegular() {
+		return true;
 	}
 }

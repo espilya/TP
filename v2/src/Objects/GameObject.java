@@ -80,6 +80,32 @@ public abstract class GameObject implements IAttack {
 		public abstract String toString();
 
 		public abstract int getPoints();
-		
-		protected abstract String getDetail();
+
+		public boolean isMisil() {
+			return false;
+		}
+
+		public boolean isBomb() {
+			return false;
+		}
+
+		public boolean isUCMShip() {
+			return false;
+		}
+
+		public boolean isRegular() {
+			return false;
+		}
+
+		public boolean isDestroyer() {
+			return false;
+		}
+
+		public boolean isAlien() {
+			return false;
+		}
+
+		public boolean isOvni() {
+			return false;
+		}
 }

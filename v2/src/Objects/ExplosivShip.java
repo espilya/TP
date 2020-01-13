@@ -15,7 +15,6 @@ public class ExplosivShip extends AlienShip{
 	}
 
 	private final int points = 5;
-	protected static final String Detail = "ExplosivShip";
 	
 
 	public int getPoints() {
@@ -24,16 +23,17 @@ public class ExplosivShip extends AlienShip{
 
 	public String toString()
 	{
-		return "R[" + live + "]";
-	}
-
-	protected String getDetail()
-	{
-		return Detail;
+		return "E[" + live + "]";
 	}
 	
 	public int GetHarm()
 	{
 		return harm;
+	}
+	
+	public boolean die()
+	{
+		game.explosion(pos[0], pos[1]);
+		return true;
 	}
 }

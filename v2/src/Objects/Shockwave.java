@@ -8,16 +8,10 @@ public class Shockwave extends Weapon{
 		super(game, -1, -1);
 	}  
 
-	protected static final String Detail = "Shockwave";
 
 	public boolean isAlive()
 	{
 		return true;
-	}
-
-	protected String getDetail()
-	{
-		return Detail;
 	}
 
 	public String toString() {

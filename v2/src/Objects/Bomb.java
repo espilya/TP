@@ -10,7 +10,6 @@ public class Bomb extends Weapon{
 	}
 
 	private final int harm = 1;
-	protected static final String Detail = "Bomb";
 
 	public boolean receiveMissileAttack(int damage)
 	{
@@ -33,9 +32,8 @@ public class Bomb extends Weapon{
 		pos[1]++;
 		return pos[1] < game.GetNumRows();
 	}
-
-	protected String getDetail()
-	{
-		return Detail;
+	
+	public boolean isBomb() {
+		return true;
 	}
 }

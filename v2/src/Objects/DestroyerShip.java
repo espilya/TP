@@ -13,7 +13,6 @@ public class DestroyerShip extends AlienShip{
 	private Bomb bomba;
 	private final int harm = 0;
 	private final int FinalHP = 1;
-	protected static final String Detail = "DestroyerShip";
 
 	//rand
 
@@ -47,13 +46,13 @@ public class DestroyerShip extends AlienShip{
 		return false;
 	}
 
-	protected String getDetail()
-	{
-		return Detail;
-	}
 
 	public GameObject getProyectil()
 	{
 		return bomba;
+	}
+	
+	public boolean isDestroyer() {
+		return true;
 	}
 }

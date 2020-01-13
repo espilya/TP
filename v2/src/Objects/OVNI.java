@@ -13,7 +13,6 @@ public class OVNI extends EnemyShip{
 	private boolean exists;
 	private final int points = 25;
 	private final int FinalHP = 1;
-	protected static final String Detail = "OVNI";
 
 	private void create()
 	{
@@ -62,13 +61,12 @@ public class OVNI extends EnemyShip{
 		return true;
 	}
 
-	protected String getDetail()
-	{
-		return Detail;
-	}
-
 	public void reset()
 	{
 		live = FinalHP;
+	}
+	
+	public boolean isOvni() {
+		return true;
 	}
 }

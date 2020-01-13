@@ -10,7 +10,6 @@ public class SuperMisil extends Weapon{
 	}
 
 	private final int harm = 2;
-	protected final static String Detail = "Misil";
 
 	public int GetHarm()
 	{
@@ -31,12 +30,11 @@ public class SuperMisil extends Weapon{
 		return true;
 	}
 
-	protected String getDetail()
-	{
-		return Detail;
-	}
-
 	public String toString() {
 		return "<>";
+	}
+	
+	public boolean isMisil() {
+		return true;
 	}
 }
