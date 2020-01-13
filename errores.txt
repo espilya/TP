@@ -6,7 +6,9 @@ sin load
   * por si solo, es razón suficiente para suspender
 
 
-- Excepciones:(SOLO FALTA MODIFICAR EL MoveCommand y hacerlo un poco de otra manera para lanzar la excep. en 'un nivel mas bajo')
+- Excepciones:
+(---SOLO FALTA MODIFICAR EL MoveCommand y hacerlo un poco de otra manera para lanzar la excep. en 'un nivel mas bajo'---)
+(---HAY QUE QUITAR LA FUNCION 'checkMov', A OTRO SITIO---)
   * las excepciones se deberían lanzar en el punto del código donde ocurre el error
     + no deberían lanzarse en los comandos
     * mirar el primer punto de la sección "Mejorar la calidad del código" de la P.12 del enunciado
@@ -20,6 +22,9 @@ sin load
   * en vez de la impresión desde los comandos, usa excepciones
 
 
-- strungfy
+-----------------------------
+
+
+- Stringify
 
 - SaveCommand sin implementar (no fue opcional)

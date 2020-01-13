@@ -59,6 +59,7 @@ public class MoveCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) throws CommandExecuteException {
+		
 		game.move(dir * step);
 //			throw new CommandExecuteException("'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
 		return true;
@@ -71,7 +72,6 @@ public class MoveCommand extends Command {
 			ok = (commandWords[0].equals(name) || commandWords[0].equals(shortCut)) && checkMov(commandWords);
 		} catch (CommandParseException e) {
 			throw new CommandParseException("Exception: " + e);
-			//System.err.println("Exception: " + e);
 		}
 
 		if (commandWords.length == 3 && ok)

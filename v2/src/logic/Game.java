@@ -6,6 +6,7 @@ import Objects.GameObject;
 import Objects.GameObjectBoard;
 import Objects.UCMShip;
 import exceptions.CommandExecuteException;
+import exceptions.CommandParseException;
 import interfaces.IPlayerController;
 
 public class Game implements IPlayerController {
@@ -108,10 +109,12 @@ public class Game implements IPlayerController {
 		update();
 		if (!aux || !x)
 			throw new CommandExecuteException("'Disparar misil' Ya existe un misil. Se economico!");
-		else if(!aux || x)
+		else if (!aux || x)
 			throw new CommandExecuteException("'Disparar supermisil' No dispones de supermissil");
 		return aux;
 	}
+
+
 
 	public int getUCMLife() {
 		return player.getLive();
@@ -134,24 +137,12 @@ public class Game implements IPlayerController {
 
 	// Bien
 	public boolean move(int numCells) throws CommandExecuteException {
-		int i = numCells;
-		if (player.MoveX(i)) {
+		if (player.movPossible(numCells)) {
 			update();
 			return true;
 		} else {
-			if (i > 0) {
-				i--;
-			} else {
-				i++;
-			}
-
-			if (player.MoveX(i)) {
-				update();
-				return true;
-			} else {
-				throw new CommandExecuteException(
-						"'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
-			}
+			throw new CommandExecuteException(
+					"'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
 		}
 
 	}

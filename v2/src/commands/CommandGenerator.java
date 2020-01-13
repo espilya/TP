@@ -8,7 +8,7 @@ public class CommandGenerator {
 			new ExitCommand(), new UpdateCommand(), new MoveCommand(), new ShockwaveCommand(), new ShootCommand(),
 			new BuySuperMisilCommand(), new ShootSuperMisilCommand(), new NoneCommand()// ,
 //			new StringifyCommand(),
-//			new FalseCommand()//comando incorrecto
+			
 	};
 
 	public static Command parseCommand(String[] commandWords) throws CommandParseException // throws

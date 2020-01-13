@@ -60,15 +60,17 @@ public class UCMShip extends Ship{
 		return misil;
 	}
 	
- 	public boolean MoveX(int x)
+ 	public boolean movPossible(int x)
 	{
 		boolean aux;
 		aux = pos[0] + x < game.GetNumCols() && pos[0] + x >= 0;
 		if(aux)
 		{
 			pos[0] += x;
+			return true;
 		}
-		return aux;
+		else
+			return false;
 	}
 
 }
