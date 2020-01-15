@@ -25,30 +25,10 @@ public class CommandGenerator {
 		if (commandWords[0].length() != 0) {
 			for (int i = 0; i < availableCommands.length && aux == null; i++) {
 				aux = availableCommands[i].parse(commandWords);
-			}
-				if(aux==availableCommands[5]) {// availableCommands[5] == moveCommand
-					if (commandWords.length == 1)
-						throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento de dirreccion");
-					
-					else if (commandWords.length == 2)
-						throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento cantidad de casillas a mover");
-					
-					else if (!(commandWords[1].equals("left") || commandWords[1].equals("l") || commandWords[1].equals("right") || commandWords[1].equals("r"))) 
-						throw new CommandParseException("'Dirreccion para mover'");
-					
-					else if (!(commandWords[2].equalsIgnoreCase("1") || commandWords[2].equalsIgnoreCase("2"))) 
-						throw new CommandParseException("'Casillas para mover'");
-					
-				}
-			
-			else if(aux==null) {
-				throw new CommandParseException(
-						"Comando invalido.");
-			}
-
-		} 
-		else
-			aux = new NoneCommand();
+			}		
+		}
+		else if(aux == null) 
+			throw new CommandParseException("Comando invalido.");
 		return aux;
 	}
 
