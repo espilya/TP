@@ -19,8 +19,6 @@ public class StringifyCommand extends Command{
 
 
 	public boolean execute(Game game) {
-
-		//crear 'printer'
 		printer = new Stringifier(game);
 		GamePrinter.commandPrinter(printer.toString(game));
 		return false;

@@ -16,10 +16,12 @@ public class Main{
 			switch(args.length)
 			{
 			case 1:
+				args[0].toLowerCase();
 				controller.run(args[0], rand.nextInt());
 				break;
 				
 			case 2:
+				args[0].toLowerCase();
 				controller.run(args[0], Integer.parseInt(args[1]));
 				break;
 				

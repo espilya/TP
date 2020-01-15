@@ -1,9 +1,4 @@
-- el uso del atributo "details" para saber de qué clase se trata
-  * es una manera muy primitiva de reproducir la funcionalidad de instanceof / getClass
-  * se ha advertido en clase que no se puede usar instanceof / getClass en la práctica
-  * es una indicación que no sabéis usar polimorfismo / vinculación dinámica
-  * por si solo, es razón suficiente para suspender
-
+- el 
 
 - Excepciones:
 (---SOLO FALTA MODIFICAR EL MoveCommand y hacerlo un poco de otra manera para lanzar la excep. en 'un nivel mas bajo'---)
@@ -19,13 +14,3 @@
 
 - Impresión
   * en vez de la impresión desde los comandos, usa excepciones
-
-
------------------------------
-
-
-- Stringify:
---bien hecho?
-
-- SaveCommand sin implementar:
---falta pasar el nombre para guardar el fichero

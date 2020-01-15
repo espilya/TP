@@ -28,22 +28,22 @@ public class MoveCommand extends Command {
 
 		boolean ok1 = false;
 		boolean ok2 = false;
-
-		if (commandWords.length == 1)
-			throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento de dirreccion");
-
+	//	if (commandWords.length == 1)
+//			throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento de dirreccion");
+		if (commandWords.length == 3) {
 		if (commandWords[1].equals("left") || commandWords[1].equals("l")) {
 			dir = -1;
 			ok2 = true;
 		} else if (commandWords[1].equals("right") || commandWords[1].equals("r")) {
 			dir = 1;
 			ok2 = true;
-		} else
-			throw new CommandParseException("'Dirreccion para mover'");
+		} 
+//		else
+//			throw new CommandParseException("'Dirreccion para mover'");
 
-		if (commandWords.length == 2)
-			throw new CommandParseException(
-					"'Insuficientes argumentos para mover' :=> Falta argumento cantidad de casillas a mover");
+//		if (commandWords.length == 2)
+//			throw new CommandParseException(
+//					"'Insuficientes argumentos para mover' :=> Falta argumento cantidad de casillas a mover");
 
 		if (commandWords[2].equalsIgnoreCase("1")) {
 			step = 1;
@@ -51,10 +51,39 @@ public class MoveCommand extends Command {
 		} else if (commandWords[2].equalsIgnoreCase("2")) {
 			step = 2;
 			ok1 = true;
-		} else
-			throw new CommandParseException("'Casillas para mover'");
+		} 
+		}
+//		else
+//			throw new CommandParseException("'Casillas para mover'");
 
-		return ok1 && ok2;
+
+//		if (commandWords.length == 1)
+//			throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento de dirreccion");
+//
+//		if (commandWords[1].equals("left") || commandWords[1].equals("l")) {
+//			dir = -1;
+//			ok2 = true;
+//		} else if (commandWords[1].equals("right") || commandWords[1].equals("r")) {
+//			dir = 1;
+//			ok2 = true;
+//		} else
+//			throw new CommandParseException("'Dirreccion para mover'");
+//
+//		if (commandWords.length == 2)
+//			throw new CommandParseException(
+//					"'Insuficientes argumentos para mover' :=> Falta argumento cantidad de casillas a mover");
+//
+//		if (commandWords[2].equalsIgnoreCase("1")) {
+//			step = 1;
+//			ok1 = true;
+//		} else if (commandWords[2].equalsIgnoreCase("2")) {
+//			step = 2;
+//			ok1 = true;
+//		} else
+//			throw new CommandParseException("'Casillas para mover'");
+
+//		return ok1 && ok2;
+		return true;
 	}
 
 	@Override
@@ -74,7 +103,7 @@ public class MoveCommand extends Command {
 			throw new CommandParseException("Exception: " + e);
 		}
 
-		if (commandWords.length == 3 && ok)
+		if ( ok) // && commandWords.length == 3 
 			return new MoveCommand(dir, step);
 		else
 			return null;
