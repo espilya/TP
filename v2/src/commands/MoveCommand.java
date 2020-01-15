@@ -28,8 +28,6 @@ public class MoveCommand extends Command {
 
 		boolean ok1 = false;
 		boolean ok2 = false;
-	//	if (commandWords.length == 1)
-//			throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento de dirreccion");
 		if (commandWords.length == 3) {
 		if (commandWords[1].equals("left") || commandWords[1].equals("l")) {
 			dir = -1;
@@ -38,13 +36,6 @@ public class MoveCommand extends Command {
 			dir = 1;
 			ok2 = true;
 		} 
-//		else
-//			throw new CommandParseException("'Dirreccion para mover'");
-
-//		if (commandWords.length == 2)
-//			throw new CommandParseException(
-//					"'Insuficientes argumentos para mover' :=> Falta argumento cantidad de casillas a mover");
-
 		if (commandWords[2].equalsIgnoreCase("1")) {
 			step = 1;
 			ok1 = true;
@@ -53,44 +44,13 @@ public class MoveCommand extends Command {
 			ok1 = true;
 		} 
 		}
-//		else
-//			throw new CommandParseException("'Casillas para mover'");
 
-
-//		if (commandWords.length == 1)
-//			throw new CommandParseException("'Insuficientes argumentos para mover' :=> Falta argumento de dirreccion");
-//
-//		if (commandWords[1].equals("left") || commandWords[1].equals("l")) {
-//			dir = -1;
-//			ok2 = true;
-//		} else if (commandWords[1].equals("right") || commandWords[1].equals("r")) {
-//			dir = 1;
-//			ok2 = true;
-//		} else
-//			throw new CommandParseException("'Dirreccion para mover'");
-//
-//		if (commandWords.length == 2)
-//			throw new CommandParseException(
-//					"'Insuficientes argumentos para mover' :=> Falta argumento cantidad de casillas a mover");
-//
-//		if (commandWords[2].equalsIgnoreCase("1")) {
-//			step = 1;
-//			ok1 = true;
-//		} else if (commandWords[2].equalsIgnoreCase("2")) {
-//			step = 2;
-//			ok1 = true;
-//		} else
-//			throw new CommandParseException("'Casillas para mover'");
-
-//		return ok1 && ok2;
-		return true;
+		return ok1 && ok2;
 	}
 
 	@Override
-	public boolean execute(Game game) throws CommandExecuteException {
-		
+	public boolean execute(Game game) throws CommandExecuteException {		
 		game.move(dir * step);
-//			throw new CommandExecuteException("'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
 		return true;
 	}
 
