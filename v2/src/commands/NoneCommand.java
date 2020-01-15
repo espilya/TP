@@ -12,17 +12,16 @@ public class NoneCommand extends Command {
 
 	public NoneCommand() {
 		super(name, shortCut, details, help);
-		// TODO Auto-generated constructor stub
 	}
 
 	public boolean execute(Game game) {
 		GamePrinter.commandPrinter("You've decided to wait..\n\n\n\n");
-//		game.update();
+		game.update();
 		return true;
 	}
 
 	public Command parse(String[] commandWords) {
-		if (commandWords.length == 1 && (commandWords[0].equals(name) || commandWords[0].equals(shortCut)))
+		if ((commandWords.length == 1 && (commandWords[0].equals(name) || commandWords[0].equals(shortCut)) || commandWords.length == 0))
 			return new NoneCommand();
 		else
 			return null;
