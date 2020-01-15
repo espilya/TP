@@ -27,6 +27,8 @@ public class CommandGenerator {
 				aux = availableCommands[i].parse(commandWords);
 			}		
 		}
+		else
+			aux = new NoneCommand();
 		if(aux == null) 
 			throw new CommandParseException("Comando invalido.");
 		return aux;
