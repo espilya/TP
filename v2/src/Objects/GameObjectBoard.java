@@ -91,16 +91,16 @@ public class GameObjectBoard
 		while(i < contador - 1)
 		{
 			j = i+1;
-			aux = true;
 			stop = false;
 			while(!stop && j < contador)
 			{
 				if(this.GObject[i].getRow() == this.GObject[j].getRow() && this.GObject[i].getCol() == this.GObject[j].getCol())
 				{
+					stop = true;
 					if(GObject[i].isMisil())
 					{
 						GObject[j].receiveMissileAttack(GObject[i].GetHarm());
-						GObject[i].receiveBombAttack(1);
+						GObject[i].receiveBombAttack(GObject[j].GetHarm());
 						if(!GObject[j].isAlive() && GObject[j].die())
 						{
 							remove(GObject[j]);
@@ -111,15 +111,37 @@ public class GameObjectBoard
 					else if(GObject[i].isBomb())
 					{
 						GObject[j].receiveBombAttack(GObject[i].GetHarm());
-						GObject[i].receiveMissileAttack(1);
+						GObject[i].receiveMissileAttack(GObject[j].GetHarm());
 						if(!GObject[j].isAlive() && GObject[j].die())
 						{
 							remove(GObject[j]);
 						}
 						remove(GObject[i]);
 					}
-					aux = false;
-					stop = true;
+					
+					else if(GObject[j].isMisil())
+					{
+						GObject[i].receiveMissileAttack(GObject[j].GetHarm());
+						GObject[j].receiveBombAttack(GObject[i].GetHarm());
+						if(!GObject[i].isAlive() && GObject[i].die())
+						{
+							remove(GObject[i]);
+						}
+						remove(GObject[j]);
+					}
+
+					else if(GObject[j].isBomb())
+					{
+						GObject[i].receiveBombAttack(GObject[j].GetHarm());
+						GObject[j].receiveMissileAttack(GObject[i].GetHarm());
+						if(!GObject[i].isAlive() && GObject[i].die())
+						{
+							remove(GObject[i]);
+						}
+						remove(GObject[j]);
+					}
+					else
+						stop = false;
 				}
 				
 				else
@@ -127,10 +149,7 @@ public class GameObjectBoard
 					j++;
 				}
 			}
-			if(aux)
-			{
-				i++;
-			}
+			i++;
 		}
 	}
 
