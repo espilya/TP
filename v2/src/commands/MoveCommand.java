@@ -28,7 +28,6 @@ public class MoveCommand extends Command {
 
 		boolean ok1 = false;
 		boolean ok2 = false;
-		if (commandWords.length == 3) {
 		if (commandWords[1].equals("left") || commandWords[1].equals("l")) {
 			dir = -1;
 			ok2 = true;
@@ -43,7 +42,6 @@ public class MoveCommand extends Command {
 			step = 2;
 			ok1 = true;
 		} 
-		}
 
 		return ok1 && ok2;
 	}
@@ -56,18 +54,10 @@ public class MoveCommand extends Command {
 
 	@Override
 	public Command parse(String[] commandWords) throws CommandParseException {
-		boolean ok = false;
-		try {
-			ok = (commandWords[0].equals(name) || commandWords[0].equals(shortCut)) && checkMov(commandWords);
-		} catch (CommandParseException e) {
-			throw new CommandParseException("Exception: " + e);
-		}
-
-		if ( ok) // && commandWords.length == 3 
+		if (commandWords.length == 3 && (commandWords[0].equals(name) || commandWords[0].equals(shortCut)) && checkMov(commandWords)) 
 			return new MoveCommand(dir, step);
 		else
 			return null;
-
 	}
 
 }
