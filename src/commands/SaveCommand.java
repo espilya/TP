@@ -2,7 +2,6 @@ package commands;
 
 import files.FileSave;
 import logic.Game;
-import printer.GamePrinter;
 import printer.Stringifier;
 
 public class SaveCommand extends Command {
