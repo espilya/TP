@@ -77,7 +77,6 @@ public class GameObjectBoard
 		GObject[contador] = null;
 	}
 
-	//No se que hace
 	public void update() {
 
 	}
@@ -86,7 +85,7 @@ public class GameObjectBoard
 	//Bien
 	private void checkAttacks() {
 		int i, j;
-		boolean aux, stop;
+		boolean stop;
 		i = 0;
 		while(i < contador - 1)
 		{
@@ -123,22 +122,22 @@ public class GameObjectBoard
 					{
 						GObject[i].receiveMissileAttack(GObject[j].GetHarm());
 						GObject[j].receiveBombAttack(GObject[i].GetHarm());
+						remove(GObject[j]);
 						if(!GObject[i].isAlive() && GObject[i].die())
 						{
 							remove(GObject[i]);
-						}
-						remove(GObject[j]);
+						}	
 					}
 
 					else if(GObject[j].isBomb())
 					{
 						GObject[i].receiveBombAttack(GObject[j].GetHarm());
 						GObject[j].receiveMissileAttack(GObject[i].GetHarm());
+						remove(GObject[j]);
 						if(!GObject[i].isAlive() && GObject[i].die())
 						{
 							remove(GObject[i]);
 						}
-						remove(GObject[j]);
 					}
 					else
 						stop = false;

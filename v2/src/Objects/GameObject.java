@@ -79,7 +79,10 @@ public abstract class GameObject implements IAttack {
 
 		public abstract String toString();
 
-		public abstract int getPoints();
+		public int getPoints()
+		{
+			return 0;
+		}
 
 		public boolean isMisil() {
 			return false;
