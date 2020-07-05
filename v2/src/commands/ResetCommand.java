@@ -4,7 +4,7 @@ import logic.Game;
 
 public class ResetCommand extends Command {
 
-	private final static String help = "Starts a new game.\n";
+	private final static String help = "Starts a new game";
 	private final static String name = "reset";
 	private final static String details = "[R]eset";
 	private final static String shortCut = "r";

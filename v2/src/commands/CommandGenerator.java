@@ -25,12 +25,11 @@ public class CommandGenerator {
 		if (commandWords[0].length() != 0) {
 			for (int i = 0; i < availableCommands.length && aux == null; i++) {
 				aux = availableCommands[i].parse(commandWords);
-			}		
-		}
-		else
+			}
+			if (aux == null)
+				throw new CommandParseException("Comando invalido.");
+		} else
 			aux = new NoneCommand();
-		if(aux == null) 
-			throw new CommandParseException("Comando invalido.");
 		return aux;
 	}
 

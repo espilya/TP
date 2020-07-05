@@ -1,6 +1,8 @@
 package exceptions;
 
 public class CommandParseException extends Exception{
+	private static final long serialVersionUID = 1L;
+	
 	private static final String msg = "ATENCION  ==>  Se ha producido un error de parseo: ";
 
 	public CommandParseException() {

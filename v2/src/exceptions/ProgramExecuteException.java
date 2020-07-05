@@ -5,6 +5,7 @@ package exceptions;
 //execute de un comando como, por ejemplo, que la nave del usuario no puede desplazarse en la
 //dirección introducida por el usuario.
 public class ProgramExecuteException extends Exception{
+	private static final long serialVersionUID = 1L;
 	
 	private static final String msg = "Usage ==> Main <EASY|HARD|INSANE> [seed]";
 	

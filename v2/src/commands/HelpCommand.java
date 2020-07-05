@@ -5,7 +5,7 @@ import printer.GamePrinter;
 
 public class HelpCommand extends Command {
 
-	private final static String help = "Prints this help message.\n";
+	private final static String help = "Prints this help message";
 	private final static String name = "exit";
 	private final static String details = "[H]elp";
 	private final static String shortCut = "h";

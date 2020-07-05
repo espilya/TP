@@ -6,7 +6,7 @@ import logic.Game;
 
 public class MoveCommand extends Command {
 
-	private final static String help = "Moves UCM-Ship to the indicated direction.\\n";
+	private final static String help = "Moves UCM-Ship to the indicated direction";
 	private final static String name = "move";
 	private final static String details = "[M]ove <left|right><1|2>";
 	private final static String shortCut = "m";

@@ -7,7 +7,7 @@ import printer.Stringifier;
 
 public class SaveCommand extends Command {
 
-	private final static String help = "Save the hame";
+	private final static String help = "Save the game";
 	private final static String name = "save";
 	private final static String details = "sa[V]e";
 	private final static String shortCut = "v";

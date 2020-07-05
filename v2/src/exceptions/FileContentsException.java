@@ -5,6 +5,7 @@ package exceptions;
 
 
 public class FileContentsException extends Exception{
+	private static final long serialVersionUID = 1L;
 	
 	private static final String msg = "ATENCION  ==>  Se ha producido un error de fichero: ";
 

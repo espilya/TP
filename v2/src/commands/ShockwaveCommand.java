@@ -5,7 +5,7 @@ import logic.Game;
 
 public class ShockwaveCommand extends Command {
 
-	private final static String help = "UCM-Ship releases a shock wave.\n";
+	private final static String help = "UCM-Ship releases a shock wave";
 	private final static String name = "shockwave";
 	private final static String details = "shock[W]ave";
 	private final static String shortCut = "w";

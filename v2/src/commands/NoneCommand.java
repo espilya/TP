@@ -5,7 +5,7 @@ import printer.GamePrinter;
 
 public class NoneCommand extends Command {
 
-	private final static String help = "None command. When you decided to wait.\n";
+	private final static String help = "None command";
 	private final static String name = "none";
 	private final static String details = "[N]one";
 	private final static String shortCut = "n";

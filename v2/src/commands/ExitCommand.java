@@ -3,7 +3,7 @@ package commands;
 import logic.Game;
 
 public class ExitCommand extends Command {
-	private final static String help = "Terminates the program.\n";
+	private final static String help = "Terminates the program";
 	private final static String name = "exit";
 	private final static String details = "[E]xit";
 	private final static String shortCut = "e";

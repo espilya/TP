@@ -5,7 +5,7 @@ import printer.GamePrinter;
 
 public class ListCommand extends Command {
 
-	private final static String help = "Prints the list of available ships.\\n";
+	private final static String help = "Prints the list of available ships";
 	private final static String name = "list";
 	private final static String details = "[L]ist";
 	private final static String shortCut = "l";

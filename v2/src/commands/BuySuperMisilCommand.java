@@ -6,9 +6,9 @@ import printer.GamePrinter;
 
 public class BuySuperMisilCommand extends Command {
 
-	private final static String help = "Buy a supermisil.\n";
+	private final static String help = "Buy a supermissile";
 	private final static String name = "buysupermisil";
-	private final static String details = "[B]uy[S]upermisil";
+	private final static String details = "[B]uy[S]upermissile";
 	private final static String shortCut = "bs";
 
 	public BuySuperMisilCommand() {

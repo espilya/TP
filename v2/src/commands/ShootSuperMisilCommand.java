@@ -5,9 +5,9 @@ import logic.Game;
 
 public class ShootSuperMisilCommand extends Command{
 
-	private final static String help = "UCM-Ship shots a supermisil.\n";
+	private final static String help = "UCM-Ship shots supermissile";
 	private final static String name = "shootsupermisil";
-	private final static String details = "[S]hoot[S]upermisil";
+	private final static String details = "[S]hoot[S]upermissile";
 	private final static String shortCut = "ss";
 
 		public ShootSuperMisilCommand() {
