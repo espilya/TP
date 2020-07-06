@@ -41,7 +41,7 @@ public class Stringifier extends GamePrinter {
 				if (aux != "") {
 					if (aux.charAt(0) == 'O') {
 						res += "O" + ";" + i + "," + j + ";" + aux.charAt(2);
-					} else if (aux.charAt(0) == '^') { 
+					} else if (aux.charAt(0) == '^') {
 						res += "P;" + i + ',' + j + ';' + game.getUCMLife() + ';' + game.GetPoints()
 								+ (game.GetShockWave() ? ";1;" : ";0;") + game.getSuperMisil();
 //						if (game.GetShockWave())

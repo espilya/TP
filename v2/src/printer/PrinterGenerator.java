@@ -3,9 +3,8 @@ package printer;
 import logic.Controller;
 import logic.Game;
 
-
 public class PrinterGenerator {
-	
+
 	static Game game;
 
 	public PrinterGenerator(Game game) {
@@ -13,7 +12,8 @@ public class PrinterGenerator {
 	}
 
 	public enum PrinterTypes {
-		BOARDPRINTER("boardprinter", "prints the game formatted as a board of dimension: ", new BoardPrinter(game.GetNumCols(), game.GetNumRows())),
+		BOARDPRINTER("boardprinter", "prints the game formatted as a board of dimension: ",
+				new BoardPrinter(game.GetNumCols(), game.GetNumRows())),
 		STRINGIFIER("stringifier", "prints the game as plain text", new Stringifier());
 
 		private String printerName;
@@ -33,7 +33,6 @@ public class PrinterGenerator {
 						(printer == BOARDPRINTER ? game.GetNumCols() + " x " + game.GetNumRows() : ""));
 			return helpString;
 		}
-
 
 		public GamePrinter getObject(Game game) {
 			printerObject.setGame(game);

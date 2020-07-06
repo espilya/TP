@@ -12,18 +12,18 @@ import printer.GamePrinter;
 
 public class Controller {
 	private static String input;
-	static Scanner in = new Scanner(System.in);
-	static final String str = "\n\n\n\n\n\n\n\n";
-	private final String unknownCommandMsg = "Unknown command";
-	private final String PROMPT = ">";
-	static Game G;
-	static Level L;
+	private static Scanner in = new Scanner(System.in);
+	private static final String newLines = "\n\n\n\n\n\n\n\n";
+	private final static String unknownCommandMsg = "Unknown command";
+	private final static String PROMPT = ">";
+	private static Game G;
+	private static Level L;
 
 	public static boolean continuar() {
 		boolean answer;
-		System.out.print(str);
-		System.out.print("Desea continuar con el juego? (y/n)\n>");
-		System.out.print(">");
+		System.out.print(newLines);
+		System.out.print("Desea continuar con el juego? (y/n)");
+		System.out.print(PROMPT);
 		String inp = in.next();
 		inp = input.toLowerCase();
 		if (inp.equals("y"))
@@ -44,7 +44,6 @@ public class Controller {
 
 		while (!G.isFinished()) {
 			Command command = null;
-
 			while (command == null) {
 				try {
 					System.out.print(PROMPT);
@@ -56,7 +55,6 @@ public class Controller {
 							System.out.println(printer.toString(G));
 						}
 					}
-
 				} catch (CommandExecuteException e) {
 					System.err.println("Exception: " + e);
 				} catch (CommandParseException e) {
@@ -65,14 +63,11 @@ public class Controller {
 				}
 			}
 		}
-		if (G.Lose()) {
+		if (G.Lose())
 			gameOverPrint();
+		else if (G.Win())
+			gameWinPrint();
 
-		} else {
-			if (G.Win()) {
-				gameWinPrint();
-			}
-		}
 		G.reset();
 	}
 
@@ -82,7 +77,7 @@ public class Controller {
 	}
 
 	public void gameWinPrint() {
-		String texto = "\n\n HA GANADO \n\n";
+		String texto = "\n\n HAS GANADO \n\n";
 		System.out.println(texto);
 	}
 }

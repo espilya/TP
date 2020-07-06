@@ -2,12 +2,12 @@ package logic;
 
 import java.util.Random;
 
-import Objects.GameObject;
-import Objects.GameObjectBoard;
-import Objects.UCMShip;
 import exceptions.CommandExecuteException;
 import exceptions.CommandParseException;
 import interfaces.IPlayerController;
+import objects.GameObject;
+import objects.GameObjectBoard;
+import objects.UCMShip;
 
 public class Game implements IPlayerController {
 
@@ -72,19 +72,17 @@ public class Game implements IPlayerController {
 
 	// Bien
 	public String infoToString() {
-		String aux = "No";
-		if (this.shockwave) {
-			aux = "Si";
-		}
+		String shockwaveAvailable = "No";
+		if (this.shockwave)
+			shockwaveAvailable = "Si";
 		String texto = "Life: " + player.getLive() + "\nNumber of Cycles: " + nOfCycles + "\nPoints: " + points
-				+ "\nRemaining Aliens: " + board.remainingAliens() + "\nShockwave: " + aux + "\nSuperMisil: "
-				+ this.nSuperMisil;
+				+ "\nRemaining Aliens: " + board.remainingAliens() + "\nShockwave: " + shockwaveAvailable
+				+ "\nSuperMisil: " + this.nSuperMisil;
 		return texto;
 	}
 
 	// Bien
 	public String toString(int h, int v) {
-
 		return board.toString(h, v);
 	}
 
@@ -101,20 +99,18 @@ public class Game implements IPlayerController {
 	}
 
 	// Bien
-	public boolean shootMissile(boolean x) throws CommandExecuteException {
-		boolean aux = player.shoot(x);
+	public boolean shootMissile(boolean superMissile) throws CommandExecuteException {
+		boolean aux = player.shoot(superMissile);
 		if (aux) {
 			board.add(player.getProyectil());
 		}
-		if (!aux && !x)
+		if (!aux && !superMissile)
 			throw new CommandExecuteException("'Disparar misil' Ya existe un misil. Se economico!");
-		else if (!aux && x)
+		else if (!aux && superMissile)
 			throw new CommandExecuteException("'Disparar supermisil' No dispones de supermissil");
 		update();
 		return aux;
 	}
-
-
 
 	public int getUCMLife() {
 		return player.getLive();
@@ -144,10 +140,8 @@ public class Game implements IPlayerController {
 			throw new CommandExecuteException(
 					"'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
 		}
-
 	}
-	
-	
+
 	public boolean GetShockWave() {
 		return this.shockwave;
 	}
@@ -234,9 +228,8 @@ public class Game implements IPlayerController {
 		if (aux) {
 			points -= 20;
 			nSuperMisil++;
-		}
-		else {
-			throw new 	CommandExecuteException("'Compra de SuperMisil' No se dispone de los puntos necesarios \n");
+		} else {
+			throw new CommandExecuteException("'Compra de SuperMisil' No se dispone de los puntos necesarios \n");
 		}
 		return aux;
 	}

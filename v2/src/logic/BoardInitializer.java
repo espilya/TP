@@ -1,9 +1,9 @@
 package logic;
 
-import Objects.DestroyerShip;
-import Objects.GameObjectBoard;
-import Objects.OVNI;
-import Objects.RegularShip;
+import objects.DestroyerShip;
+import objects.GameObjectBoard;
+import objects.OVNI;
+import objects.RegularShip;
 
 public class BoardInitializer {
 

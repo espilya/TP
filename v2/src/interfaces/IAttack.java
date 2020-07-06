@@ -1,5 +1,5 @@
 package interfaces;
-import Objects.GameObject;
+import objects.GameObject;
 
 public interface IAttack {
 	default boolean performAttack(GameObject other) {return false;};
