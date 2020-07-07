@@ -33,7 +33,7 @@ public class SaveCommand extends Command {
 	}
 
 	public Command parse(String[] commandWords) {
-		if (commandWords.length == 2 && commandWords[0].equals(name) || commandWords[0].equals(shortCut)) {
+		if (commandWords.length == 2 && matchCommandName(commandWords[0])) {
 			if(commandWords.length == 1)
 				return new SaveCommand(archivo);
 			else

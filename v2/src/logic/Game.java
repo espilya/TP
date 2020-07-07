@@ -89,7 +89,7 @@ public class Game implements IPlayerController {
 	// Bien
 	public void update() {
 		board.computerAction(this.nOfCycles % level.getNumCyclesToMoveOneCell() == 0);
-		board.update(); // No se que tiene que hacer
+		board.update(); // no hace nada
 		nOfCycles += 1;
 	}
 
@@ -211,7 +211,6 @@ public class Game implements IPlayerController {
 	}
 
 	public boolean shootMissile() {
-
 		return false;
 	}
 

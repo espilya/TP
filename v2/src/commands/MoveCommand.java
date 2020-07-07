@@ -34,27 +34,27 @@ public class MoveCommand extends Command {
 		} else if (commandWords[1].equals("right") || commandWords[1].equals("r")) {
 			dir = 1;
 			ok2 = true;
-		} 
+		}
 		if (commandWords[2].equalsIgnoreCase("1")) {
 			step = 1;
 			ok1 = true;
 		} else if (commandWords[2].equalsIgnoreCase("2")) {
 			step = 2;
 			ok1 = true;
-		} 
+		}
 
 		return ok1 && ok2;
 	}
 
 	@Override
-	public boolean execute(Game game) throws CommandExecuteException {		
+	public boolean execute(Game game) throws CommandExecuteException {
 		game.move(dir * step);
 		return true;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) throws CommandParseException {
-		if (commandWords.length == 3 && (commandWords[0].equals(name) || commandWords[0].equals(shortCut)) && checkMov(commandWords)) 
+		if (commandWords.length == 3 && matchCommandName(commandWords[0]) && checkMov(commandWords))
 			return new MoveCommand(dir, step);
 		else
 			return null;

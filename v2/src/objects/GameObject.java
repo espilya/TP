@@ -1,4 +1,5 @@
 package objects;
+
 import interfaces.IAttack;
 import logic.Game;
 
@@ -9,20 +10,25 @@ import logic.Game;
 
 public abstract class GameObject implements IAttack {
 
-	protected int pos[] = new int[2]; //x, y
+	protected int pos[] = new int[2]; // x, y
 	protected int live;
 	protected Game game;
 
 	public GameObject(Game game, int x, int y) {
-		pos[0] = x; pos[1] = y;
-		this. game = game;
+		pos[0] = x;
+		pos[1] = y;
+		this.game = game;
 	}
 
-	public int getRow(){return pos[0];}
-	public int getCol(){return pos[1];}
+	public int getRow() {
+		return pos[0];
+	}
 
-	public void setPos(int row, int col)
-	{
+	public int getCol() {
+		return pos[1];
+	}
+
+	public void setPos(int row, int col) {
 		pos[0] = col;
 		pos[1] = row;
 	}
@@ -35,16 +41,15 @@ public abstract class GameObject implements IAttack {
 		return this.live;
 	}
 
-	public boolean isOnPosition( int x, int y ) {
+	public boolean isOnPosition(int x, int y) {
 		return (x == pos[0] && y == pos[1]);
 	}
 
-	public void getDamage (int damage) {
-		this.live = (damage >= this.live)? 0 : this.live-damage;
+	public void getDamage(int damage) {
+		this.live = (damage >= this.live) ? 0 : this.live - damage;
 	}
 
-	public int GetHarm()
-	{
+	public int GetHarm() {
 		return 0;
 	}
 
@@ -52,63 +57,57 @@ public abstract class GameObject implements IAttack {
 		return !game.isOnBoard(this);
 	}
 
-	public boolean MoveX(int x)
-	{
+	public boolean MoveX(int x) {
 		return true;
 	}
 
-	public boolean shoot()
-	{
+	public boolean shoot() {
 		return false;
 	}
 
-	public boolean MoveY()
-	{
+	public boolean MoveY() {
 		return true;
 	}
 
-	public boolean die()
-	{
+	public boolean die() {
 		return true;
 	}
 
-	public GameObject getProyectil()
-	{
+	public GameObject getProyectil() {
 		return null;
 	}
 
-		public abstract String toString();
+	public abstract String toString();
 
-		public int getPoints()
-		{
-			return 0;
-		}
+	public int getPoints() {
+		return 0;
+	}
 
-		public boolean isMisil() {
-			return false;
-		}
+	public boolean isMisil() {
+		return false;
+	}
 
-		public boolean isBomb() {
-			return false;
-		}
+	public boolean isBomb() {
+		return false;
+	}
 
-		public boolean isUCMShip() {
-			return false;
-		}
+	public boolean isUCMShip() {
+		return false;
+	}
 
-		public boolean isRegular() {
-			return false;
-		}
+	public boolean isRegular() {
+		return false;
+	}
 
-		public boolean isDestroyer() {
-			return false;
-		}
+	public boolean isDestroyer() {
+		return false;
+	}
 
-		public boolean isAlien() {
-			return false;
-		}
+	public boolean isAlien() {
+		return false;
+	}
 
-		public boolean isOvni() {
-			return false;
-		}
+	public boolean isOvni() {
+		return false;
+	}
 }

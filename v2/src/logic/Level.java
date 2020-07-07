@@ -18,7 +18,7 @@ public enum Level{
 	private double ovniFrequency;
 	private double shootFrequency;
 	private int numRowsOfRegularAliens;
-	private int turnExplodeFrequency = (int) 0.05; // actualmente no depende del nivel
+	private double turnExplodeFrequency =  0.75; // lo puse alto para poder probar
 	private Level(
 			int numRegularAliens,
 			int numDestroyerAliens,

@@ -17,6 +17,7 @@ public class CommandGenerator {
 			new ShootSuperMisilCommand(), 
 			new StringifyCommand(),
 			new SaveCommand(),
+			new ListPrintersCommand(),
 			new NoneCommand()
 	};
 

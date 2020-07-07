@@ -6,7 +6,7 @@ import printer.GamePrinter;
 public class HelpCommand extends Command {
 
 	private final static String help = "Prints this help message";
-	private final static String name = "exit";
+	private final static String name = "help";
 	private final static String details = "[H]elp";
 	private final static String shortCut = "h";
 
@@ -23,7 +23,7 @@ public class HelpCommand extends Command {
 
 	@Override
 	public Command parse(String[] commandWords) {
-		if (commandWords.length == 1 && commandWords[0].equals(name) || commandWords[0].equals(shortCut))
+		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
 			return new HelpCommand();
 		else
 			return null;

@@ -21,7 +21,7 @@ public class NoneCommand extends Command {
 	}
 
 	public Command parse(String[] commandWords) {
-		if (commandWords.length == 1 && (commandWords[0].equals(name) || commandWords[0].equals(shortCut)))
+		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
 			return new NoneCommand();
 		else
 			return null;
