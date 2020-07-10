@@ -234,7 +234,6 @@ public class Game implements IPlayerController {
 	}
 
 	public void explosion(int i, int j) {
-		// TODO Auto-generated method stub
-
+		board.explote(i, j);
 	}
 }

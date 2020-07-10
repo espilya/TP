@@ -76,14 +76,16 @@ public class GameObjectBoard {
 
 	private void checkAttacks() { // hace falta cambiar para el caso de nave explosiva. me parece que se repite la cosa
 		int i, j;
-		boolean stop;
+		boolean stop, add;
 		i = 0;
 		while (i < contador - 1) {
 			j = i + 1;
+			add = true;
 			stop = false;
 			while (!stop && j < contador) {
 				if (this.GObject[i].getRow() == this.GObject[j].getRow()
 						&& this.GObject[i].getCol() == this.GObject[j].getCol()) {
+					add = false;
 					stop = true;
 					if (GObject[i].isMisil()) { // Misil <-> Bomba
 						GObject[j].receiveMissileAttack(GObject[i].GetHarm());
@@ -120,14 +122,18 @@ public class GameObjectBoard {
 							remove(GObject[i]);
 						}
 					} else
+					{
+						add = true;
 						stop = false;
+					}
 				}
 
 				else {
 					j++;
 				}
 			}
-			i++;
+			if(add)
+				i++;
 		}
 	}
 
@@ -255,4 +261,23 @@ public class GameObjectBoard {
 		return nOfAliens;
 	}
 
+	public void explote(int i, int j)
+	{
+		for(int a = i - 1; a <= i + 1; a++)
+		{
+			for(int b = j - 1; b <= j + 1; b++)
+			{
+				if(a != i || b != j)
+				{
+					GameObject aux = getObjectInPosition(a, b);
+					if(aux != null)
+					{
+						aux.receiveMissileAttack(1);
+						aux.receiveBombAttack(1);
+					}
+				}
+			}
+		}
+	}
+	
 }
