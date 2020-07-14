@@ -10,6 +10,10 @@ public class BoardPrinter extends GamePrinter {
 	String[][] board;
 	final String space = " ";
 
+	public BoardPrinter() {
+		// todo
+	}
+
 	public BoardPrinter(int sizeY, int sizeX) {
 		this.numRows = sizeY;
 		this.numCols = sizeX;
@@ -63,8 +67,7 @@ public class BoardPrinter extends GamePrinter {
 	}
 
 	@Override
-	protected void setGame(Game game) {
-		// TODO Auto-generated method stub
-
+	public void setGame(Game game) {
+		this.game = game;
 	}
 }

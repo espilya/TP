@@ -5,10 +5,15 @@ import logic.Game;
 public abstract class AlienShip extends EnemyShip{
 
 	private int dir;
-
+	
 	public AlienShip(Game game, int x, int y) {
 		super(game, x, y);
-		dir = -1;
+		this.dir = -1;
+	}
+
+	public AlienShip(Game game, int x, int y, int dir) {
+		super(game, x, y);
+		this.dir = dir;
 	}
 
 	public boolean MoveX(int x)
@@ -26,5 +31,13 @@ public abstract class AlienShip extends EnemyShip{
 	
 	public boolean isAlien() {
 		return true;
+	}
+	
+	public int getDir() {
+		return dir;
+	}
+	
+	public void serDir(int dir) {
+		this.dir = dir;
 	}
 }

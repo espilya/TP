@@ -21,14 +21,14 @@ public class CommandGenerator {
 			new NoneCommand()
 	};
 
-	public static Command parseCommand(String[] commandWords) throws CommandParseException {
+	public static Command parseCommand(String[] commandWords)  {
 		Command aux = null;
 		if (commandWords[0].length() != 0) {
 			for (int i = 0; i < availableCommands.length && aux == null; i++) {
 				aux = availableCommands[i].parse(commandWords);
 			}
-			if (aux == null)
-				throw new CommandParseException("Comando invalido.");
+//			if (aux == null)
+//				throw new CommandParseException("Comando invalido.");
 		} else
 			aux = new NoneCommand();
 		return aux;

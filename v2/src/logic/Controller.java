@@ -54,11 +54,11 @@ public class Controller {
 							System.out.println(G.infoToString());
 							System.out.println(printer.toString(G));
 						}
+					} else {
+						System.err.println(unknownCommandMsg);
+						System.err.println("Exception: Comando invalido.");
 					}
 				} catch (CommandExecuteException e) {
-					System.err.println("Exception: " + e);
-				} catch (CommandParseException e) {
-					System.err.println(unknownCommandMsg);
 					System.err.println("Exception: " + e);
 				}
 			}

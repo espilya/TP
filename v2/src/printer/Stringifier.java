@@ -1,7 +1,6 @@
 package printer;
 
 import logic.Game;
-import stringUtils.MyStringUtils;
 
 public class Stringifier extends GamePrinter {
 
@@ -68,8 +67,7 @@ public class Stringifier extends GamePrinter {
 	}
 
 	@Override
-	protected void setGame(Game game) {
-		// TODO Auto-generated method stub
-
+	public void setGame(Game game) {
+		this.game = game;
 	}
 }

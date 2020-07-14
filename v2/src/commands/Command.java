@@ -23,7 +23,7 @@ public abstract class Command {
 
 	public abstract boolean execute(Game game) throws CommandExecuteException;
 
-	public abstract Command parse(String[] commandWords) throws CommandParseException;
+	public abstract Command parse(String[] commandWords);
 
 	protected boolean matchCommandName(String name) {
 		return this.shortCut.equalsIgnoreCase(name) || this.name.equalsIgnoreCase(name);

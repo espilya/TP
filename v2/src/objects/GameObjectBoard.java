@@ -73,21 +73,19 @@ public class GameObjectBoard {
 
 	}
 
-
-	private void checkAttacks() { // hace falta cambiar para el caso de nave explosiva. me parece que se repite la cosa
+	private void checkAttacks() { // hace falta cambiar para el caso de nave explosiva. me parece que se repite la
+									// cosa
 		int i, j;
 		boolean stop, add;
 		i = 0;
 		while (i < contador - 1) {
 			j = i + 1;
 			add = true;
-			stop = false;
-			while (!stop && j < contador) {
+			while (j < contador) {
 				if (this.GObject[i].getRow() == this.GObject[j].getRow()
 						&& this.GObject[i].getCol() == this.GObject[j].getCol()) {
 					add = false;
-					stop = true;
-					if (GObject[i].isMisil()) { // Misil <-> Bomba
+					if (GObject[i].isMisil()) {
 						GObject[j].receiveMissileAttack(GObject[i].GetHarm());
 						GObject[i].receiveBombAttack(GObject[j].GetHarm());
 						if (!GObject[j].isAlive() && GObject[j].die()) {
@@ -96,7 +94,7 @@ public class GameObjectBoard {
 						remove(GObject[i]);
 					}
 
-					else if (GObject[i].isBomb()) {// Bomba <-> Misil
+					else if (GObject[i].isBomb()) {
 						GObject[j].receiveBombAttack(GObject[i].GetHarm());
 						GObject[i].receiveMissileAttack(GObject[j].GetHarm());
 						if (!GObject[j].isAlive() && GObject[j].die()) {
@@ -121,18 +119,13 @@ public class GameObjectBoard {
 						if (!GObject[i].isAlive() && GObject[i].die()) {
 							remove(GObject[i]);
 						}
-					} else
-					{
+					} else {
 						add = true;
-						stop = false;
 					}
 				}
-
-				else {
-					j++;
-				}
+				j++;
 			}
-			if(add)
+			if (add)
 				i++;
 		}
 	}
@@ -222,7 +215,8 @@ public class GameObjectBoard {
 				int y = GObject[i].getCol();
 				int x = GObject[i].getRow();
 				int live = GObject[i].getLive();
-				GObject[i] = new ExplosivShip(game, x, y, live);
+				int dir = ((AlienShip) GObject[i]).getDir();
+				GObject[i] = new ExplosivShip(game, x, y, live, dir);
 			}
 		}
 	}
@@ -261,17 +255,12 @@ public class GameObjectBoard {
 		return nOfAliens;
 	}
 
-	public void explote(int i, int j)
-	{
-		for(int a = i - 1; a <= i + 1; a++)
-		{
-			for(int b = j - 1; b <= j + 1; b++)
-			{
-				if(a != i || b != j)
-				{
+	public void explote(int i, int j) {
+		for (int a = i - 1; a <= i + 1; a++) {
+			for (int b = j - 1; b <= j + 1; b++) {
+				if (a != i || b != j) {
 					GameObject aux = getObjectInPosition(a, b);
-					if(aux != null)
-					{
+					if (aux != null) {
 						aux.receiveMissileAttack(1);
 						aux.receiveBombAttack(1);
 					}
@@ -279,5 +268,5 @@ public class GameObjectBoard {
 			}
 		}
 	}
-	
+
 }

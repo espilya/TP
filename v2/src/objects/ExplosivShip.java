@@ -3,18 +3,24 @@ package objects;
 import logic.Game;
 
 public class ExplosivShip extends AlienShip{
+	
+	private final int harm = 1;
+	private final int points = 5;
 
 	public ExplosivShip(Game game, int x, int y) {
 		super(game, x, y);
 	}
-	private final int harm = 1;
 	
 	public ExplosivShip(Game game, int x, int y, int live) {
 		super(game, x, y);
 		super.live = live;
 	}
+	
+	public ExplosivShip(Game game, int x, int y, int live, int dir) {
+		super(game, x, y, dir);
+		super.live = live;
+	}
 
-	private final int points = 5;
 	
 
 	public int getPoints() {
