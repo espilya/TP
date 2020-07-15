@@ -24,7 +24,7 @@ public class MoveCommand extends Command {
 		step = b;
 	}
 
-	private boolean checkMov(String[] commandWords)  { // move <left|right><1|2>
+	private boolean checkMov(String[] commandWords) { // move <left|right><1|2>
 
 		boolean ok1 = false;
 		boolean ok2 = false;
@@ -42,7 +42,6 @@ public class MoveCommand extends Command {
 			step = 2;
 			ok1 = true;
 		}
-
 		return ok1 && ok2;
 	}
 
@@ -53,7 +52,7 @@ public class MoveCommand extends Command {
 	}
 
 	@Override
-	public Command parse(String[] commandWords){
+	public Command parse(String[] commandWords) {
 		if (commandWords.length == 3 && matchCommandName(commandWords[0]) && checkMov(commandWords))
 			return new MoveCommand(dir, step);
 		else
