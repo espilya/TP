@@ -2,7 +2,6 @@ package commands;
 
 import files.FileSave;
 import logic.Game;
-import printer.GamePrinter;
 import printer.Stringifier;
 
 public class SaveCommand extends Command {
@@ -24,7 +23,7 @@ public class SaveCommand extends Command {
 	}
 
 	public boolean execute(Game game) {
-		GamePrinter.commandPrinter("Game successfully saved in file '"+ archivo +".dat' \nUse the load command to reload it.");
+		System.out.println("Game successfully saved in file '"+ archivo +".dat' \nUse the load command to reload it.");
 		printer = new Stringifier(game);
 		String fileName = archivo + ".dat";
 		FileSave.Save(fileName, printer.toString(game));

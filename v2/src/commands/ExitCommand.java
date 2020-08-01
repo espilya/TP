@@ -22,7 +22,8 @@ public class ExitCommand extends Command {
 	@Override
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new ExitCommand();
+//			return new ExitCommand();
+			return this;
 		else
 			return null;
 	}

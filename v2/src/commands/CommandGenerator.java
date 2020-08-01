@@ -1,7 +1,5 @@
 package commands;
 
-import exceptions.CommandParseException;
-
 public class CommandGenerator {
 
 	private static Command[] availableCommands = { 
@@ -27,8 +25,6 @@ public class CommandGenerator {
 			for (int i = 0; i < availableCommands.length && aux == null; i++) {
 				aux = availableCommands[i].parse(commandWords);
 			}
-//			if (aux == null)
-//				throw new CommandParseException("Comando invalido.");
 		} else
 			aux = new NoneCommand();
 		return aux;

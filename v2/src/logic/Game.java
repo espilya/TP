@@ -3,7 +3,8 @@ package logic;
 import java.util.Random;
 
 import exceptions.CommandExecuteException;
-import exceptions.CommandParseException;
+import exceptions.MissileInFlightException;
+import exceptions.UCMShipMoveException;
 import interfaces.IPlayerController;
 import objects.GameObject;
 import objects.GameObjectBoard;
@@ -100,14 +101,21 @@ public class Game implements IPlayerController {
 
 	// Bien
 	public boolean shootMissile(boolean superMissile) throws CommandExecuteException {
-		boolean aux = player.shoot(superMissile);
-		if (aux) {
-			board.add(player.getProyectil());
+		boolean aux = false;
+		try {
+			aux = player.shoot(superMissile);
+		} catch (MissileInFlightException lowLevel) {
+			if (!superMissile)
+				throw new CommandExecuteException(
+						"Failed to shoot: 'Disparar misil' - Ya existe un misil. Se economico!", lowLevel);
+			else if (superMissile)
+				throw new CommandExecuteException("Failed to shoot: 'Disparar supermisil' - No dispones de supermissil",
+						lowLevel);
 		}
-		if (!aux && !superMissile)
-			throw new CommandExecuteException("'Disparar misil' Ya existe un misil. Se economico!");
-		else if (!aux && superMissile)
-			throw new CommandExecuteException("'Disparar supermisil' No dispones de supermissil");
+
+		if (aux)
+			board.add(player.getProyectil());
+
 		update();
 		return aux;
 	}
@@ -133,13 +141,15 @@ public class Game implements IPlayerController {
 
 	// Bien
 	public boolean move(int numCells) throws CommandExecuteException {
-		if (player.movPossible(numCells)) {
-			update();
-			return true;
-		} else {
+		try {
+			player.movPossible(numCells);
+		} catch (UCMShipMoveException lowLevel) {
 			throw new CommandExecuteException(
-					"'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.");
+					"'Movimiento' UCMShip se saldra del zona de ataque de aliens y no podra defender la tierra.",
+					lowLevel);
 		}
+		update();
+		return true;
 	}
 
 	public boolean GetShockWave() {
@@ -236,4 +246,9 @@ public class Game implements IPlayerController {
 	public void explosion(int i, int j) {
 		board.explote(i, j);
 	}
+
+	public void stringify() {
+		board.stringify();
+	}
+
 }

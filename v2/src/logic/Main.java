@@ -11,15 +11,18 @@ public class Main {
 	static Controller controller = new Controller();
 
 	public static void main(String[] args) throws ProgramExecuteException {
+		Level L;
 		try {
 			switch (args.length) {
 			case 1:
 				args[0].toLowerCase();
-				controller.run(args[0], rand.nextInt());
+				L = Level.parse(args[0]);
+				controller.run(L, rand.nextInt());
 				break;
 			case 2:
 				args[0].toLowerCase();
-				controller.run(args[0], Integer.parseInt(args[1]));
+				L = Level.parse(args[0]);
+				controller.run(L, Integer.parseInt(args[1]));
 				break;
 			default:
 				throw new ProgramExecuteException();

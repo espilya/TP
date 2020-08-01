@@ -14,10 +14,11 @@ public class CommandExecuteException extends Exception{
 	}
 	public CommandExecuteException(String message){
 		super(msg + message + '\n');
-	}
+	}	
 	
-	public CommandExecuteException(String message, Throwable cause){
-		super(msg + message + '\n', cause );
+	public CommandExecuteException(String message, Throwable lowLevelException){
+		super(lowLevelException); 
+		//super(msg + message + '\n', lowLevelException );
 	}
 	
 	public CommandExecuteException(Throwable cause){ 

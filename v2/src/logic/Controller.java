@@ -17,7 +17,6 @@ public class Controller {
 	private final static String unknownCommandMsg = "Unknown command";
 	private final static String PROMPT = ">";
 	private static Game G;
-	private static Level L;
 
 	public static boolean continuar() {
 		boolean answer;
@@ -33,10 +32,10 @@ public class Controller {
 		return answer;
 	}
 
-	public void run(String dif, int seed) {
+	public void run(Level l, int seed) {
 		Random rand = new Random(seed);
-		L = Level.parse(dif);
-		G = new Game(L, rand);
+
+		G = new Game(l, rand);
 		GamePrinter printer = new BoardPrinter(G.GetNumRows(), G.GetNumCols());
 
 		System.out.println(G.infoToString());
@@ -58,8 +57,13 @@ public class Controller {
 						System.err.println(unknownCommandMsg);
 						System.err.println("Exception: Comando invalido.");
 					}
-				} catch (CommandExecuteException e) {
-					System.err.println("Exception: " + e);
+				} catch (CommandExecuteException ex) {
+					System.err.println(ex.getMessage());
+					Throwable cause = ex.getCause();
+					if (cause != null) {
+						System.err.println("Cause of Exception:");
+						System.err.println("  " + ex.getCause());
+					}
 				}
 			}
 		}

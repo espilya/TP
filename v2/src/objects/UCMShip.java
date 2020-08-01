@@ -1,5 +1,7 @@
 package objects;
 
+import exceptions.MissileInFlightException;
+import exceptions.UCMShipMoveException;
 import logic.Game;
 
 public class UCMShip extends Ship{
@@ -30,7 +32,7 @@ public class UCMShip extends Ship{
 		return harm;
 	}
 
-	public boolean shoot(boolean x)
+	public boolean shoot(boolean x) throws MissileInFlightException  
 	{
 		if(misil == null ||  !game.isOnBoard(misil) || !this.misil.isAlive())
 		{
@@ -46,7 +48,7 @@ public class UCMShip extends Ship{
 				return true;
 			}
 		}
-		return false;
+		throw new MissileInFlightException("missile/SuperMissile already exists on board");
 	}
 
 	public GameObject getProyectil()
@@ -54,7 +56,7 @@ public class UCMShip extends Ship{
 		return misil;
 	}
 	
- 	public boolean movPossible(int x)
+ 	public boolean movPossible(int x) throws UCMShipMoveException
 	{
 		boolean aux;
 		aux = pos[0] + x < game.GetNumCols() && pos[0] + x >= 0;
@@ -63,8 +65,7 @@ public class UCMShip extends Ship{
 			pos[0] += x;
 			return true;
 		}
-		else
-			return false;
+		throw new UCMShipMoveException("Error while moving the UCMShip");
 	}
  	
  	public boolean isUCMShip() {

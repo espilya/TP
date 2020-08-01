@@ -23,7 +23,8 @@ public class UpdateCommand extends Command{
 
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new UpdateCommand();
+			//return new UpdateCommand();
+			return this;
 		else
 			return null;
 	}

@@ -1,7 +1,6 @@
 package commands;
 
 import logic.Game;
-import printer.GamePrinter;
 import printer.PrinterGenerator.PrinterTypes;
 
 public class ListPrintersCommand extends Command {
@@ -18,15 +17,15 @@ public class ListPrintersCommand extends Command {
 	@Override
 	public boolean execute(Game game) {
 
-		GamePrinter.commandPrinter(PrinterTypes.printerHelp(game));
-
+		System.out.println(PrinterTypes.printerHelp(game));
 		return false;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new ListCommand();
+//			return new ListCommand();
+			return this;
 		else
 			return null;
 	}

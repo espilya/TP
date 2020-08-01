@@ -1,7 +1,6 @@
 package commands;
 
 import exceptions.CommandExecuteException;
-import exceptions.CommandParseException;
 import logic.Game;
 
 public class MoveCommand extends Command {

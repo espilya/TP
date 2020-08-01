@@ -8,9 +8,9 @@ public abstract class GamePrinter {
 
 	public abstract String toString(Game Game);
 
-	public static void commandPrinter(String str) {
-		System.out.println(str);
-	}
+	//public static void commandPrinter(String str) {
+	//	System.out.println(str);
+	//}
 
 	public abstract void setGame(Game game);
 

@@ -1,7 +1,6 @@
 package commands;
 
 import logic.Game;
-import printer.GamePrinter;
 
 public class ListCommand extends Command {
 
@@ -16,14 +15,15 @@ public class ListCommand extends Command {
 
 	@Override
 	public boolean execute(Game game) {
-		GamePrinter.commandPrinter(game.List());
+		System.out.println(game.List());
 		return false;
 	}
 
 	@Override
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new ListCommand();
+//			return new ListCommand();
+			return this;
 		else
 			return null;
 	}

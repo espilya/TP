@@ -2,7 +2,6 @@ package commands;
 
 import exceptions.CommandExecuteException;
 import logic.Game;
-import printer.GamePrinter;
 
 public class BuySuperMisilCommand extends Command {
 
@@ -17,13 +16,15 @@ public class BuySuperMisilCommand extends Command {
 
 	public boolean execute(Game game) throws CommandExecuteException {
 		if (game.buySuperMisil())
-			GamePrinter.commandPrinter("SuperMisil comprado con exito \n");
+			//GamePrinter.commandPrinter("SuperMisil comprado con exito \n");
+			System.out.println("SuperMisil comprado con exito \n");
 		return false;
 	}
 
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new BuySuperMisilCommand();
+//			return new BuySuperMisilCommand();
+			return this;
 		else
 			return null;
 	}

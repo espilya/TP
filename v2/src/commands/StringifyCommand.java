@@ -1,7 +1,6 @@
 package commands;
 
 import logic.Game;
-import printer.GamePrinter;
 import printer.Stringifier;
 
 public class StringifyCommand extends Command {
@@ -18,13 +17,14 @@ public class StringifyCommand extends Command {
 
 	public boolean execute(Game game) {
 		printer = new Stringifier(game);
-		GamePrinter.commandPrinter(printer.toString(game));
+		System.out.println(printer.toString(game));
 		return false;
 	}
 
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new StringifyCommand();
+//			return new StringifyCommand();
+			return this;
 		else
 			return null;
 	}

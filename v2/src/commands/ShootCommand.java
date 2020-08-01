@@ -25,7 +25,8 @@ public class ShootCommand extends Command{
 
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new ShootCommand();
+			//return new ShootCommand();
+			return this;
 		else
 			return null;
 	}

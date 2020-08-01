@@ -268,5 +268,9 @@ public class GameObjectBoard {
 			}
 		}
 	}
+	
+	public void stringify() {
+		
+	}
 
 }

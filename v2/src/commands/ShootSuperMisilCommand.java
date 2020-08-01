@@ -25,7 +25,8 @@ public class ShootSuperMisilCommand extends Command{
 
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new ShootSuperMisilCommand();
+			//return new ShootSuperMisilCommand();
+			return this;
 		else
 			return null;
 	}

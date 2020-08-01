@@ -22,7 +22,8 @@ public class ResetCommand extends Command {
 	@Override
 	public Command parse(String[] commandWords) {
 		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-			return new ResetCommand();
+//			return new ResetCommand();
+			return this;
 		else
 			return null;
 	}
