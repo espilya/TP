@@ -89,7 +89,7 @@ public class Game implements IPlayerController {
 
 	// Bien
 	public void update() {
-		board.computerAction(this.nOfCycles % level.getNumCyclesToMoveOneCell() == 0);
+		board.computerAction(cyclesNextAlienMove() == 0);
 		board.update(); // no hace nada
 		nOfCycles += 1;
 	}
@@ -243,12 +243,17 @@ public class Game implements IPlayerController {
 		return aux;
 	}
 
-	public void explosion(int i, int j) {
-		board.explote(i, j);
+	public void explosion(int i, int j, int damage) {
+		board.explote(i, j, damage);
 	}
 
-	public void stringify() {
-		board.stringify();
+	public String stringify(int i, int j) {
+		return board.stringify(i, j);
+	}
+
+
+	public int cyclesNextAlienMove() {
+		return nOfCycles % level.getNumCyclesToMoveOneCell();
 	}
 
 }

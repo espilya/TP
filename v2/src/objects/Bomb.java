@@ -36,4 +36,8 @@ public class Bomb extends Weapon{
 	public boolean isBomb() {
 		return true;
 	}
+
+	protected String stringify() {
+		return "B:" + pos[0] + "," + pos[1] + " ";
+	}
 }

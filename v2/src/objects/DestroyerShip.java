@@ -55,4 +55,9 @@ public class DestroyerShip extends AlienShip{
 	public boolean isDestroyer() {
 		return true;
 	}
+
+	@Override
+	protected String stringify() {
+		return "D;" + pos[0] + "," + pos[1] + ";" + live + ";" + game.cyclesNextAlienMove() + ";" + dir + " ";
+	}
 }

@@ -255,22 +255,26 @@ public class GameObjectBoard {
 		return nOfAliens;
 	}
 
-	public void explote(int i, int j) {
+	public void explote(int i, int j, int damage) {
 		for (int a = i - 1; a <= i + 1; a++) {
 			for (int b = j - 1; b <= j + 1; b++) {
 				if (a != i || b != j) {
 					GameObject aux = getObjectInPosition(a, b);
 					if (aux != null) {
-						aux.receiveMissileAttack(1);
-						aux.receiveBombAttack(1);
+						aux.receiveMissileAttack(damage);
+						aux.receiveBombAttack(damage);
 					}
 				}
 			}
 		}
 	}
 	
-	public void stringify() {
-		
+	public String stringify(int i, int j) {
+		GameObject aux = getObjectInPosition(i, j);
+		if(aux != null)
+			return aux.stringify();
+		else
+			return "";
 	}
 
 }

@@ -9,6 +9,7 @@ import exceptions.CommandExecuteException;
 import exceptions.CommandParseException;
 import printer.BoardPrinter;
 import printer.GamePrinter;
+import printer.PrinterGenerator.PrinterTypes;
 
 public class Controller {
 	private static String input;
@@ -36,7 +37,7 @@ public class Controller {
 		Random rand = new Random(seed);
 
 		G = new Game(l, rand);
-		GamePrinter printer = new BoardPrinter(G.GetNumRows(), G.GetNumCols());
+		GamePrinter printer = PrinterTypes.BOARDPRINTER.getObject(G);
 
 		System.out.println(G.infoToString());
 		System.out.println(printer.toString(G));

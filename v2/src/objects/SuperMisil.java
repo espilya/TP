@@ -37,4 +37,8 @@ public class SuperMisil extends Weapon{
 	public boolean isMisil() {
 		return true;
 	}
+
+	protected String stringify() {
+		return "X;" + pos[0] + "," + pos[1] + " ";
+	}
 }

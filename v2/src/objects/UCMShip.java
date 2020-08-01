@@ -72,4 +72,8 @@ public class UCMShip extends Ship{
 		return true;
 	}
 
+ 	protected String stringify() {
+		return "P;" + pos[0] + "," + pos[1] + ";" + live + ";" + game.GetPoints() + ";" + game.GetShockWave() + ";" + game.getSuperMisil() + " ";
+	}
+
 }

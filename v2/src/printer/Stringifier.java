@@ -4,13 +4,7 @@ import logic.Game;
 
 public class Stringifier extends GamePrinter {
 
-	public Stringifier(Game game) {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Stringifier() {
-		// TODO Auto-generated constructor stub
-	}
+	public Stringifier() {}
 
 	public String toString(Game game) {
 //		
@@ -36,31 +30,7 @@ public class Stringifier extends GamePrinter {
 		res += '\n';
 		for (int i = 0; i < game.GetNumRows(); i++) {
 			for (int j = 0; j < game.GetNumCols(); j++) {
-				aux = game.toString(i, j);
-				if (aux != "") {
-					if (aux.charAt(0) == 'O') {
-						res += "O" + ";" + i + "," + j + ";" + aux.charAt(2);
-					} else if (aux.charAt(0) == '^') {
-						res += "P;" + i + ',' + j + ';' + game.getUCMLife() + ';' + game.GetPoints()
-								+ (game.GetShockWave() ? ";1;" : ";0;") + game.getSuperMisil();
-//						if (game.GetShockWave())
-//							res += "1;";
-//						else
-//							res += "0;";
-//						res += game.getSuperMisil();
-					} else if (aux.charAt(0) == 'o') {
-						res += "M" + ";" + i + "," + j;
-					} else if (aux.charAt(0) == '<') {
-						res += "X" + ";" + i + "," + j;
-					} else if (aux.charAt(0) == '.') {
-						res += "B" + ";" + i + "," + j;
-					}
-
-					else {
-						res += aux.charAt(0) + ";" + i + "," + j + ";" + aux.charAt(2);
-					}
-					res += "\n";
-				}
+				res += game.stringify(i, j);
 			}
 		}
 		return res;

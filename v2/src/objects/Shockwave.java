@@ -17,4 +17,8 @@ public class Shockwave extends Weapon{
 	public String toString() {
 		return null;
 	}
+
+	protected String stringify() {
+		return null;
+	}
 }

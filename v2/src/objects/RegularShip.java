@@ -30,4 +30,8 @@ public class RegularShip extends AlienShip{
 	public boolean isRegular() {
 		return true;
 	}
+	
+	protected String stringify() {
+		return "R;" + pos[0] + "," + pos[1] + ";" + live + ";" + game.cyclesNextAlienMove() + ";" + dir + " ";
+	}
 }

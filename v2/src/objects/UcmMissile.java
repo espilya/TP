@@ -37,4 +37,8 @@ public class UcmMissile extends Weapon{
 	public boolean isMisil() {
 		return true;
 	}
+	
+	protected String stringify() {
+		return "M;" + pos[0] + "," + pos[1] + " ";
+	}
 }

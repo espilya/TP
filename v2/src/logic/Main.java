@@ -27,11 +27,11 @@ public class Main {
 			default:
 				throw new ProgramExecuteException();
 			}
-		} catch (Error | ProgramExecuteException e) {
-			System.err.println("Exception: " + e + "level must be one of: 'EASY, HARD, INSANE'");
+		} catch (ProgramExecuteException e) {
+			System.err.println("Exception: " + e + ":= must be just 1 or 2 arguments");
 		} catch (NumberFormatException e) {
 			System.err.println("Exception: " + e + ":= It's not a number. The seed must be a number");
-			System.err.println("Usage ==> Main <EASY|HARD|INSANE> [seed]");
+			System.err.println("Usage ==> Main <EASY|HARD|INSANE> [seed] ");
 		}
 	}
 

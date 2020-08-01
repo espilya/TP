@@ -110,4 +110,6 @@ public abstract class GameObject implements IAttack {
 	public boolean isOvni() {
 		return false;
 	}
+
+	protected abstract String stringify();
 }

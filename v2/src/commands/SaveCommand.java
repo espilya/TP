@@ -2,6 +2,8 @@ package commands;
 
 import files.FileSave;
 import logic.Game;
+import printer.GamePrinter;
+import printer.PrinterGenerator.PrinterTypes;
 import printer.Stringifier;
 
 public class SaveCommand extends Command {
@@ -11,7 +13,7 @@ public class SaveCommand extends Command {
 	private final static String details = "sa[V]e";
 	private final static String shortCut = "v";
 	private String archivo = "data"; 
-	Stringifier printer;
+	GamePrinter printer;
 
 	public SaveCommand() {
 		super(name, shortCut, details, help);
@@ -24,7 +26,7 @@ public class SaveCommand extends Command {
 
 	public boolean execute(Game game) {
 		System.out.println("Game successfully saved in file '"+ archivo +".dat' \nUse the load command to reload it.");
-		printer = new Stringifier(game);
+		printer = PrinterTypes.STRINGIFIER.getObject(game);
 		String fileName = archivo + ".dat";
 		FileSave.Save(fileName, printer.toString(game));
 

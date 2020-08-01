@@ -69,4 +69,8 @@ public class OVNI extends EnemyShip{
 	public boolean isOvni() {
 		return true;
 	}
+	
+	protected String stringify() {
+		return "O;" + pos[0] + "," + pos[1] + ";" + live + " ";
+	}
 }

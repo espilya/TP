@@ -39,7 +39,11 @@ public class ExplosivShip extends AlienShip{
 	
 	public boolean die()
 	{
-		game.explosion(pos[0], pos[1]);
+		game.explosion(pos[0], pos[1], harm);
 		return true;
+	}
+	
+	protected String stringify() {
+		return "E;" + pos[0] + "," + pos[1] + ";" + live + ";" + game.cyclesNextAlienMove() + ";" + dir + " ";
 	}
 }
