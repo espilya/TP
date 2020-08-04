@@ -6,8 +6,6 @@ import java.util.Scanner;
 import commands.Command;
 import commands.CommandGenerator;
 import exceptions.CommandExecuteException;
-import exceptions.CommandParseException;
-import printer.BoardPrinter;
 import printer.GamePrinter;
 import printer.PrinterTypes;
 

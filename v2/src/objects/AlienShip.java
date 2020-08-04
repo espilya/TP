@@ -4,7 +4,7 @@ import logic.Game;
 
 public abstract class AlienShip extends EnemyShip{
 
-	private int dir;
+	protected int dir;
 	
 	public AlienShip(Game game, int x, int y) {
 		super(game, x, y);

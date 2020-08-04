@@ -10,20 +10,14 @@ public class BoardPrinter extends GamePrinter {
 	String[][] board;
 	final String space = " ";
 
-	public BoardPrinter() {
-		// todo
-	}
+	public BoardPrinter() {}
 
 	public BoardPrinter(int sizeY, int sizeX) {
 		this.numRows = sizeY;
 		this.numCols = sizeX;
 	}
 
-	private void encodeGame(Game game) {
-		if(numRows == 0) {
-			numRows = game.GetNumRows();
-			numCols = game.GetNumCols();
-		}
+	private void encodeGame() {
 		board = new String[numRows][numCols];
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {
@@ -33,7 +27,8 @@ public class BoardPrinter extends GamePrinter {
 	}
 
 	public String toString(Game game) {
-		encodeGame(game);
+		setGame(game);
+		encodeGame();
 		int cellSize = 7;
 		int marginSize = 2;
 		String vDelimiter = "|";
@@ -73,7 +68,7 @@ public class BoardPrinter extends GamePrinter {
 	@Override
 	public void setGame(Game game) {
 		this.game = game;
-		numRows = game.numRows();
-		numCols = game.numCols();
+		numRows = game.GetNumRows();
+		numCols = game.GetNumCols();
 	}
 }

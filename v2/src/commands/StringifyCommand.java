@@ -3,7 +3,7 @@ package commands;
 import logic.Game;
 import printer.GamePrinter;
 import printer.PrinterTypes;
-import printer.Stringifier;
+
 
 public class StringifyCommand extends NoParamsCommand {
 
@@ -22,13 +22,5 @@ public class StringifyCommand extends NoParamsCommand {
 		System.out.println(printer.toString(game));
 		return false;
 	}
-
-//	public Command parse(String[] commandWords) {
-//		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-////			return new StringifyCommand();
-//			return this;
-//		else
-//			return null;
-//	}
 
 }

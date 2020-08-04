@@ -3,7 +3,7 @@ package commands;
 import logic.Game;
 import printer.PrinterTypes;
 
-public class ListPrintersCommand extends Command {
+public class ListPrintersCommand extends NoParamsCommand {
 
 	private final static String help = "Prints the list of available printers.\\n";
 	private final static String name = "listPrinters";
@@ -20,14 +20,4 @@ public class ListPrintersCommand extends Command {
 		System.out.println(PrinterTypes.printerHelp(game));
 		return false;
 	}
-
-	@Override
-	public Command parse(String[] commandWords) {
-		if (commandWords.length == 1 && matchCommandName(commandWords[0]))
-//			return new ListCommand();
-			return this;
-		else
-			return null;
-	}
-
 }
