@@ -1,7 +1,7 @@
 package commands;
 
 import logic.Game;
-import printer.PrinterGenerator.PrinterTypes;
+import printer.PrinterTypes;
 
 public class ListPrintersCommand extends Command {
 

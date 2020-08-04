@@ -20,6 +20,10 @@ public class BoardPrinter extends GamePrinter {
 	}
 
 	private void encodeGame(Game game) {
+		if(numRows == 0) {
+			numRows = game.GetNumRows();
+			numCols = game.GetNumCols();
+		}
 		board = new String[numRows][numCols];
 		for (int i = 0; i < numRows; i++) {
 			for (int j = 0; j < numCols; j++) {

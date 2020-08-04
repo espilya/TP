@@ -13,5 +13,6 @@ public abstract class GamePrinter {
 	//}
 
 	public abstract void setGame(Game game);
+	
 
 }

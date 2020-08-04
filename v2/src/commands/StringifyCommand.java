@@ -2,7 +2,7 @@ package commands;
 
 import logic.Game;
 import printer.GamePrinter;
-import printer.PrinterGenerator.PrinterTypes;
+import printer.PrinterTypes;
 import printer.Stringifier;
 
 public class StringifyCommand extends NoParamsCommand {

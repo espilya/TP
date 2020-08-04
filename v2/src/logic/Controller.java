@@ -9,7 +9,8 @@ import exceptions.CommandExecuteException;
 import exceptions.CommandParseException;
 import printer.BoardPrinter;
 import printer.GamePrinter;
-import printer.PrinterGenerator.PrinterTypes;
+import printer.PrinterTypes;
+
 
 public class Controller {
 	private static String input;
@@ -17,6 +18,7 @@ public class Controller {
 	private static final String newLines = "\n\n\n\n\n\n\n\n";
 	private final static String unknownCommandMsg = "Unknown command";
 	private final static String PROMPT = ">";
+
 	private static Game G;
 
 	public static boolean continuar() {
@@ -37,6 +39,7 @@ public class Controller {
 		Random rand = new Random(seed);
 
 		G = new Game(l, rand);
+
 		GamePrinter printer = PrinterTypes.BOARDPRINTER.getObject(G);
 
 		System.out.println(G.infoToString());
