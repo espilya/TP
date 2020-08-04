@@ -73,5 +73,7 @@ public class BoardPrinter extends GamePrinter {
 	@Override
 	public void setGame(Game game) {
 		this.game = game;
+		numRows = game.numRows();
+		numCols = game.numCols();
 	}
 }
