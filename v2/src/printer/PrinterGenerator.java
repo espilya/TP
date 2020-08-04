@@ -13,7 +13,7 @@ public class PrinterGenerator {
 
 	public enum PrinterTypes {
 		BOARDPRINTER("boardprinter", "prints the game formatted as a board of dimension: ",
-				new BoardPrinter(game.GetNumCols(), game.GetNumRows())),
+				new BoardPrinter(),
 		STRINGIFIER("stringifier", "prints the game as plain text", new Stringifier());
 
 		private String printerName;
